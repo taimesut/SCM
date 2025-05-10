@@ -1,0 +1,24 @@
+body {
+    min-height: 100vh;
+    display: flex;
+}
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+.sidebar .nav-link {
+    color: #ddd;
+}
+.sidebar .nav-link.active {
+    background-color: #495057;
+    color: #fff;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+}

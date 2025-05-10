@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Trang chủ</title>
+    <th:block th:replace="base :: styles"></th:block>
+</head>
+<body>
+    <div th:replace="base :: sidebar"></div>
+
+    <!-- Page content -->
+    <div class="content">
+        <h1 class="text-center text-primary">Danh mục</h1>
+        <div class="alert alert-success" th:if="${param.success}" role="alert">
+            Xóa thành công!
+        </div>
+        <div class="alert alert-danger" th:if="${param.error}" role="alert">
+            Xóa thất bại!
+        </div>
+        <a th:href="@{/categories/add}" class="btn btn-success mt-1">Thêm danh mục</a>     
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tên danh mục</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${categories}">
+                    <td th:text="${c.name}"></td>
+                    <td>
+                        <a th:href="@{'/categories/' + ${c.id}}" class="btn btn-info">&#128296;</a>
+                        <a th:href="@{/categories/delete/{id}(id=${c.id})}" 
+                           class="btn btn-danger"
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa dữ liệu này?');">
+                            &times;
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+</body>
+</html>
+
