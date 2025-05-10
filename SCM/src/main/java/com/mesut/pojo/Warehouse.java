@@ -63,7 +63,7 @@ public class Warehouse implements Serializable {
     @OneToMany(mappedBy = "warehouseId")
     private Set<Inventory> inventorySet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
-    private Set<Order> order1Set;
+    private Set<Receipt> receiptSet;
 
     public Warehouse() {
     }
@@ -127,12 +127,12 @@ public class Warehouse implements Serializable {
         this.inventorySet = inventorySet;
     }
 
-    public Set<Order> getOrder1Set() {
-        return order1Set;
+    public Set<Receipt> getReceiptSet() {
+        return receiptSet;
     }
 
-    public void setOrder1Set(Set<Order> order1Set) {
-        this.order1Set = order1Set;
+    public void setReceiptSet(Set<Receipt> receiptSet) {
+        this.receiptSet = receiptSet;
     }
 
     @Override

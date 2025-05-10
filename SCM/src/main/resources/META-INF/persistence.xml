@@ -10,6 +10,7 @@
     <class>com.mesut.pojo.ReviewSupplier</class>
     <class>com.mesut.pojo.Supplier</class>
     <class>com.mesut.pojo.User</class>
+    <class>com.mesut.pojo.Order1</class>
     <class>com.mesut.pojo.Purpose</class>
     <class>com.mesut.pojo.Category</class>
     <class>com.mesut.pojo.ShipmentCompanyContact</class>
@@ -19,5 +20,7 @@
     <class>com.mesut.pojo.Shipment</class>
     <class>com.mesut.pojo.Inventory</class>
     <class>com.mesut.pojo.Order</class>
+    <class>com.mesut.pojo.DetailReceipt</class>
+    <class>com.mesut.pojo.Receipt</class>
   </persistence-unit>
 </persistence>

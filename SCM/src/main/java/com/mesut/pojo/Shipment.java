@@ -60,9 +60,9 @@ public class Shipment implements Serializable {
     @Size(max = 255)
     @Column(name = "note")
     private String note;
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
     @ManyToOne
-    private Order orderId;
+    private Receipt receiptId;
     @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
     @ManyToOne
     private ShipmentCompany shipmentCompanyId;
@@ -124,12 +124,12 @@ public class Shipment implements Serializable {
         this.note = note;
     }
 
-    public Order getOrderId() {
-        return orderId;
+    public Receipt getReceiptId() {
+        return receiptId;
     }
 
-    public void setOrderId(Order orderId) {
-        this.orderId = orderId;
+    public void setReceiptId(Receipt receiptId) {
+        this.receiptId = receiptId;
     }
 
     public ShipmentCompany getShipmentCompanyId() {

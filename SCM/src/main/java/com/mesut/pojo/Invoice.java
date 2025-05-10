@@ -61,9 +61,9 @@ public class Invoice implements Serializable {
     @Column(name = "payment_date")
     @Temporal(TemporalType.DATE)
     private Date paymentDate;
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
     @ManyToOne
-    private Order orderId;
+    private Receipt receiptId;
 
     public Invoice() {
     }
@@ -128,12 +128,12 @@ public class Invoice implements Serializable {
         this.paymentDate = paymentDate;
     }
 
-    public Order getOrderId() {
-        return orderId;
+    public Receipt getReceiptId() {
+        return receiptId;
     }
 
-    public void setOrderId(Order orderId) {
-        this.orderId = orderId;
+    public void setReceiptId(Receipt receiptId) {
+        this.receiptId = receiptId;
     }
 
     @Override

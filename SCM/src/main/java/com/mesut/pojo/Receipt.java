@@ -29,17 +29,17 @@ import java.util.Set;
  * @author THANHTAIPC
  */
 @Entity
-@Table(name = "order")
+@Table(name = "receipt")
 @NamedQueries({
-    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o"),
-    @NamedQuery(name = "Order1.findById", query = "SELECT o FROM Order1 o WHERE o.id = :id"),
-    @NamedQuery(name = "Order1.findByCreateDate", query = "SELECT o FROM Order1 o WHERE o.createDate = :createDate"),
-    @NamedQuery(name = "Order1.findByTypeOrder", query = "SELECT o FROM Order1 o WHERE o.typeOrder = :typeOrder"),
-    @NamedQuery(name = "Order1.findByPartnerId", query = "SELECT o FROM Order1 o WHERE o.partnerId = :partnerId"),
-    @NamedQuery(name = "Order1.findByCreatorId", query = "SELECT o FROM Order1 o WHERE o.creatorId = :creatorId"),
-    @NamedQuery(name = "Order1.findByStatus", query = "SELECT o FROM Order1 o WHERE o.status = :status"),
-    @NamedQuery(name = "Order1.findByNote", query = "SELECT o FROM Order1 o WHERE o.note = :note")})
-public class Order implements Serializable {
+    @NamedQuery(name = "Receipt.findAll", query = "SELECT r FROM Receipt r"),
+    @NamedQuery(name = "Receipt.findById", query = "SELECT r FROM Receipt r WHERE r.id = :id"),
+    @NamedQuery(name = "Receipt.findByCreateDate", query = "SELECT r FROM Receipt r WHERE r.createDate = :createDate"),
+    @NamedQuery(name = "Receipt.findByTypeReceipt", query = "SELECT r FROM Receipt r WHERE r.typeReceipt = :typeReceipt"),
+    @NamedQuery(name = "Receipt.findByPartnerId", query = "SELECT r FROM Receipt r WHERE r.partnerId = :partnerId"),
+    @NamedQuery(name = "Receipt.findByCreatorId", query = "SELECT r FROM Receipt r WHERE r.creatorId = :creatorId"),
+    @NamedQuery(name = "Receipt.findByStatus", query = "SELECT r FROM Receipt r WHERE r.status = :status"),
+    @NamedQuery(name = "Receipt.findByNote", query = "SELECT r FROM Receipt r WHERE r.note = :note")})
+public class Receipt implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,8 +55,8 @@ public class Order implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "type_order")
-    private String typeOrder;
+    @Column(name = "type_receipt")
+    private String typeReceipt;
     @Column(name = "partner_id")
     private Integer partnerId;
     @Column(name = "creator_id")
@@ -67,33 +67,33 @@ public class Order implements Serializable {
     @Size(max = 255)
     @Column(name = "note")
     private String note;
-    @OneToMany(mappedBy = "orderId")
+    @OneToMany(mappedBy = "receiptId")
+    private Set<DetailReceipt> detailReceiptSet;
+    @OneToMany(mappedBy = "receiptId")
     private Set<LogInventory> logInventorySet;
-    @OneToMany(mappedBy = "orderId")
+    @OneToMany(mappedBy = "receiptId")
     private Set<Shipment> shipmentSet;
-    @OneToMany(mappedBy = "orderId")
+    @OneToMany(mappedBy = "receiptId")
     private Set<ReviewSupplier> reviewSupplierSet;
-    @OneToMany(mappedBy = "orderId")
+    @OneToMany(mappedBy = "receiptId")
     private Set<DeliverySchedule> deliveryScheduleSet;
-    @OneToMany(mappedBy = "orderId")
-    private Set<Invoice> invoiceSet;
-    @OneToMany(mappedBy = "orderId")
-    private Set<DetailOrder> detailOrderSet;
     @JoinColumn(name = "warehouse_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Warehouse warehouseId;
+    @OneToMany(mappedBy = "receiptId")
+    private Set<Invoice> invoiceSet;
 
-    public Order() {
+    public Receipt() {
     }
 
-    public Order(Integer id) {
+    public Receipt(Integer id) {
         this.id = id;
     }
 
-    public Order(Integer id, Date createDate, String typeOrder) {
+    public Receipt(Integer id, Date createDate, String typeReceipt) {
         this.id = id;
         this.createDate = createDate;
-        this.typeOrder = typeOrder;
+        this.typeReceipt = typeReceipt;
     }
 
     public Integer getId() {
@@ -112,12 +112,12 @@ public class Order implements Serializable {
         this.createDate = createDate;
     }
 
-    public String getTypeOrder() {
-        return typeOrder;
+    public String getTypeReceipt() {
+        return typeReceipt;
     }
 
-    public void setTypeOrder(String typeOrder) {
-        this.typeOrder = typeOrder;
+    public void setTypeReceipt(String typeReceipt) {
+        this.typeReceipt = typeReceipt;
     }
 
     public Integer getPartnerId() {
@@ -152,6 +152,14 @@ public class Order implements Serializable {
         this.note = note;
     }
 
+    public Set<DetailReceipt> getDetailReceiptSet() {
+        return detailReceiptSet;
+    }
+
+    public void setDetailReceiptSet(Set<DetailReceipt> detailReceiptSet) {
+        this.detailReceiptSet = detailReceiptSet;
+    }
+
     public Set<LogInventory> getLogInventorySet() {
         return logInventorySet;
     }
@@ -184,28 +192,20 @@ public class Order implements Serializable {
         this.deliveryScheduleSet = deliveryScheduleSet;
     }
 
-    public Set<Invoice> getInvoiceSet() {
-        return invoiceSet;
-    }
-
-    public void setInvoiceSet(Set<Invoice> invoiceSet) {
-        this.invoiceSet = invoiceSet;
-    }
-
-    public Set<DetailOrder> getDetailOrderSet() {
-        return detailOrderSet;
-    }
-
-    public void setDetailOrderSet(Set<DetailOrder> detailOrderSet) {
-        this.detailOrderSet = detailOrderSet;
-    }
-
     public Warehouse getWarehouseId() {
         return warehouseId;
     }
 
     public void setWarehouseId(Warehouse warehouseId) {
         this.warehouseId = warehouseId;
+    }
+
+    public Set<Invoice> getInvoiceSet() {
+        return invoiceSet;
+    }
+
+    public void setInvoiceSet(Set<Invoice> invoiceSet) {
+        this.invoiceSet = invoiceSet;
     }
 
     @Override
@@ -218,10 +218,10 @@ public class Order implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order)) {
+        if (!(object instanceof Receipt)) {
             return false;
         }
-        Order other = (Order) object;
+        Receipt other = (Receipt) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -230,7 +230,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mesut.pojo.Order1[ id=" + id + " ]";
+        return "com.mesut.pojo.Receipt[ id=" + id + " ]";
     }
     
 }

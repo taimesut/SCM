@@ -23,13 +23,13 @@ import java.io.Serializable;
  * @author THANHTAIPC
  */
 @Entity
-@Table(name = "detail_order")
+@Table(name = "detail_receipt")
 @NamedQueries({
-    @NamedQuery(name = "DetailOrder.findAll", query = "SELECT d FROM DetailOrder d"),
-    @NamedQuery(name = "DetailOrder.findById", query = "SELECT d FROM DetailOrder d WHERE d.id = :id"),
-    @NamedQuery(name = "DetailOrder.findByAmount", query = "SELECT d FROM DetailOrder d WHERE d.amount = :amount"),
-    @NamedQuery(name = "DetailOrder.findByPrice", query = "SELECT d FROM DetailOrder d WHERE d.price = :price")})
-public class DetailOrder implements Serializable {
+    @NamedQuery(name = "DetailReceipt.findAll", query = "SELECT d FROM DetailReceipt d"),
+    @NamedQuery(name = "DetailReceipt.findById", query = "SELECT d FROM DetailReceipt d WHERE d.id = :id"),
+    @NamedQuery(name = "DetailReceipt.findByAmount", query = "SELECT d FROM DetailReceipt d WHERE d.amount = :amount"),
+    @NamedQuery(name = "DetailReceipt.findByPrice", query = "SELECT d FROM DetailReceipt d WHERE d.price = :price")})
+public class DetailReceipt implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,24 +45,24 @@ public class DetailOrder implements Serializable {
     @NotNull
     @Column(name = "price")
     private int price;
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    @ManyToOne
-    private Order orderId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne
     private Product productId;
     @JoinColumn(name = "purpose_id", referencedColumnName = "id")
     @ManyToOne
     private Purpose purposeId;
+    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
+    @ManyToOne
+    private Receipt receiptId;
 
-    public DetailOrder() {
+    public DetailReceipt() {
     }
 
-    public DetailOrder(Integer id) {
+    public DetailReceipt(Integer id) {
         this.id = id;
     }
 
-    public DetailOrder(Integer id, int amount, int price) {
+    public DetailReceipt(Integer id, int amount, int price) {
         this.id = id;
         this.amount = amount;
         this.price = price;
@@ -92,14 +92,6 @@ public class DetailOrder implements Serializable {
         this.price = price;
     }
 
-    public Order getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Order orderId) {
-        this.orderId = orderId;
-    }
-
     public Product getProductId() {
         return productId;
     }
@@ -116,6 +108,14 @@ public class DetailOrder implements Serializable {
         this.purposeId = purposeId;
     }
 
+    public Receipt getReceiptId() {
+        return receiptId;
+    }
+
+    public void setReceiptId(Receipt receiptId) {
+        this.receiptId = receiptId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -126,10 +126,10 @@ public class DetailOrder implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DetailOrder)) {
+        if (!(object instanceof DetailReceipt)) {
             return false;
         }
-        DetailOrder other = (DetailOrder) object;
+        DetailReceipt other = (DetailReceipt) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -138,7 +138,7 @@ public class DetailOrder implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mesut.pojo.DetailOrder[ id=" + id + " ]";
+        return "com.mesut.pojo.DetailReceipt[ id=" + id + " ]";
     }
     
 }

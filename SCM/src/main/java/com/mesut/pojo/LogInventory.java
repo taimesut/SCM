@@ -30,7 +30,7 @@ import java.util.Date;
 @NamedQueries({
     @NamedQuery(name = "LogInventory.findAll", query = "SELECT l FROM LogInventory l"),
     @NamedQuery(name = "LogInventory.findById", query = "SELECT l FROM LogInventory l WHERE l.id = :id"),
-    @NamedQuery(name = "LogInventory.findByTypeOrder", query = "SELECT l FROM LogInventory l WHERE l.typeOrder = :typeOrder"),
+    @NamedQuery(name = "LogInventory.findByTypeReceipt", query = "SELECT l FROM LogInventory l WHERE l.typeReceipt = :typeReceipt"),
     @NamedQuery(name = "LogInventory.findByAmount", query = "SELECT l FROM LogInventory l WHERE l.amount = :amount"),
     @NamedQuery(name = "LogInventory.findByPrice", query = "SELECT l FROM LogInventory l WHERE l.price = :price"),
     @NamedQuery(name = "LogInventory.findByCreateDate", query = "SELECT l FROM LogInventory l WHERE l.createDate = :createDate")})
@@ -43,8 +43,8 @@ public class LogInventory implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Size(max = 100)
-    @Column(name = "type_order")
-    private String typeOrder;
+    @Column(name = "type_receipt")
+    private String typeReceipt;
     @Column(name = "amount")
     private Integer amount;
     @Column(name = "price")
@@ -52,12 +52,12 @@ public class LogInventory implements Serializable {
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    @ManyToOne
-    private Order orderId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne
     private Product productId;
+    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
+    @ManyToOne
+    private Receipt receiptId;
     @JoinColumn(name = "warehouse_id", referencedColumnName = "id")
     @ManyToOne
     private Warehouse warehouseId;
@@ -77,12 +77,12 @@ public class LogInventory implements Serializable {
         this.id = id;
     }
 
-    public String getTypeOrder() {
-        return typeOrder;
+    public String getTypeReceipt() {
+        return typeReceipt;
     }
 
-    public void setTypeOrder(String typeOrder) {
-        this.typeOrder = typeOrder;
+    public void setTypeReceipt(String typeReceipt) {
+        this.typeReceipt = typeReceipt;
     }
 
     public Integer getAmount() {
@@ -109,20 +109,20 @@ public class LogInventory implements Serializable {
         this.createDate = createDate;
     }
 
-    public Order getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Order orderId) {
-        this.orderId = orderId;
-    }
-
     public Product getProductId() {
         return productId;
     }
 
     public void setProductId(Product productId) {
         this.productId = productId;
+    }
+
+    public Receipt getReceiptId() {
+        return receiptId;
+    }
+
+    public void setReceiptId(Receipt receiptId) {
+        this.receiptId = receiptId;
     }
 
     public Warehouse getWarehouseId() {

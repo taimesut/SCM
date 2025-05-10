@@ -43,7 +43,7 @@ public class Purpose implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "purposeId")
-    private Set<DetailOrder> detailOrderSet;
+    private Set<DetailReceipt> detailReceiptSet;
 
     public Purpose() {
     }
@@ -73,12 +73,12 @@ public class Purpose implements Serializable {
         this.name = name;
     }
 
-    public Set<DetailOrder> getDetailOrderSet() {
-        return detailOrderSet;
+    public Set<DetailReceipt> getDetailReceiptSet() {
+        return detailReceiptSet;
     }
 
-    public void setDetailOrderSet(Set<DetailOrder> detailOrderSet) {
-        this.detailOrderSet = detailOrderSet;
+    public void setDetailReceiptSet(Set<DetailReceipt> detailReceiptSet) {
+        this.detailReceiptSet = detailReceiptSet;
     }
 
     @Override

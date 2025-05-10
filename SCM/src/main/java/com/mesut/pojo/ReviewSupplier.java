@@ -55,9 +55,9 @@ public class ReviewSupplier implements Serializable {
     private Integer quality;
     @Column(name = "support")
     private Integer support;
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
     @ManyToOne
-    private Order orderId;
+    private Receipt receiptId;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     @ManyToOne
     private Supplier supplierId;
@@ -117,12 +117,12 @@ public class ReviewSupplier implements Serializable {
         this.support = support;
     }
 
-    public Order getOrderId() {
-        return orderId;
+    public Receipt getReceiptId() {
+        return receiptId;
     }
 
-    public void setOrderId(Order orderId) {
-        this.orderId = orderId;
+    public void setReceiptId(Receipt receiptId) {
+        this.receiptId = receiptId;
     }
 
     public Supplier getSupplierId() {

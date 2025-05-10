@@ -67,6 +67,8 @@ public class Product implements Serializable {
     @Size(max = 255)
     @Column(name = "note")
     private String note;
+    @OneToMany(mappedBy = "productId")
+    private Set<DetailReceipt> detailReceiptSet;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
     private Category categoryId;
@@ -74,8 +76,6 @@ public class Product implements Serializable {
     private Set<LogInventory> logInventorySet;
     @OneToMany(mappedBy = "productId")
     private Set<Inventory> inventorySet;
-    @OneToMany(mappedBy = "productId")
-    private Set<DetailOrder> detailOrderSet;
 
     public Product() {
     }
@@ -146,6 +146,14 @@ public class Product implements Serializable {
         this.note = note;
     }
 
+    public Set<DetailReceipt> getDetailReceiptSet() {
+        return detailReceiptSet;
+    }
+
+    public void setDetailReceiptSet(Set<DetailReceipt> detailReceiptSet) {
+        this.detailReceiptSet = detailReceiptSet;
+    }
+
     public Category getCategoryId() {
         return categoryId;
     }
@@ -168,14 +176,6 @@ public class Product implements Serializable {
 
     public void setInventorySet(Set<Inventory> inventorySet) {
         this.inventorySet = inventorySet;
-    }
-
-    public Set<DetailOrder> getDetailOrderSet() {
-        return detailOrderSet;
-    }
-
-    public void setDetailOrderSet(Set<DetailOrder> detailOrderSet) {
-        this.detailOrderSet = detailOrderSet;
     }
 
     @Override
