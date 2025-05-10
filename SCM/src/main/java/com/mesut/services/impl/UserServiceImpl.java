@@ -10,6 +10,9 @@ import com.mesut.pojo.User;
 import com.mesut.repositories.UserRepository;
 import com.mesut.services.UserService;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -70,7 +73,7 @@ public class UserServiceImpl implements UserService{
         u.setUserRole("ROLE_USER");
         u.setUsername(params.get("username"));
         u.setPassword(this.passEncoder.encode(params.get("password")));
-        
+        u.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
         if (!avatar.isEmpty()) {
             try {
                 Map res = cloudinary.uploader().upload(avatar.getBytes(),

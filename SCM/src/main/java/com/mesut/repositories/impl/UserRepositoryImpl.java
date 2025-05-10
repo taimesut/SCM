@@ -8,18 +8,20 @@ import com.mesut.pojo.User;
 import org.springframework.transaction.annotation.Transactional;
 import com.mesut.repositories.UserRepository;
 import jakarta.persistence.Query;
+import java.util.List;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author THANHTAIPC
  */
 @Repository
 @Transactional
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
@@ -31,24 +33,27 @@ public class UserRepositoryImpl implements UserRepository{
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createNamedQuery("User.findByUsername", User.class);
         q.setParameter("username", username);
-
-        return (User) q.getSingleResult();
-
+        List<User> results = q.getResultList();
+        
+        if (!results.isEmpty()) {
+            return results.get(0);
+        }
+        return null;
     }
 
     @Override
     public User addUser(User u) {
         Session s = this.factory.getObject().getCurrentSession();
         s.persist(u);
-        
+
         return u;
     }
-    
-     @Override
+
+    @Override
     public boolean authenticate(String username, String password) {
         User u = this.getUserByUsername(username);
 
         return this.passwordEncoder.matches(password, u.getPassword());
     }
-    
+
 }

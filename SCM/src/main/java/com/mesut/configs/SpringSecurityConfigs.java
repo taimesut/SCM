@@ -62,12 +62,14 @@ public class SpringSecurityConfigs {
         http.csrf(c -> c.disable()).authorizeHttpRequests(requests 
                 -> requests.requestMatchers("/", "/home").authenticated()
                         .requestMatchers("/js/**").permitAll()
-                        .requestMatchers("/api/**").permitAll())
+                        .requestMatchers("/api/**").permitAll()
+                        .anyRequest().permitAll())
                 .formLogin(form -> form.loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/login?error=true").permitAll())
-                .logout(logout -> logout.logoutSuccessUrl("/login").permitAll());
+                .logout(logout -> logout.logoutSuccessUrl("/login").permitAll())
+                ;
         
         return http.build();
     }

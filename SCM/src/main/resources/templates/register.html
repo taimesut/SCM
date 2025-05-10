@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Đăng kí</title>
+    <th:block th:replace="base :: styles"></th:block>
+</head>
+<body>
+    <div th:replace="base :: header"></div>
+
+    <main class="container">
+
+        <h1 class="text-center text-info mt-1">Đăng kí</h1>
+        <div class="alert alert-danger" th:if="${param.error}" role="alert">
+            Tên đăng nhập đã tồn tại!
+        </div>
+        <div class="alert alert-success" th:if="${param.success}" role="alert">
+            Đăng ký thành công!
+        </div>
+        <form th:action="@{/register}"  method="post" enctype="multipart/form-data">
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="username" placeholder="Tên đăng nhập" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="password" class="form-control" name="password" placeholder="Mật khẩu" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="name" placeholder="Họ và tên" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="email" placeholder="email" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="phone" placeholder="Số điện thoại" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="file" class="form-control" name="avatar"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Đăng kí</button>
+        </form>
+
+    </main>
+
+    <div th:replace="base :: footer"></div>
+</body>
+</html>
+
