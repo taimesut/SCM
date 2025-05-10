@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="my_persistence_unit">
+    <class>com.mesut.pojo.LogInventory</class>
+    <class>com.mesut.pojo.DetailOrder</class>
+    <class>com.mesut.pojo.DeliverySchedule</class>
+    <class>com.mesut.pojo.ReviewShipmentCompany</class>
+    <class>com.mesut.pojo.Invoice</class>
+    <class>com.mesut.pojo.ReviewSupplier</class>
+    <class>com.mesut.pojo.Supplier</class>
+    <class>com.mesut.pojo.User</class>
+    <class>com.mesut.pojo.Purpose</class>
+    <class>com.mesut.pojo.Category</class>
+    <class>com.mesut.pojo.ShipmentCompanyContact</class>
+    <class>com.mesut.pojo.ShipmentCompany</class>
+    <class>com.mesut.pojo.Warehouse</class>
+    <class>com.mesut.pojo.Product</class>
+    <class>com.mesut.pojo.Shipment</class>
+    <class>com.mesut.pojo.Inventory</class>
+    <class>com.mesut.pojo.Order</class>
+  </persistence-unit>
+</persistence>
