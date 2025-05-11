@@ -18,14 +18,12 @@ CREATE TABLE `purpose` (
 
 CREATE TABLE `category` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-	`name` varchar(100) not null unique,
-	`create_date` date NOT NULL
+	`name` varchar(100) not null unique
 );
 
 CREATE TABLE `warehouse` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`name` varchar(100) not null unique,
-	`create_date` date NOT NULL,
     `address` varchar(100) not null
 );
 
@@ -36,8 +34,7 @@ CREATE TABLE `shipment_company` (
 	`email` varchar(100),
     `name` varchar(100) not null,
     `phone` varchar(100),
-    `address` varchar(100),
-	`create_date` date NOT NULL
+    `address` varchar(100)
 );
 
 CREATE TABLE `supplier` (
@@ -45,8 +42,7 @@ CREATE TABLE `supplier` (
 	`email` varchar(100),
     `name` varchar(100) not null,
     `phone` varchar(100),
-    `address` varchar(100),
-	`create_date` date NOT NULL
+    `address` varchar(100)
 );
 
 CREATE TABLE `shipment_company_contact` (
@@ -54,7 +50,6 @@ CREATE TABLE `shipment_company_contact` (
 	`shipment_company_id` int,
     `content` varchar(255) not null,
     `note` varchar(255),
-	`create_date` date NOT NULL,
 	FOREIGN KEY (`shipment_company_id`) REFERENCES shipment_company(`id`)
 );
 
@@ -63,7 +58,6 @@ CREATE TABLE `product` (
 	`name` varchar(100) not null,
 	`price` int,
     `is_active` boolean default true,
-    `create_date` date NOT NULL,
     `use_date` date,
     `note` varchar(255),
     `category_id` int,
@@ -148,7 +142,6 @@ CREATE TABLE `shipment` (
 	`shipment_company_id` int,
 	`export_date` date,
 	`ship_date` date,
-	`create_date` date,
     `type_shipment` varchar(100),
     `note` varchar(255),
 	FOREIGN KEY (`receipt_id`) REFERENCES `receipt`(`id`),
@@ -159,7 +152,6 @@ CREATE TABLE `review_shipment_company` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`shipment_company_id` int,
 	`shipment_id` int,
-	`create_date` date,
     `note` varchar(255),
     `performance` int,
 	FOREIGN KEY (`shipment_id`) REFERENCES `shipment`(`id`),
@@ -170,7 +162,6 @@ CREATE TABLE `review_supplier` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`receipt_id` int,
 	`supplier_id` int,
-	`create_date` date,
     `note` varchar(255),
     `price` int,
     `quality` int,

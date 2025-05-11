@@ -34,7 +34,6 @@ import java.util.Set;
     @NamedQuery(name = "Shipment.findById", query = "SELECT s FROM Shipment s WHERE s.id = :id"),
     @NamedQuery(name = "Shipment.findByExportDate", query = "SELECT s FROM Shipment s WHERE s.exportDate = :exportDate"),
     @NamedQuery(name = "Shipment.findByShipDate", query = "SELECT s FROM Shipment s WHERE s.shipDate = :shipDate"),
-    @NamedQuery(name = "Shipment.findByCreateDate", query = "SELECT s FROM Shipment s WHERE s.createDate = :createDate"),
     @NamedQuery(name = "Shipment.findByTypeShipment", query = "SELECT s FROM Shipment s WHERE s.typeShipment = :typeShipment"),
     @NamedQuery(name = "Shipment.findByNote", query = "SELECT s FROM Shipment s WHERE s.note = :note")})
 public class Shipment implements Serializable {
@@ -51,9 +50,6 @@ public class Shipment implements Serializable {
     @Column(name = "ship_date")
     @Temporal(TemporalType.DATE)
     private Date shipDate;
-    @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
     @Size(max = 100)
     @Column(name = "type_shipment")
     private String typeShipment;
@@ -98,14 +94,6 @@ public class Shipment implements Serializable {
 
     public void setShipDate(Date shipDate) {
         this.shipDate = shipDate;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public String getTypeShipment() {

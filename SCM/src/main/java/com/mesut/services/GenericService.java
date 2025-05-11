@@ -5,10 +5,16 @@
 package com.mesut.services;
 
 import com.mesut.pojo.Category;
+import java.util.List;
 
 /**
  *
  * @author THANHTAIPC
+ * @param <T>
  */
-public interface CategoryService extends GenericService<Category>{
+public interface GenericService<T> {
+    List<T> getList(); 
+    T addOrUpdate(T c);
+    T getById(int id);
+    void deleteById(int id);
 }

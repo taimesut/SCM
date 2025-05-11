@@ -15,11 +15,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -30,7 +27,6 @@ import java.util.Date;
 @NamedQueries({
     @NamedQuery(name = "ReviewShipmentCompany.findAll", query = "SELECT r FROM ReviewShipmentCompany r"),
     @NamedQuery(name = "ReviewShipmentCompany.findById", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.id = :id"),
-    @NamedQuery(name = "ReviewShipmentCompany.findByCreateDate", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.createDate = :createDate"),
     @NamedQuery(name = "ReviewShipmentCompany.findByNote", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.note = :note"),
     @NamedQuery(name = "ReviewShipmentCompany.findByPerformance", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.performance = :performance")})
 public class ReviewShipmentCompany implements Serializable {
@@ -41,9 +37,6 @@ public class ReviewShipmentCompany implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
     @Size(max = 255)
     @Column(name = "note")
     private String note;
@@ -69,14 +62,6 @@ public class ReviewShipmentCompany implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public String getNote() {

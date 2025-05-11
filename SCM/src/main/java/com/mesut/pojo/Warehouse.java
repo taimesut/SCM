@@ -15,12 +15,9 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -33,7 +30,6 @@ import java.util.Set;
     @NamedQuery(name = "Warehouse.findAll", query = "SELECT w FROM Warehouse w"),
     @NamedQuery(name = "Warehouse.findById", query = "SELECT w FROM Warehouse w WHERE w.id = :id"),
     @NamedQuery(name = "Warehouse.findByName", query = "SELECT w FROM Warehouse w WHERE w.name = :name"),
-    @NamedQuery(name = "Warehouse.findByCreateDate", query = "SELECT w FROM Warehouse w WHERE w.createDate = :createDate"),
     @NamedQuery(name = "Warehouse.findByAddress", query = "SELECT w FROM Warehouse w WHERE w.address = :address")})
 public class Warehouse implements Serializable {
 
@@ -48,11 +44,6 @@ public class Warehouse implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -72,10 +63,9 @@ public class Warehouse implements Serializable {
         this.id = id;
     }
 
-    public Warehouse(Integer id, String name, Date createDate, String address) {
+    public Warehouse(Integer id, String name, String address) {
         this.id = id;
         this.name = name;
-        this.createDate = createDate;
         this.address = address;
     }
 
@@ -93,14 +83,6 @@ public class Warehouse implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public String getAddress() {

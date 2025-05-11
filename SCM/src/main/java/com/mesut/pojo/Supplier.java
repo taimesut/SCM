@@ -14,12 +14,9 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -34,8 +31,7 @@ import java.util.Set;
     @NamedQuery(name = "Supplier.findByEmail", query = "SELECT s FROM Supplier s WHERE s.email = :email"),
     @NamedQuery(name = "Supplier.findByName", query = "SELECT s FROM Supplier s WHERE s.name = :name"),
     @NamedQuery(name = "Supplier.findByPhone", query = "SELECT s FROM Supplier s WHERE s.phone = :phone"),
-    @NamedQuery(name = "Supplier.findByAddress", query = "SELECT s FROM Supplier s WHERE s.address = :address"),
-    @NamedQuery(name = "Supplier.findByCreateDate", query = "SELECT s FROM Supplier s WHERE s.createDate = :createDate")})
+    @NamedQuery(name = "Supplier.findByAddress", query = "SELECT s FROM Supplier s WHERE s.address = :address")})
 public class Supplier implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,11 +56,6 @@ public class Supplier implements Serializable {
     @Size(max = 100)
     @Column(name = "address")
     private String address;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
     @OneToMany(mappedBy = "supplierId")
     private Set<ReviewSupplier> reviewSupplierSet;
 
@@ -75,10 +66,9 @@ public class Supplier implements Serializable {
         this.id = id;
     }
 
-    public Supplier(Integer id, String name, Date createDate) {
+    public Supplier(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.createDate = createDate;
     }
 
     public Integer getId() {
@@ -119,14 +109,6 @@ public class Supplier implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public Set<ReviewSupplier> getReviewSupplierSet() {

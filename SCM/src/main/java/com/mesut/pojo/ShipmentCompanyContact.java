@@ -15,12 +15,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -32,8 +29,7 @@ import java.util.Date;
     @NamedQuery(name = "ShipmentCompanyContact.findAll", query = "SELECT s FROM ShipmentCompanyContact s"),
     @NamedQuery(name = "ShipmentCompanyContact.findById", query = "SELECT s FROM ShipmentCompanyContact s WHERE s.id = :id"),
     @NamedQuery(name = "ShipmentCompanyContact.findByContent", query = "SELECT s FROM ShipmentCompanyContact s WHERE s.content = :content"),
-    @NamedQuery(name = "ShipmentCompanyContact.findByNote", query = "SELECT s FROM ShipmentCompanyContact s WHERE s.note = :note"),
-    @NamedQuery(name = "ShipmentCompanyContact.findByCreateDate", query = "SELECT s FROM ShipmentCompanyContact s WHERE s.createDate = :createDate")})
+    @NamedQuery(name = "ShipmentCompanyContact.findByNote", query = "SELECT s FROM ShipmentCompanyContact s WHERE s.note = :note")})
 public class ShipmentCompanyContact implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,11 +46,6 @@ public class ShipmentCompanyContact implements Serializable {
     @Size(max = 255)
     @Column(name = "note")
     private String note;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
     @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
     @ManyToOne
     private ShipmentCompany shipmentCompanyId;
@@ -66,10 +57,9 @@ public class ShipmentCompanyContact implements Serializable {
         this.id = id;
     }
 
-    public ShipmentCompanyContact(Integer id, String content, Date createDate) {
+    public ShipmentCompanyContact(Integer id, String content) {
         this.id = id;
         this.content = content;
-        this.createDate = createDate;
     }
 
     public Integer getId() {
@@ -94,14 +84,6 @@ public class ShipmentCompanyContact implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public ShipmentCompany getShipmentCompanyId() {

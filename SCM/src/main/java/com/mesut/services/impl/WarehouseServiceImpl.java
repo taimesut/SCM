@@ -4,9 +4,9 @@
  */
 package com.mesut.services.impl;
 
-import com.mesut.pojo.Category;
-import com.mesut.repositories.CategoryRepository;
-import com.mesut.services.CategoryService;
+import com.mesut.pojo.Warehouse;
+import com.mesut.repositories.WarehouseRepository;
+import com.mesut.services.WarehouseService;
 import com.mesut.utils.CreateDateUtils;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,30 +17,29 @@ import org.springframework.stereotype.Service;
  * @author THANHTAIPC
  */
 @Service
-public class CategoryServiceImpl implements CategoryService {
-
+public class WarehouseServiceImpl implements WarehouseService {
+    
     @Autowired
-    private CategoryRepository mainRepo;
-
+    private WarehouseRepository mainRepo;
+    
     @Override
-    public List<Category> getList() {
+    public List<Warehouse> getList() {
         return this.mainRepo.getList();
     }
-
+    
     @Override
-    public Category addOrUpdate(Category c) {
-
+    public Warehouse addOrUpdate(Warehouse c) {
         return this.mainRepo.addOrUpdate(c);
     }
-
+    
     @Override
-    public Category getById(int id) {
+    public Warehouse getById(int id) {
         return this.mainRepo.getById(id);
     }
-
+    
     @Override
     public void deleteById(int id) {
         this.mainRepo.deleteById(id);
     }
-
+    
 }

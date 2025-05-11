@@ -36,7 +36,6 @@ import java.util.Set;
     @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name"),
     @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
     @NamedQuery(name = "Product.findByIsActive", query = "SELECT p FROM Product p WHERE p.isActive = :isActive"),
-    @NamedQuery(name = "Product.findByCreateDate", query = "SELECT p FROM Product p WHERE p.createDate = :createDate"),
     @NamedQuery(name = "Product.findByUseDate", query = "SELECT p FROM Product p WHERE p.useDate = :useDate"),
     @NamedQuery(name = "Product.findByNote", query = "SELECT p FROM Product p WHERE p.note = :note")})
 public class Product implements Serializable {
@@ -56,11 +55,6 @@ public class Product implements Serializable {
     private Integer price;
     @Column(name = "is_active")
     private Boolean isActive;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
     @Column(name = "use_date")
     @Temporal(TemporalType.DATE)
     private Date useDate;
@@ -84,10 +78,9 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String name, Date createDate) {
+    public Product(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.createDate = createDate;
     }
 
     public Integer getId() {
@@ -120,14 +113,6 @@ public class Product implements Serializable {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public Date getUseDate() {

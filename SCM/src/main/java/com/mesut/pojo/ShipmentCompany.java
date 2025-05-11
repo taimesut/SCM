@@ -14,12 +14,9 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -34,8 +31,7 @@ import java.util.Set;
     @NamedQuery(name = "ShipmentCompany.findByEmail", query = "SELECT s FROM ShipmentCompany s WHERE s.email = :email"),
     @NamedQuery(name = "ShipmentCompany.findByName", query = "SELECT s FROM ShipmentCompany s WHERE s.name = :name"),
     @NamedQuery(name = "ShipmentCompany.findByPhone", query = "SELECT s FROM ShipmentCompany s WHERE s.phone = :phone"),
-    @NamedQuery(name = "ShipmentCompany.findByAddress", query = "SELECT s FROM ShipmentCompany s WHERE s.address = :address"),
-    @NamedQuery(name = "ShipmentCompany.findByCreateDate", query = "SELECT s FROM ShipmentCompany s WHERE s.createDate = :createDate")})
+    @NamedQuery(name = "ShipmentCompany.findByAddress", query = "SELECT s FROM ShipmentCompany s WHERE s.address = :address")})
 public class ShipmentCompany implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,11 +56,6 @@ public class ShipmentCompany implements Serializable {
     @Size(max = 100)
     @Column(name = "address")
     private String address;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
     @OneToMany(mappedBy = "shipmentCompanyId")
     private Set<Shipment> shipmentSet;
     @OneToMany(mappedBy = "shipmentCompanyId")
@@ -81,10 +72,9 @@ public class ShipmentCompany implements Serializable {
         this.id = id;
     }
 
-    public ShipmentCompany(Integer id, String name, Date createDate) {
+    public ShipmentCompany(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.createDate = createDate;
     }
 
     public Integer getId() {
@@ -125,14 +115,6 @@ public class ShipmentCompany implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public Set<Shipment> getShipmentSet() {

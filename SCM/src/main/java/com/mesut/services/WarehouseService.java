@@ -4,11 +4,12 @@
  */
 package com.mesut.services;
 
-import com.mesut.pojo.Category;
+import com.mesut.pojo.Warehouse;
 
 /**
  *
  * @author THANHTAIPC
  */
-public interface CategoryService extends GenericService<Category>{
+public interface WarehouseService extends GenericService<Warehouse>{
+    
 }

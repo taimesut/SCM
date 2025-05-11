@@ -5,19 +5,10 @@
 package com.mesut.repositories;
 
 import com.mesut.pojo.Category;
-import java.util.List;
 
 /**
  *
  * @author THANHTAIPC
  */
-public interface CategoryRepository {
-
-    Category addOrUpdateCategory(Category c);
-
-    List<Category> getCategories();
-
-    Category getCategoryById(int id);
-    void deleteCategoryById(int id);
-
+public interface CategoryRepository extends GenericRepository<Category> {
 }

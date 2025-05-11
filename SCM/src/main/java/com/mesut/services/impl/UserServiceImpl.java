@@ -9,6 +9,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.mesut.pojo.User;
 import com.mesut.repositories.UserRepository;
 import com.mesut.services.UserService;
+import com.mesut.utils.CreateDateUtils;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -34,14 +35,14 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service("userDetailService")
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-   @Autowired
+    @Autowired
     private UserRepository userRepo;
-    
+
     @Autowired
     private BCryptPasswordEncoder passEncoder;
-    
+
     @Autowired
     private Cloudinary cloudinary;
 
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService{
 
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(u.getUserRole()));
-        
+
         return new org.springframework.security.core.userdetails.User(
                 u.getUsername(), u.getPassword(), authorities);
     }
@@ -73,7 +74,8 @@ public class UserServiceImpl implements UserService{
         u.setUserRole("ROLE_USER");
         u.setUsername(params.get("username"));
         u.setPassword(this.passEncoder.encode(params.get("password")));
-        u.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
+        u.setCreateDate(CreateDateUtils.createDate());
+
         if (!avatar.isEmpty()) {
             try {
                 Map res = cloudinary.uploader().upload(avatar.getBytes(),
@@ -83,7 +85,7 @@ public class UserServiceImpl implements UserService{
                 Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         return this.userRepo.addUser(u);
     }
 
@@ -91,5 +93,5 @@ public class UserServiceImpl implements UserService{
     public boolean authenticate(String username, String password) {
         return this.userRepo.authenticate(username, password);
     }
-    
+
 }

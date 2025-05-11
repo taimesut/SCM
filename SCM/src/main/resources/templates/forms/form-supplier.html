@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Trang chủ</title>
+    <th:block th:replace="base :: styles"></th:block>
+</head>
+<body>
+    <div th:replace="base :: sidebar"></div>
+
+    <!-- Page content -->
+    <div class="content">
+        <div class="alert alert-success" th:if="${param.addSuccess}" role="alert">
+            Thêm mới thành công!
+        </div>
+        <div class="alert alert-danger" th:if="${param.addError}" role="alert">
+            Thêm mới thất bại!
+        </div>
+        <div class="alert alert-success" th:if="${param.updateSuccess}" role="alert">
+            Cập nhật thành công!
+        </div>
+        <div class="alert alert-danger" th:if="${param.updateError}" role="alert">
+            Cập nhật thất bại!
+        </div>
+        <!-- Thay đổi -->
+        <h1 class="text-center text-info mt-1">Nhà cung cấp</h1>
+        
+        <a class="btn btn-primary" th:href="@{/suppliers}">Quay lại</a>
+        
+        <form th:action="@{${object.id} != null ? '/suppliers/update' : '/suppliers/add'}"
+              th:object="${object}" method="post"
+              onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
+            <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
+
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" th:field="*{name}" placeholder="Tên nhà cung cấp" required/>
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" th:field="*{phone}" placeholder="Số điện thoại" required/>
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" th:field="*{email}" placeholder="Email" required/>
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" th:field="*{address}" placeholder="Địa chỉ" required/>
+            </div>
+
+            <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>
+        </form>
+
+    </div>
+
+
+
+
+</body>
+</html>
+

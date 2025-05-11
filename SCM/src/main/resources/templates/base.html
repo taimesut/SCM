@@ -12,7 +12,7 @@
 <body>
     <!-- sidebar -->
     <div class="sidebar d-flex flex-column p-3" th:fragment="sidebar">
-        <h4 class="text-white">Menu</h4>
+        <h4 class="text-white">Quản lý</h4>
 
         <ul class="nav nav-pills flex-column mb-auto">
             <hr>
@@ -25,6 +25,12 @@
             <hr>
             <li>
                 <a th:href="@{/categories}" class="nav-link">Danh mục</a>
+            </li>
+            <li>
+                <a th:href="@{/suppliers}" class="nav-link">Nhà cung cấp</a>
+            </li>
+            <li>
+                <a th:href="@{/warehouses}" class="nav-link">Kho</a>
             </li>
         </ul>
     </div>

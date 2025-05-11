@@ -5,7 +5,8 @@
 package com.mesut.repositories.impl;
 
 import com.mesut.pojo.Category;
-import com.mesut.repositories.CategoryRepository;
+import com.mesut.pojo.Purpose;
+import com.mesut.repositories.PurposeRepository;
 import jakarta.persistence.Query;
 import java.util.List;
 import org.hibernate.Session;
@@ -20,13 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class CategoryRepositoryImpl implements CategoryRepository {
-    
+public class PurposeRepositoryImpl implements PurposeRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Override
-    public Category addOrUpdate(Category c) {
+    public Purpose addOrUpdate(Purpose c) {
         Session s = this.factory.getObject().getCurrentSession();
         if (c.getId() == null) {
             s.persist(c);
@@ -35,25 +36,25 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         }
         return c;
     }
-    
+
     @Override
-    public List<Category> getList() {
+    public List<Purpose> getList() {
         Session s = this.factory.getObject().getCurrentSession();
-        Query query = s.createQuery("FROM Category", Category.class);
+        Query query = s.createQuery("FROM Purpose", Purpose.class);
         return query.getResultList();
     }
-    
+
     @Override
-    public Category getById(int id) {
+    public Purpose getById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        return s.get(Category.class, id);
+        return s.get(Purpose.class, id);
     }
-    
+
     @Override
     public void deleteById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        Category c = this.getById(id);
+        Purpose c = this.getById(id);
         s.remove(c);
     }
-    
+
 }

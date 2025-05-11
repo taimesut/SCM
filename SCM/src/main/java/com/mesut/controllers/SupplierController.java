@@ -5,7 +5,9 @@
 package com.mesut.controllers;
 
 import com.mesut.pojo.Category;
+import com.mesut.pojo.Supplier;
 import com.mesut.services.CategoryService;
+import com.mesut.services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +21,12 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author THANHTAIPC
  */
 @Controller
-public class CategoryController {
+public class SupplierController {
 
+    
     // Đổi
-    private static final String BASE = "categories";
-    private static final String NAME = "category";
+    private static final String BASE = "suppliers";
+    private static final String NAME = "supplier";
 
     // Không Đụng
     private static final String URL_LIST_VIEW = "/" + BASE;
@@ -45,7 +48,7 @@ public class CategoryController {
     private static final String FORM = "forms/form-" + NAME;
 
     @Autowired
-    private CategoryService mainService;
+    private SupplierService mainService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -56,13 +59,13 @@ public class CategoryController {
     @GetMapping(URL_ADD_VIEW)
     public String addView(Model model) {
         // Đổi class
-        model.addAttribute("object", new Category());
+        model.addAttribute("object", new Supplier());
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") Category o) {
+    public String addProcess(@ModelAttribute(value = "object") Supplier o) {
         try {
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
@@ -79,7 +82,7 @@ public class CategoryController {
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_UPDATE_PROCESS)
-    public String updateProcess(@ModelAttribute(value = "object") Category o) {
+    public String updateProcess(@ModelAttribute(value = "object") Supplier o) {
         try {
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
@@ -97,5 +100,4 @@ public class CategoryController {
             return REDIRECT_DELETE_ERROR;
         }
     }
-
 }
