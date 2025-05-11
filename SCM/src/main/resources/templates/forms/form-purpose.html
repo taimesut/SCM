@@ -22,26 +22,17 @@
             Cập nhật thất bại!
         </div>
         <!-- Thay đổi -->
-        <h1 class="text-center text-info mt-1">Nhà cung cấp</h1>
-        
-        <a class="btn btn-primary" th:href="@{/suppliers}">Quay lại</a>
-        
-        <form th:action="@{${object.id} != null ? '/suppliers/update' : '/suppliers/add'}"
+        <h1 class="text-center text-info mt-1">Mục Đích</h1>
+
+        <a class="btn btn-primary" th:href="@{/purposes}">Quay lại</a>
+
+        <form th:action="@{${object.id} != null ? '/purposes/update' : '/purposes/add'}"
               th:object="${object}" method="post"
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
             <div class="mb-3 mt-3">
-                <input type="text" class="form-control" th:field="*{name}" placeholder="Tên nhà cung cấp" required/>
-            </div>
-            <div class="mb-3 mt-3">
-                <input type="text" class="form-control" th:field="*{phone}" placeholder="Số điện thoại" required/>
-            </div>
-            <div class="mb-3 mt-3">
-                <input type="email" class="form-control" th:field="*{email}" placeholder="Email" required/>
-            </div>
-            <div class="mb-3 mt-3">
-                <input type="text" class="form-control" th:field="*{address}" placeholder="Địa chỉ" required/>
+                <input type="text" class="form-control" th:field="*{name}" placeholder="Tên mục đích" required/>
             </div>
 
             <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>

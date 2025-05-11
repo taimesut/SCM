@@ -6,6 +6,7 @@ package com.mesut.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.mesut.formatters.CategoryFormatter;
 import jakarta.servlet.MultipartConfigElement;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
@@ -40,10 +41,10 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
         configurer.enable();
     }
 
-//    @Override
-//    public void addFormatters(FormatterRegistry registry) {
-//        registry.addFormatter(new CategoryFormatter());
-//    }
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new CategoryFormatter());
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -4,9 +4,7 @@
  */
 package com.mesut.repositories.impl;
 
-import com.mesut.pojo.Category;
 import com.mesut.pojo.Product;
-import com.mesut.pojo.Purpose;
 import com.mesut.repositories.ProductRepository;
 import jakarta.persistence.Query;
 import java.util.List;
