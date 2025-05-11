@@ -4,6 +4,7 @@
  */
 package com.mesut.pojo;
 
+import com.mesut.utils.Identifiable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -31,7 +32,7 @@ import java.util.Set;
     @NamedQuery(name = "Warehouse.findById", query = "SELECT w FROM Warehouse w WHERE w.id = :id"),
     @NamedQuery(name = "Warehouse.findByName", query = "SELECT w FROM Warehouse w WHERE w.name = :name"),
     @NamedQuery(name = "Warehouse.findByAddress", query = "SELECT w FROM Warehouse w WHERE w.address = :address")})
-public class Warehouse implements Serializable {
+public class Warehouse implements Serializable, Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -69,6 +70,7 @@ public class Warehouse implements Serializable {
         this.address = address;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }

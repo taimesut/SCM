@@ -4,6 +4,7 @@
  */
 package com.mesut.pojo;
 
+import com.mesut.utils.Identifiable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,7 +35,7 @@ import java.util.Set;
     @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
     @NamedQuery(name = "Product.findByIsActive", query = "SELECT p FROM Product p WHERE p.isActive = :isActive"),
     @NamedQuery(name = "Product.findByNote", query = "SELECT p FROM Product p WHERE p.note = :note")})
-public class Product implements Serializable {
+public class Product implements Serializable, Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,6 +80,7 @@ public class Product implements Serializable {
         this.price = price;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }

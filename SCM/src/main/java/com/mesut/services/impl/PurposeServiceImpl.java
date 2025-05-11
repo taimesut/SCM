@@ -4,11 +4,9 @@
  */
 package com.mesut.services.impl;
 
-import com.mesut.pojo.Category;
 import com.mesut.pojo.Purpose;
 import com.mesut.repositories.PurposeRepository;
 import com.mesut.services.PurposeService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,29 +15,11 @@ import org.springframework.stereotype.Service;
  * @author THANHTAIPC
  */
 @Service
-public class PurposeServiceImpl implements PurposeService {
-    
+public class PurposeServiceImpl extends GenericServiceImpl<Purpose> implements PurposeService {
     @Autowired
-    private PurposeRepository mainRepo;
-    
-    @Override
-    public List<Purpose> getList() {
-        return this.mainRepo.getList();
+    public PurposeServiceImpl(PurposeRepository repository) {
+        super(repository);
     }
     
-    @Override
-    public Purpose addOrUpdate(Purpose c) {
-        return this.mainRepo.addOrUpdate(c);
-    }
-    
-    @Override
-    public Purpose getById(int id) {
-        return this.mainRepo.getById(id);
-    }
-    
-    @Override
-    public void deleteById(int id) {
-        this.mainRepo.deleteById(id);
-    }
-    
+   
 }

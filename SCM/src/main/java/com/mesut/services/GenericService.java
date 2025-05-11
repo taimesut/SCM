@@ -4,7 +4,7 @@
  */
 package com.mesut.services;
 
-import com.mesut.pojo.Category;
+import com.mesut.utils.Identifiable;
 import java.util.List;
 
 /**
@@ -12,7 +12,7 @@ import java.util.List;
  * @author THANHTAIPC
  * @param <T>
  */
-public interface GenericService<T> {
+public interface GenericService<T extends Identifiable> {
     List<T> getList(); 
     T addOrUpdate(T c);
     T getById(int id);

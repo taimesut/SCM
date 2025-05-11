@@ -4,6 +4,7 @@
  */
 package com.mesut.repositories;
 
+import com.mesut.utils.Identifiable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @author THANHTAIPC
  * @param <T>
  */
-public interface GenericRepository<T> {
+public interface GenericRepository<T extends Identifiable> {
 
     T addOrUpdate(T c);
 

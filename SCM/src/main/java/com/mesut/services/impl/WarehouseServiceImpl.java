@@ -7,7 +7,6 @@ package com.mesut.services.impl;
 import com.mesut.pojo.Warehouse;
 import com.mesut.repositories.WarehouseRepository;
 import com.mesut.services.WarehouseService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,29 +15,13 @@ import org.springframework.stereotype.Service;
  * @author THANHTAIPC
  */
 @Service
-public class WarehouseServiceImpl implements WarehouseService {
+public class WarehouseServiceImpl extends GenericServiceImpl<Warehouse> implements WarehouseService {
     
     @Autowired
-    private WarehouseRepository mainRepo;
-    
-    @Override
-    public List<Warehouse> getList() {
-        return this.mainRepo.getList();
+    public WarehouseServiceImpl(WarehouseRepository repository) {
+        super(repository);
     }
     
-    @Override
-    public Warehouse addOrUpdate(Warehouse c) {
-        return this.mainRepo.addOrUpdate(c);
-    }
     
-    @Override
-    public Warehouse getById(int id) {
-        return this.mainRepo.getById(id);
-    }
-    
-    @Override
-    public void deleteById(int id) {
-        this.mainRepo.deleteById(id);
-    }
     
 }
