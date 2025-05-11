@@ -15,7 +15,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -26,7 +30,9 @@ import java.io.Serializable;
 @NamedQueries({
     @NamedQuery(name = "Inventory.findAll", query = "SELECT i FROM Inventory i"),
     @NamedQuery(name = "Inventory.findById", query = "SELECT i FROM Inventory i WHERE i.id = :id"),
-    @NamedQuery(name = "Inventory.findByAmount", query = "SELECT i FROM Inventory i WHERE i.amount = :amount")})
+    @NamedQuery(name = "Inventory.findByAmount", query = "SELECT i FROM Inventory i WHERE i.amount = :amount"),
+    @NamedQuery(name = "Inventory.findByUseDate", query = "SELECT i FROM Inventory i WHERE i.useDate = :useDate"),
+    @NamedQuery(name = "Inventory.findByUpdateDate", query = "SELECT i FROM Inventory i WHERE i.updateDate = :updateDate")})
 public class Inventory implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,6 +43,14 @@ public class Inventory implements Serializable {
     private Integer id;
     @Column(name = "amount")
     private Integer amount;
+    @Column(name = "use_date")
+    @Temporal(TemporalType.DATE)
+    private Date useDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "update_date")
+    @Temporal(TemporalType.DATE)
+    private Date updateDate;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne
     private Product productId;
@@ -49,6 +63,11 @@ public class Inventory implements Serializable {
 
     public Inventory(Integer id) {
         this.id = id;
+    }
+
+    public Inventory(Integer id, Date updateDate) {
+        this.id = id;
+        this.updateDate = updateDate;
     }
 
     public Integer getId() {
@@ -65,6 +84,22 @@ public class Inventory implements Serializable {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public Date getUseDate() {
+        return useDate;
+    }
+
+    public void setUseDate(Date useDate) {
+        this.useDate = useDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     public Product getProductId() {

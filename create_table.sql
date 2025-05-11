@@ -1,15 +1,15 @@
-CREATE TABLE `user` (
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `username` varchar(100) not null unique,
-    `password` VARCHAR(100) NOT NULL,
-    `user_role` VARCHAR(100) NOT NULL,
-    `create_date` date NOT NULL,
-    `email` varchar(100),
-    `name` varchar(100) not null,
-    `phone` varchar(100),
-    `address` varchar(100),
-    `avatar` varchar(255) default 'null'
-);
+-- CREATE TABLE `user` (
+--     `id` INT PRIMARY KEY AUTO_INCREMENT,
+--     `username` varchar(100) not null unique,
+--     `password` VARCHAR(100) NOT NULL,
+--     `user_role` VARCHAR(100) NOT NULL,
+--     `create_date` date NOT NULL,
+--     `email` varchar(100),
+--     `name` varchar(100) not null,
+--     `phone` varchar(100),
+--     `address` varchar(100),
+--     `avatar` varchar(255) default 'null'
+-- );
 
 CREATE TABLE `purpose` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -58,8 +58,6 @@ CREATE TABLE `product` (
 	`name` varchar(100) not null,
 	`price` int not null default 0,
     `is_active` boolean default true,
-    `use_date` date,
-    `update_date` date not null,
     `note` varchar(255),
     `category_id` int,
 	FOREIGN KEY (`category_id`) REFERENCES category(`id`)
@@ -106,6 +104,8 @@ CREATE TABLE `inventory` (
 	`product_id` int,
 	`warehouse_id` int,
 	`amount` int,
+    `use_date` date,
+    `update_date` date not null,
 	FOREIGN KEY (`product_id`) REFERENCES `product`(`id`),
 	FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse`(`id`)
 );
