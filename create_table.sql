@@ -23,7 +23,7 @@ CREATE TABLE `category` (
 
 CREATE TABLE `warehouse` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-	`name` varchar(100) not null unique,
+	`name` varchar(100) not null,
     `address` varchar(100) not null
 );
 
@@ -34,15 +34,15 @@ CREATE TABLE `shipment_company` (
 	`email` varchar(100),
     `name` varchar(100) not null,
     `phone` varchar(100),
-    `address` varchar(100)
+    `address` varchar(100) not null
 );
 
 CREATE TABLE `supplier` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`email` varchar(100),
-    `name` varchar(100) not null,
+    `name` varchar(100) not null unique,
     `phone` varchar(100),
-    `address` varchar(100)
+    `address` varchar(100) not null
 );
 
 CREATE TABLE `shipment_company_contact` (
@@ -56,9 +56,10 @@ CREATE TABLE `shipment_company_contact` (
 CREATE TABLE `product` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`name` varchar(100) not null,
-	`price` int,
+	`price` int not null default 0,
     `is_active` boolean default true,
     `use_date` date,
+    `update_date` date not null,
     `note` varchar(255),
     `category_id` int,
 	FOREIGN KEY (`category_id`) REFERENCES category(`id`)

@@ -53,7 +53,9 @@ public class Supplier implements Serializable {
     @Size(max = 100)
     @Column(name = "phone")
     private String phone;
-    @Size(max = 100)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "address")
     private String address;
     @OneToMany(mappedBy = "supplierId")
@@ -66,9 +68,10 @@ public class Supplier implements Serializable {
         this.id = id;
     }
 
-    public Supplier(Integer id, String name) {
+    public Supplier(Integer id, String name, String address) {
         this.id = id;
         this.name = name;
+        this.address = address;
     }
 
     public Integer getId() {

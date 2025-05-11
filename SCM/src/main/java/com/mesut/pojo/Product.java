@@ -37,6 +37,7 @@ import java.util.Set;
     @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
     @NamedQuery(name = "Product.findByIsActive", query = "SELECT p FROM Product p WHERE p.isActive = :isActive"),
     @NamedQuery(name = "Product.findByUseDate", query = "SELECT p FROM Product p WHERE p.useDate = :useDate"),
+    @NamedQuery(name = "Product.findByUpdateDate", query = "SELECT p FROM Product p WHERE p.updateDate = :updateDate"),
     @NamedQuery(name = "Product.findByNote", query = "SELECT p FROM Product p WHERE p.note = :note")})
 public class Product implements Serializable {
 
@@ -51,13 +52,20 @@ public class Product implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "price")
-    private Integer price;
+    private int price;
     @Column(name = "is_active")
     private Boolean isActive;
     @Column(name = "use_date")
     @Temporal(TemporalType.DATE)
     private Date useDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "update_date")
+    @Temporal(TemporalType.DATE)
+    private Date updateDate;
     @Size(max = 255)
     @Column(name = "note")
     private String note;
@@ -78,9 +86,11 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String name) {
+    public Product(Integer id, String name, int price, Date updateDate) {
         this.id = id;
         this.name = name;
+        this.price = price;
+        this.updateDate = updateDate;
     }
 
     public Integer getId() {
@@ -99,11 +109,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -121,6 +131,14 @@ public class Product implements Serializable {
 
     public void setUseDate(Date useDate) {
         this.useDate = useDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     public String getNote() {
