@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Trang chủ</title>
-    <th:block th:replace="base :: styles"></th:block>
+    <th:block th:replace="~{base :: styles}"></th:block>
 </head>
 <body>
-    <div th:replace="base :: sidebar"></div>
+    <div th:replace="~{base :: sidebar}"></div>
 
     <!-- Page content -->
     <div class="content">
@@ -22,28 +22,37 @@
             Cập nhật thất bại!
         </div>
         <!-- Thay đổi -->
-        <h1 class="text-center text-info mt-1">Sản phẩm</h1>
+        <h1 class="text-center text-info mt-1" th:text="${g_list_item_menu['/' + name]}"></h1>
 
-        <a class="btn btn-primary" th:href="@{/products}">Quay lại</a>
+        <a class="btn btn-primary" th:href="@{${g_prefix + '/' + name}}">Quay lại</a>
 
-        <form th:action="@{${object.id} != null ? '/products/update' : '/products/add'}"
+        <form th:action="@{${g_prefix + '/' + name + (object.id != null ? '/update' : '/add')}}"
               th:object="${object}" method="post"
-              onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
+              onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');"
+              enctype="multipart/form-data">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
-            <div class="mb-3 mt-3">
-                <input type="text" class="form-control" th:field="*{name}" placeholder="Tên mục đích" required/>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Tên sản phẩm</span>
+                <input type="text" class="form-control" th:field="*{name}" required/>
             </div>
-            <div class="mb-3 mt-3">
-                <input type="number" class="form-control" th:field="*{price}" min="0" step="1" placeholder="Giá" required/>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Giá</span>
+                <input type="number" class="form-control" th:field="*{price}" required min=0 step=1/>
             </div>
-            <div class="mb-3 mt-3">
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Kho</span>
                 <select class="form-select" th:field="*{categoryId}">
-                    <option th:each="c:${g_categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                    <option th:each="c:${g_list_category}" th:value="${c.id}" th:text="${c.name}"></option>
                 </select>
             </div>
-            <div class="mb-3 mt-3">
-                <input type="text" class="form-control" th:field="*{note}" placeholder="Ghi chú" required/>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Ảnh</span>
+                <input type="file" class="form-control" th:field="*{file}" />
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Ghi chú</span>
+                <input type="text" class="form-control" th:field="*{note}" />
             </div>
             <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>
         </form>

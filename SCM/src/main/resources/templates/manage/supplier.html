@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Trang chủ</title>
-    <th:block th:replace="base :: styles"></th:block>
+    <th:block th:replace="~{base :: styles}"></th:block>
 </head>
 <body>
-    <div th:replace="base :: sidebar"></div>
+    <div th:replace="~{base :: sidebar}"></div>
 
     <!-- Page content -->
     <div class="content">
@@ -19,18 +19,19 @@
         </div>
 
         <!--Thay đổi-->
-        <h1 class="text-center text-primary">Sản phẩm</h1>
+        <h1 class="text-center text-primary" th:text="${g_list_item_menu['/' + name]}"></h1>
 
         <!--Thay đổi-->
-        <a th:href="@{/products/add}" class="btn btn-success mt-1">Thêm</a>     
+        <a th:href="@{${g_prefix + '/' + name + '/add'}}" class="btn btn-success mt-1">Thêm</a>     
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Tên</th>
-                    <th>Giá</th>
-                    <th>Danh mục</th>
-                    <th>Ghi chú</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th>Địa chỉ</th>
+
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -39,16 +40,17 @@
 
                     <td th:text="${i.id}"></td>
                     <td th:text="${i.name}"></td>
-                    <td th:text="${i.price}"></td>
-                    <td th:text="${i.categoryId.getName}"></td>
-                    <td th:text="${i.note}"></td>
+                    <td th:text="${i.phone}"></td>
+                    <td th:text="${i.email}"></td>
+                    <td th:text="${i.address}"></td>
+
 
                     <td>
-                        <a th:href="@{'/products/' + ${i.id}}" class="btn btn-info">&#128296;</a>
-                        <a th:href="@{/products/delete/{id}(id=${i.id})}" 
+                        <a th:href="@{${g_prefix + '/' + name + '/' + i.id}}" class="btn btn-info" th:utext="${g_icons['update']}"></a>
+                        <a th:href="@{${g_prefix + '/' + name + '/delete/' + i.id}}" 
                            class="btn btn-danger"
-                           onclick="return confirm('Bạn có chắc chắn muốn xóa dữ liệu này?');">
-                            &times;
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa dữ liệu này?');"
+                           th:utext="${g_icons['delete']}">
                         </a>
                     </td>
                 </tr>

@@ -34,12 +34,6 @@ import java.util.Set;
     @NamedQuery(name = "Warehouse.findByAddress", query = "SELECT w FROM Warehouse w WHERE w.address = :address")})
 public class Warehouse implements Serializable, Identifiable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -50,6 +44,13 @@ public class Warehouse implements Serializable, Identifiable {
     @Size(min = 1, max = 100)
     @Column(name = "address")
     private String address;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @OneToMany(mappedBy = "warehouseId")
     private Set<LogInventory> logInventorySet;
     @OneToMany(mappedBy = "warehouseId")
@@ -79,21 +80,6 @@ public class Warehouse implements Serializable, Identifiable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public Set<LogInventory> getLogInventorySet() {
         return logInventorySet;
@@ -142,6 +128,22 @@ public class Warehouse implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.Warehouse[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
     
 }

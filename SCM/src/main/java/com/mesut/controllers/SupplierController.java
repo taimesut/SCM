@@ -4,10 +4,9 @@
  */
 package com.mesut.controllers;
 
-import com.mesut.pojo.Category;
 import com.mesut.pojo.Supplier;
-import com.mesut.services.CategoryService;
 import com.mesut.services.SupplierService;
+import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,36 +22,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class SupplierController {
 
-    
     // Đổi
-    private static final String BASE = "suppliers";
     private static final String NAME = "supplier";
 
     // Không Đụng
-    private static final String URL_LIST_VIEW = "/" + BASE;
-    private static final String URL_ADD_VIEW = "/" + BASE + "/add";
-    private static final String URL_ADD_PROCESS = "/" + BASE + "/add";
-    private static final String URL_UPDATE_VIEW = "/" + BASE + "/{id}";
-    private static final String URL_UPDATE_PROCESS = "/" + BASE + "/update";
-    private static final String URL_DELETE_PROCESS = "/" + BASE + "/delete/{id}";
+    private static final String PREFIX_URL = PrefixUrl.PREFIX_URL;
+    private static final String URL_BASE = PREFIX_URL + "/" + NAME;
 
-    private static final String RETURN_LIST_VIEW = BASE;
+    private static final String URL_LIST_VIEW = URL_BASE;
+    private static final String URL_ADD_VIEW = URL_BASE + "/add";
+    private static final String URL_ADD_PROCESS = URL_BASE + "/add";
+    private static final String URL_UPDATE_VIEW = URL_BASE + "/{id}";
+    private static final String URL_UPDATE_PROCESS = URL_BASE + "/update";
+    private static final String URL_DELETE_PROCESS = URL_BASE + "/delete/{id}";
 
-    private static final String REDIRECT_ADD_SUCCESS = "redirect:/" + BASE + "/add?addSuccess";
-    private static final String REDIRECT_ADD_ERROR = "redirect:/" + BASE + "/add?addError";
-    private static final String REDIRECT_UPDATE_SUCCESS = "redirect:/" + BASE + "/%d?updateSuccess";
-    private static final String REDIRECT_UPDATE_ERROR = "redirect:/" + BASE + "/%d?updateError";
-    private static final String REDIRECT_DELETE_SUCCESS = "redirect:/" + BASE + "?deleteSuccess";
-    private static final String REDIRECT_DELETE_ERROR = "redirect:/" + BASE + "?deleteError";
+    private static final String RETURN_LIST_VIEW = "manage/" + NAME;
+
+    private static final String REDIRECT_ADD_SUCCESS = "redirect:" + URL_BASE + "/add?addSuccess";
+    private static final String REDIRECT_ADD_ERROR = "redirect:" + URL_BASE + "/add?addError";
+    private static final String REDIRECT_UPDATE_SUCCESS = "redirect:" + URL_BASE + "/%d?updateSuccess";
+    private static final String REDIRECT_UPDATE_ERROR = "redirect:" + URL_BASE + "/%d?updateError";
+    private static final String REDIRECT_DELETE_SUCCESS = "redirect:" + URL_BASE + "?deleteSuccess";
+    private static final String REDIRECT_DELETE_ERROR = "redirect:" + URL_BASE + "?deleteError";
 
     private static final String FORM = "forms/form-" + NAME;
 
+//    Đổi Service
     @Autowired
     private SupplierService mainService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
         model.addAttribute("list", this.mainService.getList());
+        model.addAttribute("name", NAME);
         return RETURN_LIST_VIEW;
     }
 
@@ -60,6 +62,7 @@ public class SupplierController {
     public String addView(Model model) {
         // Đổi class
         model.addAttribute("object", new Supplier());
+        model.addAttribute("name", NAME);
         return FORM;
     }
 
@@ -77,6 +80,7 @@ public class SupplierController {
     @GetMapping(URL_UPDATE_VIEW)
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
+        model.addAttribute("name", NAME);
         return FORM;
     }
 

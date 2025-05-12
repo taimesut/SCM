@@ -32,17 +32,18 @@ import java.util.Set;
     @NamedQuery(name = "Purpose.findByName", query = "SELECT p FROM Purpose p WHERE p.name = :name")})
 public class Purpose implements Serializable, Identifiable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "name")
+    private String name;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "name")
-    private String name;
     @OneToMany(mappedBy = "purposeId")
     private Set<DetailReceipt> detailReceiptSet;
 
@@ -67,13 +68,6 @@ public class Purpose implements Serializable, Identifiable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Set<DetailReceipt> getDetailReceiptSet() {
         return detailReceiptSet;
@@ -106,6 +100,14 @@ public class Purpose implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.Purpose[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     
 }

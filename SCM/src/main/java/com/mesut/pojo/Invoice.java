@@ -39,6 +39,16 @@ import java.util.Date;
     @NamedQuery(name = "Invoice.findByPaymentDate", query = "SELECT i FROM Invoice i WHERE i.paymentDate = :paymentDate")})
 public class Invoice implements Serializable, Identifiable {
 
+    @Size(max = 100)
+    @Column(name = "status")
+    private String status;
+    @Size(max = 100)
+    @Column(name = "payment_method")
+    private String paymentMethod;
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,17 +58,8 @@ public class Invoice implements Serializable, Identifiable {
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
-    @Size(max = 100)
-    @Column(name = "status")
-    private String status;
     @Column(name = "total")
     private Integer total;
-    @Size(max = 100)
-    @Column(name = "payment_method")
-    private String paymentMethod;
-    @Size(max = 255)
-    @Column(name = "note")
-    private String note;
     @Column(name = "payment_date")
     @Temporal(TemporalType.DATE)
     private Date paymentDate;
@@ -90,13 +91,6 @@ public class Invoice implements Serializable, Identifiable {
         this.createDate = createDate;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public Integer getTotal() {
         return total;
@@ -114,13 +108,6 @@ public class Invoice implements Serializable, Identifiable {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     public Date getPaymentDate() {
         return paymentDate;
@@ -161,6 +148,23 @@ public class Invoice implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.Invoice[ id=" + id + " ]";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
     
 }

@@ -39,6 +39,13 @@ import java.util.Set;
     @NamedQuery(name = "Shipment.findByNote", query = "SELECT s FROM Shipment s WHERE s.note = :note")})
 public class Shipment implements Serializable, Identifiable {
 
+    @Size(max = 100)
+    @Column(name = "type_shipment")
+    private String typeShipment;
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,12 +58,6 @@ public class Shipment implements Serializable, Identifiable {
     @Column(name = "ship_date")
     @Temporal(TemporalType.DATE)
     private Date shipDate;
-    @Size(max = 100)
-    @Column(name = "type_shipment")
-    private String typeShipment;
-    @Size(max = 255)
-    @Column(name = "note")
-    private String note;
     @JoinColumn(name = "receipt_id", referencedColumnName = "id")
     @ManyToOne
     private Receipt receiptId;
@@ -104,14 +105,6 @@ public class Shipment implements Serializable, Identifiable {
 
     public void setTypeShipment(String typeShipment) {
         this.typeShipment = typeShipment;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 
     public Receipt getReceiptId() {
@@ -162,5 +155,15 @@ public class Shipment implements Serializable, Identifiable {
     public String toString() {
         return "com.mesut.pojo.Shipment[ id=" + id + " ]";
     }
-    
+
+
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
 }

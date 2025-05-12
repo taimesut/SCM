@@ -42,12 +42,6 @@ import java.util.Set;
     @NamedQuery(name = "Receipt.findByNote", query = "SELECT r FROM Receipt r WHERE r.note = :note")})
 public class Receipt implements Serializable, Identifiable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "create_date")
@@ -58,16 +52,23 @@ public class Receipt implements Serializable, Identifiable {
     @Size(min = 1, max = 50)
     @Column(name = "type_receipt")
     private String typeReceipt;
-    @Column(name = "partner_id")
-    private Integer partnerId;
-    @Column(name = "creator_id")
-    private Integer creatorId;
     @Size(max = 50)
     @Column(name = "status")
     private String status;
     @Size(max = 255)
     @Column(name = "note")
     private String note;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "partner_id")
+    private Integer partnerId;
+    @Column(name = "creator_id")
+    private Integer creatorId;
     @OneToMany(mappedBy = "receiptId")
     private Set<DetailReceipt> detailReceiptSet;
     @OneToMany(mappedBy = "receiptId")
@@ -138,21 +139,6 @@ public class Receipt implements Serializable, Identifiable {
         this.creatorId = creatorId;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     public Set<DetailReceipt> getDetailReceiptSet() {
         return detailReceiptSet;
@@ -233,6 +219,24 @@ public class Receipt implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.Receipt[ id=" + id + " ]";
+    }
+
+   
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
     
 }

@@ -32,12 +32,6 @@ import java.io.Serializable;
     @NamedQuery(name = "DetailReceipt.findByPrice", query = "SELECT d FROM DetailReceipt d WHERE d.price = :price")})
 public class DetailReceipt implements Serializable, Identifiable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "amount")
@@ -46,6 +40,13 @@ public class DetailReceipt implements Serializable, Identifiable {
     @NotNull
     @Column(name = "price")
     private int price;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne
     private Product productId;
@@ -78,21 +79,6 @@ public class DetailReceipt implements Serializable, Identifiable {
         this.id = id;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public Product getProductId() {
         return productId;
@@ -141,6 +127,22 @@ public class DetailReceipt implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.DetailReceipt[ id=" + id + " ]";
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
     
 }

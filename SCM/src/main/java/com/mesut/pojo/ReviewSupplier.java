@@ -34,15 +34,16 @@ import java.io.Serializable;
     @NamedQuery(name = "ReviewSupplier.findBySupport", query = "SELECT r FROM ReviewSupplier r WHERE r.support = :support")})
 public class ReviewSupplier implements Serializable, Identifiable {
 
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 255)
-    @Column(name = "note")
-    private String note;
     @Column(name = "price")
     private Integer price;
     @Column(name = "quality")
@@ -72,13 +73,6 @@ public class ReviewSupplier implements Serializable, Identifiable {
         this.id = id;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     public Integer getPrice() {
         return price;
@@ -143,6 +137,14 @@ public class ReviewSupplier implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.ReviewSupplier[ id=" + id + " ]";
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
     
 }

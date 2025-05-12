@@ -38,6 +38,13 @@ import java.util.Date;
     @NamedQuery(name = "DeliverySchedule.findByNote", query = "SELECT d FROM DeliverySchedule d WHERE d.note = :note")})
 public class DeliverySchedule implements Serializable, Identifiable {
 
+    @Size(max = 100)
+    @Column(name = "type_shipment")
+    private String typeShipment;
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,12 +60,6 @@ public class DeliverySchedule implements Serializable, Identifiable {
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
-    @Size(max = 100)
-    @Column(name = "type_shipment")
-    private String typeShipment;
-    @Size(max = 255)
-    @Column(name = "note")
-    private String note;
     @JoinColumn(name = "receipt_id", referencedColumnName = "id")
     @ManyToOne
     private Receipt receiptId;
@@ -114,13 +115,6 @@ public class DeliverySchedule implements Serializable, Identifiable {
         this.typeShipment = typeShipment;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     public Receipt getReceiptId() {
         return receiptId;
@@ -161,6 +155,15 @@ public class DeliverySchedule implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.DeliverySchedule[ id=" + id + " ]";
+    }
+
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
     
 }

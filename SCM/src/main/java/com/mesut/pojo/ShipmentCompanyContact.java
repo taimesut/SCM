@@ -33,12 +33,6 @@ import java.io.Serializable;
     @NamedQuery(name = "ShipmentCompanyContact.findByNote", query = "SELECT s FROM ShipmentCompanyContact s WHERE s.note = :note")})
 public class ShipmentCompanyContact implements Serializable, Identifiable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -47,6 +41,13 @@ public class ShipmentCompanyContact implements Serializable, Identifiable {
     @Size(max = 255)
     @Column(name = "note")
     private String note;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
     @ManyToOne
     private ShipmentCompany shipmentCompanyId;
@@ -72,21 +73,6 @@ public class ShipmentCompanyContact implements Serializable, Identifiable {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     public ShipmentCompany getShipmentCompanyId() {
         return shipmentCompanyId;
@@ -119,6 +105,22 @@ public class ShipmentCompanyContact implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.ShipmentCompanyContact[ id=" + id + " ]";
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
     
 }

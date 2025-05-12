@@ -58,6 +58,7 @@ CREATE TABLE `product` (
 	`name` varchar(100) not null,
 	`price` int not null default 0,
     `is_active` boolean default true,
+    `image` varchar(255) default null,
     `note` varchar(255),
     `category_id` int,
 	FOREIGN KEY (`category_id`) REFERENCES category(`id`)

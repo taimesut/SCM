@@ -32,15 +32,16 @@ import java.io.Serializable;
     @NamedQuery(name = "ReviewShipmentCompany.findByPerformance", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.performance = :performance")})
 public class ReviewShipmentCompany implements Serializable, Identifiable {
 
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 255)
-    @Column(name = "note")
-    private String note;
     @Column(name = "performance")
     private Integer performance;
     @JoinColumn(name = "shipment_id", referencedColumnName = "id")
@@ -66,13 +67,6 @@ public class ReviewShipmentCompany implements Serializable, Identifiable {
         this.id = id;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     public Integer getPerformance() {
         return performance;
@@ -121,6 +115,14 @@ public class ReviewShipmentCompany implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.ReviewShipmentCompany[ id=" + id + " ]";
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
     
 }

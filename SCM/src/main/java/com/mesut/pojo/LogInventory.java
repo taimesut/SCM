@@ -37,15 +37,16 @@ import java.util.Date;
     @NamedQuery(name = "LogInventory.findByCreateDate", query = "SELECT l FROM LogInventory l WHERE l.createDate = :createDate")})
 public class LogInventory implements Serializable, Identifiable {
 
+    @Size(max = 100)
+    @Column(name = "type_receipt")
+    private String typeReceipt;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 100)
-    @Column(name = "type_receipt")
-    private String typeReceipt;
     @Column(name = "amount")
     private Integer amount;
     @Column(name = "price")
@@ -159,5 +160,7 @@ public class LogInventory implements Serializable, Identifiable {
     public String toString() {
         return "com.mesut.pojo.LogInventory[ id=" + id + " ]";
     }
+
+
     
 }
