@@ -8,8 +8,10 @@ import com.mesut.pojo.DeliverySchedule;
 import com.mesut.pojo.ReceiptExport;
 import com.mesut.services.DeliveryScheduleService;
 import com.mesut.services.ReceiptExportService;
+import com.mesut.services.UserService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class ReceiptExportController {
+
     // Đổi
     private static final String NAME = "receipt-export";
 
@@ -51,6 +54,8 @@ public class ReceiptExportController {
 //    Đổi Service
     @Autowired
     private ReceiptExportService mainService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -64,13 +69,15 @@ public class ReceiptExportController {
         // Đổi class
         model.addAttribute("object", new ReceiptExport());
         model.addAttribute("name", NAME);
+        model.addAttribute("list_user", this.userService.getList());
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") ReceiptExport o) {
+    public String addProcess(@ModelAttribute(value = "object") ReceiptExport o, Authentication authentication) {
         try {
+            o.setCreatorId(this.userService.getUserByUsername(authentication.getName()));
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
         } catch (Exception e) {
@@ -82,13 +89,16 @@ public class ReceiptExportController {
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
+        model.addAttribute("list_user", this.userService.getList());
+
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_UPDATE_PROCESS)
-    public String updateProcess(@ModelAttribute(value = "object") ReceiptExport o) {
+    public String updateProcess(@ModelAttribute(value = "object") ReceiptExport o, Authentication authentication) {
         try {
+            o.setCreatorId(this.userService.getUserByUsername(authentication.getName()));
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
         } catch (Exception e) {

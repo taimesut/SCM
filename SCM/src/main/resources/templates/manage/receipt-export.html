@@ -27,11 +27,10 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Tên</th>
-                                        <!--<th>Ảnh</th>-->
-
-                    <th>Giá</th>
-                    <th>Danh mục</th>
+                    <th>Khách hàng</th>
+                    <th>Người tạo</th>
+                    <th>Kho</th>
+                    <th>Ngày tạo</th>
                     <th>Ghi chú</th>
                     <th>Thao tác</th>
                 </tr>
@@ -40,13 +39,10 @@
                 <tr th:each="i : ${list}">
 
                     <td th:text="${i.id}"></td>
-                    <td th:text="${i.name}"></td>
-<!--                    <td>
-                        <img th:src="${i.image}" width="200"/>
-                    </td>-->
-
-                    <td th:text="${i.price}"></td>
-                    <td th:text="${i.categoryId.name}"></td>
+                    <td th:text="${i.customerId.name}"></td>
+                    <td th:text="${i.creatorId.name}"></td>
+                    <td th:text="${i.warehouseId.name}"></td>
+                    <td th:text="${i.createDate}"></td>
                     <td th:text="${i.note}"></td>
 
 

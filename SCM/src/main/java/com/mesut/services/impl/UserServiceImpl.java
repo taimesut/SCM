@@ -7,6 +7,7 @@ package com.mesut.services.impl;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.mesut.pojo.User;
+import com.mesut.repositories.GenericRepository;
 import com.mesut.repositories.UserRepository;
 import com.mesut.services.UserService;
 import com.mesut.utils.CreateDateUtils;
@@ -34,7 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service("userDetailService")
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
 
     @Autowired
     private UserRepository userRepo;
@@ -44,6 +45,11 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private Cloudinary cloudinary;
+
+    @Autowired
+    public UserServiceImpl(UserRepository repository) {
+        super(repository);
+    }
 
     @Override
     public User getUserByUsername(String username) {

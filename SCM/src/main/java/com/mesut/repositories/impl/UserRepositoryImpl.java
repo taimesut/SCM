@@ -21,12 +21,16 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Transactional
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements UserRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    public UserRepositoryImpl() {
+        super(User.class);
+    }
 
     @Override
     public User getUserByUsername(String username) {

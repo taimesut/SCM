@@ -27,15 +27,27 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Tên</th>
-                    <th>Thao tác</th>
+                    <th>Tên nhà cung cấp</th>
+                    <th>Id phiếu nhập</th>
+                    <th>Đánh giá giá cả</th>
+                    <th>Đánh giá chất lượng</th>
+                    <th>Đánh giá hỗ trợ</th>
+                    <th>Ghi chú</th>
+
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="i : ${list}">
 
                     <td th:text="${i.id}"></td>
-                    <td th:text="${i.name}"></td>
+                    <td th:text="${i.supplierId.name}"></td>
+                    <td th:text="${i.receiptImportId.id}"></td>
+                    <td th:text="${i.price}"></td>
+                    <td th:text="${i.quality}"></td>
+                    <td th:text="${i.support}"></td>
+                    <td th:text="${i.note}"></td>
+
+
 
                     <td>
                         <a th:href="@{${g_prefix + '/' + name + '/' + i.id}}" class="btn btn-info" th:utext="${g_icons['update']}"></a>

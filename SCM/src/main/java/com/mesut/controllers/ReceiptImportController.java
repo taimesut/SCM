@@ -66,7 +66,7 @@ public class ReceiptImportController {
     }
 
     @GetMapping(URL_ADD_VIEW)
-    public String addView(Model model, Authentication authentication) {
+    public String addView(Model model) {
         // Đổi class
         model.addAttribute("object", new ReceiptImport());
         model.addAttribute("name", NAME);

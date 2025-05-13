@@ -31,10 +31,22 @@
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
-            <div class="mb-3 mt-3">
-                <input type="text" class="form-control" th:field="*{name}" placeholder="Tên danh mục" required/>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Tên đối tác</span>
+                <input type="text" class="form-control" th:field="*{name}" required/>
             </div>
-
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">SĐT</span>
+                <input type="text" class="form-control" th:field="*{phone}" required/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Email</span>
+                <input type="email" class="form-control" th:field="*{email}" required/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Địa chỉ</span>
+                <input type="text" class="form-control" th:field="*{address}" required/>
+            </div>
             <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>
         </form>
 

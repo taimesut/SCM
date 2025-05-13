@@ -8,6 +8,8 @@ import com.mesut.pojo.DeliverySchedule;
 import com.mesut.pojo.DetailReceiptImport;
 import com.mesut.services.DeliveryScheduleService;
 import com.mesut.services.DetailReceiptImportService;
+import com.mesut.services.ProductService;
+import com.mesut.services.ReceiptImportService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class DetailReceiptImportController {
+
     // Đổi
     private static final String NAME = "detail-receipt-import";
 
@@ -51,6 +54,10 @@ public class DetailReceiptImportController {
 //    Đổi Service
     @Autowired
     private DetailReceiptImportService mainService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private ReceiptImportService receiptImportService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -64,6 +71,9 @@ public class DetailReceiptImportController {
         // Đổi class
         model.addAttribute("object", new DetailReceiptImport());
         model.addAttribute("name", NAME);
+        model.addAttribute("list_product", this.productService.getList());
+        model.addAttribute("list_receipt_import", this.receiptImportService.getList());
+
         return FORM;
     }
 
@@ -82,6 +92,8 @@ public class DetailReceiptImportController {
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
+        model.addAttribute("list_product", this.productService.getList());
+        model.addAttribute("list_receipt_import", this.receiptImportService.getList());
         return FORM;
     }
 

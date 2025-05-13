@@ -11,10 +11,6 @@ CREATE TABLE `user` (
     `avatar` varchar(255) default 'null'
 );
 
-CREATE TABLE `purpose` (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-	`name` varchar(100) not null unique
-);
 
 CREATE TABLE `category` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -98,10 +94,8 @@ CREATE TABLE `detail_receipt_import` (
     `product_id` int,
     `amount` int not null,
     `price` int not null,
-    `purpose_id` int,
 	FOREIGN KEY (`product_id`) REFERENCES product(`id`),
-	FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import`(`id`),
-	FOREIGN KEY (`purpose_id`) REFERENCES purpose(`id`)
+	FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import`(`id`)
 );
 CREATE TABLE `detail_receipt_export` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -109,10 +103,8 @@ CREATE TABLE `detail_receipt_export` (
     `product_id` int,
     `amount` int not null,
     `price` int not null,
-    `purpose_id` int,
 	FOREIGN KEY (`product_id`) REFERENCES product(`id`),
-	FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export`(`id`),
-	FOREIGN KEY (`purpose_id`) REFERENCES purpose(`id`)
+	FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export`(`id`)
 );
 
 -- CREATE TABLE `invoice` (

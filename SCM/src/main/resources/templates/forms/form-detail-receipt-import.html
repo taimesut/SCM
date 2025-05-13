@@ -31,10 +31,28 @@
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
-            <div class="mb-3 mt-3">
-                <input type="text" class="form-control" th:field="*{name}" placeholder="Tên danh mục" required/>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Id phiếu nhập</span>
+                <select class="form-select" th:field="*{receiptImportId}">
+                    <option th:each="c:${list_receipt_import}" th:value="${c.id}" th:text="${c.id}"></option>
+                </select>
+                <a th:href="@{${g_prefix + '/' + 'receipt-import' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
-
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Sản phẩm</span>
+                <select class="form-select" th:field="*{productId}">
+                    <option th:each="c:${list_product}" th:value="${c.id}" th:text="${c.id + ' - ' + c.name}"></option>
+                </select>
+                <a th:href="@{${g_prefix + '/' + 'product' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Số lượng</span>
+                <input type="number" class="form-control" th:field="*{amount}" required min = 1 step = 1/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Đơn giá</span>
+                <input type="number" class="form-control" th:field="*{price}" required min = 0 step = 1/>
+            </div>
             <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>
         </form>
 

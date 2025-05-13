@@ -8,6 +8,9 @@ import com.mesut.pojo.DeliverySchedule;
 import com.mesut.pojo.DetailReceiptExport;
 import com.mesut.services.DeliveryScheduleService;
 import com.mesut.services.DetailReceiptExportService;
+import com.mesut.services.ProductService;
+import com.mesut.services.ReceiptExportService;
+import com.mesut.services.UserService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class DetailReceiptExportController {
+
     // Đổi
     private static final String NAME = "detail-receipt-export";
 
@@ -51,6 +55,11 @@ public class DetailReceiptExportController {
 //    Đổi Service
     @Autowired
     private DetailReceiptExportService mainService;
+    @Autowired
+    private ReceiptExportService receipExportService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -64,6 +73,9 @@ public class DetailReceiptExportController {
         // Đổi class
         model.addAttribute("object", new DetailReceiptExport());
         model.addAttribute("name", NAME);
+        model.addAttribute("list_receipt_export", this.receipExportService.getList());
+        model.addAttribute("list_product", this.productService.getList());
+
         return FORM;
     }
 
@@ -82,6 +94,8 @@ public class DetailReceiptExportController {
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
+        model.addAttribute("list_receipt_export", this.receipExportService.getList());
+        model.addAttribute("list_product", this.productService.getList());
         return FORM;
     }
 

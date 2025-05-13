@@ -49,9 +49,6 @@ public class DetailReceiptImport implements Serializable, Identifiable {
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne
     private Product productId;
-    @JoinColumn(name = "purpose_id", referencedColumnName = "id")
-    @ManyToOne
-    private Purpose purposeId;
     @JoinColumn(name = "receipt_import_id", referencedColumnName = "id")
     @ManyToOne
     private ReceiptImport receiptImportId;
@@ -99,14 +96,6 @@ public class DetailReceiptImport implements Serializable, Identifiable {
 
     public void setProductId(Product productId) {
         this.productId = productId;
-    }
-
-    public Purpose getPurposeId() {
-        return purposeId;
-    }
-
-    public void setPurposeId(Purpose purposeId) {
-        this.purposeId = purposeId;
     }
 
     public ReceiptImport getReceiptImportId() {
