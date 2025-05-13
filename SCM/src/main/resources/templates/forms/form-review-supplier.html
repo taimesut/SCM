@@ -31,13 +31,7 @@
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
-            <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Nhà cung cấp</span>
-                <select class="form-select" th:field="*{supplierId}">
-                    <option th:each="c:${g_list_supplier}" th:value="${c.id}" th:text="${c.name}"></option>
-                </select>
-                <a th:href="@{${g_prefix + '/' + 'supplier' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
-            </div>
+
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Id phiếu nhập</span>
                 <select class="form-select" th:field="*{receiptImportId}">

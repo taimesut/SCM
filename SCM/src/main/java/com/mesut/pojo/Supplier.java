@@ -64,8 +64,6 @@ public class Supplier implements Serializable, Identifiable {
     private Set<ReceiptImport> receiptImportSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
     private Set<Product> productSet;
-    @OneToMany(mappedBy = "supplierId")
-    private Set<ReviewSupplier> reviewSupplierSet;
 
     public Supplier() {
     }
@@ -134,14 +132,6 @@ public class Supplier implements Serializable, Identifiable {
 
     public void setProductSet(Set<Product> productSet) {
         this.productSet = productSet;
-    }
-
-    public Set<ReviewSupplier> getReviewSupplierSet() {
-        return reviewSupplierSet;
-    }
-
-    public void setReviewSupplierSet(Set<ReviewSupplier> reviewSupplierSet) {
-        this.reviewSupplierSet = reviewSupplierSet;
     }
 
     @Override

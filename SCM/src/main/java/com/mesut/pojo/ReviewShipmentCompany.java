@@ -46,9 +46,6 @@ public class ReviewShipmentCompany implements Serializable, Identifiable {
     @JoinColumn(name = "shipment_id", referencedColumnName = "id")
     @ManyToOne
     private Shipment shipmentId;
-    @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
-    @ManyToOne
-    private ShipmentCompany shipmentCompanyId;
 
     public ReviewShipmentCompany() {
     }
@@ -87,14 +84,6 @@ public class ReviewShipmentCompany implements Serializable, Identifiable {
 
     public void setShipmentId(Shipment shipmentId) {
         this.shipmentId = shipmentId;
-    }
-
-    public ShipmentCompany getShipmentCompanyId() {
-        return shipmentCompanyId;
-    }
-
-    public void setShipmentCompanyId(ShipmentCompany shipmentCompanyId) {
-        this.shipmentCompanyId = shipmentCompanyId;
     }
 
     @Override

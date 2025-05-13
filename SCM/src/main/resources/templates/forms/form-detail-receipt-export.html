@@ -31,6 +31,8 @@
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
+
+
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Id phiếu xuất</span>
                 <select class="form-select" th:field="*{receiptExportId}">

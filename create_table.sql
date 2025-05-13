@@ -172,23 +172,19 @@ CREATE TABLE `delivery_schedule` (
 
 CREATE TABLE `review_shipment_company` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-	`shipment_company_id` int,
 	`shipment_id` int,
     `note` varchar(255),
     `performance` int,
-	FOREIGN KEY (`shipment_id`) REFERENCES `shipment`(`id`),
-	FOREIGN KEY (`shipment_company_id`) REFERENCES `shipment_company`(`id`)
+	FOREIGN KEY (`shipment_id`) REFERENCES `shipment`(`id`)
 );
 
 CREATE TABLE `review_supplier` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`receipt_import_id` int,
-	`supplier_id` int,
     `note` varchar(255),
     `price` int,
     `quality` int,
     `support` int,
-	FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import`(`id`),
-	FOREIGN KEY (`supplier_id`) REFERENCES `supplier`(`id`)
+	FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import`(`id`)
 );
 

@@ -31,22 +31,37 @@
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
+            
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Tên nhà cung cấp</span>
-                <input type="text" class="form-control" th:field="*{name}" required/>
+                <span class="input-group-text">Id phiếu xuất</span>
+                <select class="form-select" th:field="*{receiptExportId}">
+                    <option th:each="c:${list_receipt_export}" th:value="${c.id}" th:text="${c.id}"></option>
+                </select>
+                <a th:href="@{${g_prefix + '/' + 'receipt-export' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">SĐT</span>
-                <input type="text" class="form-control" th:field="*{phone}" required/>
+                <span class="input-group-text">Đối tác</span>
+                <select class="form-select" th:field="*{shipmentCompanyId}">
+                    <option th:each="c:${g_list_shipment_company}" th:value="${c.id}" th:text="${c.name}"></option>
+                </select>
+                <a th:href="@{${g_prefix + '/' + 'shipment-company' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Email</span>
-                <input type="email" class="form-control" th:field="*{email}" required/>
+                <span class="input-group-text">Ngày xuất kho</span>
+                <input type="date" class="form-control" th:field="*{exportDate}" required/>
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Địa chỉ</span>
-                <input type="text" class="form-control" th:field="*{address}" required/>
+                <span class="input-group-text">Ngày giao</span>
+                <input type="date" class="form-control" th:field="*{shipDate}"/>
             </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Ghi chú</span>
+                <input type="text" class="form-control" th:field="*{note}" required/>
+            </div>
+            <div th:if="${list_receipt_export == null}">
+                <p>Không có phiếu xuất nào để chọn.</p>
+            </div>
+
             <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>
         </form>
 

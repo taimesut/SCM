@@ -5,11 +5,14 @@
 package com.mesut.services;
 
 import com.mesut.pojo.Inventory;
+import com.mesut.pojo.Product;
+import com.mesut.pojo.Warehouse;
 
 /**
  *
  * @author THANHTAIPC
  */
 public interface InventoryService extends GenericService<Inventory>{
-    
+    void updateAmount(int warehouse_id, int product_id, int amount_insert);
+    Inventory findByWarehouseIdAndProductId(Warehouse warehouse_id, Product product_id);
 }

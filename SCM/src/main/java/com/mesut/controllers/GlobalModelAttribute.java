@@ -47,7 +47,7 @@ public class GlobalModelAttribute {
         menu.put("/review-supplier", "Đánh giá nhà cung cấp");// xong
         menu.put("/shipment-company-contact", "Điều kiện hợp tác");// xong
         menu.put("/shipment-company", "Đối tác vận chuyển");// xong
-        menu.put("/shipment", "Vận chuyển");
+        menu.put("/shipment", "Vận chuyển");// xong
         menu.put("/supplier", "Nhà cung cấp");// xong
         menu.put("/user", "Người dùng");
         menu.put("/warehouse", "Kho hàng");// xong

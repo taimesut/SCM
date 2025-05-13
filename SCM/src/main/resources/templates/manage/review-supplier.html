@@ -27,7 +27,6 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Tên nhà cung cấp</th>
                     <th>Id phiếu nhập</th>
                     <th>Đánh giá giá cả</th>
                     <th>Đánh giá chất lượng</th>
@@ -40,7 +39,6 @@
                 <tr th:each="i : ${list}">
 
                     <td th:text="${i.id}"></td>
-                    <td th:text="${i.supplierId.name}"></td>
                     <td th:text="${i.receiptImportId.id}"></td>
                     <td th:text="${i.price}"></td>
                     <td th:text="${i.quality}"></td>

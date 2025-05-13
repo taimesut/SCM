@@ -65,8 +65,6 @@ public class ShipmentCompany implements Serializable, Identifiable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipmentCompanyId")
     private Set<DeliverySchedule> deliveryScheduleSet;
     @OneToMany(mappedBy = "shipmentCompanyId")
-    private Set<ReviewShipmentCompany> reviewShipmentCompanySet;
-    @OneToMany(mappedBy = "shipmentCompanyId")
     private Set<ShipmentCompanyContact> shipmentCompanyContactSet;
 
     public ShipmentCompany() {
@@ -136,14 +134,6 @@ public class ShipmentCompany implements Serializable, Identifiable {
 
     public void setDeliveryScheduleSet(Set<DeliverySchedule> deliveryScheduleSet) {
         this.deliveryScheduleSet = deliveryScheduleSet;
-    }
-
-    public Set<ReviewShipmentCompany> getReviewShipmentCompanySet() {
-        return reviewShipmentCompanySet;
-    }
-
-    public void setReviewShipmentCompanySet(Set<ReviewShipmentCompany> reviewShipmentCompanySet) {
-        this.reviewShipmentCompanySet = reviewShipmentCompanySet;
     }
 
     public Set<ShipmentCompanyContact> getShipmentCompanyContactSet() {

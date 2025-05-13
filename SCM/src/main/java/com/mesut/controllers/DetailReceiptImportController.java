@@ -84,6 +84,7 @@ public class DetailReceiptImportController {
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
         } catch (Exception e) {
+            System.out.print(e);
             return REDIRECT_ADD_ERROR;
         }
     }
@@ -104,6 +105,7 @@ public class DetailReceiptImportController {
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
         } catch (Exception e) {
+            System.out.print(e);
             return String.format(REDIRECT_UPDATE_ERROR, o.getId());
         }
     }

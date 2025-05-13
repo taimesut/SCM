@@ -5,11 +5,16 @@
 package com.mesut.repositories;
 
 import com.mesut.pojo.Inventory;
+import com.mesut.pojo.Product;
+import com.mesut.pojo.Warehouse;
 
 /**
  *
  * @author THANHTAIPC
  */
-public interface InventoryRepository extends GenericRepository<Inventory>{
-    
+public interface InventoryRepository extends GenericRepository<Inventory> {
+
+    void updateAmount(int warehouse_id, int product_id, int amount_insert);
+
+    Inventory findByWarehouseIdAndProductId(Warehouse warehouseId, Product productId);
 }

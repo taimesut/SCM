@@ -52,9 +52,6 @@ public class ReviewSupplier implements Serializable, Identifiable {
     @JoinColumn(name = "receipt_import_id", referencedColumnName = "id")
     @ManyToOne
     private ReceiptImport receiptImportId;
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
-    @ManyToOne
-    private Supplier supplierId;
 
     public ReviewSupplier() {
     }
@@ -109,14 +106,6 @@ public class ReviewSupplier implements Serializable, Identifiable {
 
     public void setReceiptImportId(ReceiptImport receiptImportId) {
         this.receiptImportId = receiptImportId;
-    }
-
-    public Supplier getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(Supplier supplierId) {
-        this.supplierId = supplierId;
     }
 
     @Override

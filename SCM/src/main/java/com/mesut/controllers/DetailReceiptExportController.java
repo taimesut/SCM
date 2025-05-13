@@ -56,7 +56,7 @@ public class DetailReceiptExportController {
     @Autowired
     private DetailReceiptExportService mainService;
     @Autowired
-    private ReceiptExportService receipExportService;
+    private ReceiptExportService receiptExportService;
 
     @Autowired
     private ProductService productService;
@@ -73,7 +73,7 @@ public class DetailReceiptExportController {
         // Đổi class
         model.addAttribute("object", new DetailReceiptExport());
         model.addAttribute("name", NAME);
-        model.addAttribute("list_receipt_export", this.receipExportService.getList());
+        model.addAttribute("list_receipt_export", this.receiptExportService.getList());
         model.addAttribute("list_product", this.productService.getList());
 
         return FORM;
@@ -86,6 +86,7 @@ public class DetailReceiptExportController {
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
         } catch (Exception e) {
+            System.out.print(e);
             return REDIRECT_ADD_ERROR;
         }
     }
@@ -94,7 +95,7 @@ public class DetailReceiptExportController {
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
-        model.addAttribute("list_receipt_export", this.receipExportService.getList());
+        model.addAttribute("list_receipt_export", this.receiptExportService.getList());
         model.addAttribute("list_product", this.productService.getList());
         return FORM;
     }
@@ -106,6 +107,7 @@ public class DetailReceiptExportController {
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
         } catch (Exception e) {
+            System.out.print(e);
             return String.format(REDIRECT_UPDATE_ERROR, o.getId());
         }
     }
