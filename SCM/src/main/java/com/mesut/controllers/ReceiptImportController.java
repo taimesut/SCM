@@ -4,20 +4,17 @@
  */
 package com.mesut.controllers;
 
-import com.mesut.pojo.Inventory;
-import com.mesut.services.InventoryService;
-import com.mesut.services.ProductService;
-import com.mesut.services.WarehouseService;
+import com.mesut.pojo.DeliverySchedule;
+import com.mesut.pojo.ReceiptImport;
+import com.mesut.services.DeliveryScheduleService;
+import com.mesut.services.ReceiptImportService;
+import com.mesut.services.UserService;
 import com.mesut.utils.PrefixUrl;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,10 +24,10 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author THANHTAIPC
  */
 @Controller
-public class InventoryController {
+public class ReceiptImportController {
 
     // Đổi
-    private static final String NAME = "inventory";
+    private static final String NAME = "receipt-import";
 
     // Không Đụng
     private static final String PREFIX_URL = PrefixUrl.PREFIX_URL;
@@ -56,12 +53,10 @@ public class InventoryController {
 
 //    Đổi Service
     @Autowired
-    private InventoryService mainService;
+    private ReceiptImportService mainService;
 
     @Autowired
-    private ProductService productService;
-    @Autowired
-    private WarehouseService warehouseService;
+    private UserService userService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -71,20 +66,18 @@ public class InventoryController {
     }
 
     @GetMapping(URL_ADD_VIEW)
-    public String addView(Model model) {
+    public String addView(Model model, Authentication authentication) {
         // Đổi class
-        model.addAttribute("object", new Inventory());
+        model.addAttribute("object", new ReceiptImport());
         model.addAttribute("name", NAME);
-        model.addAttribute("list_product", this.productService.getList());
-        model.addAttribute("list_warehouse", this.warehouseService.getList());
-
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") Inventory o) {
+    public String addProcess(@ModelAttribute(value = "object") ReceiptImport o, Authentication authentication) {
         try {
+            o.setCreatorId(this.userService.getUserByUsername(authentication.getName()));
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
         } catch (Exception e) {
@@ -96,15 +89,14 @@ public class InventoryController {
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
-        model.addAttribute("list_product", this.productService.getList());
-        model.addAttribute("list_warehouse", this.warehouseService.getList());
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_UPDATE_PROCESS)
-    public String updateProcess(@ModelAttribute(value = "object") Inventory o) {
+    public String updateProcess(@ModelAttribute(value = "object") ReceiptImport o, Authentication authentication) {
         try {
+            o.setCreatorId(this.userService.getUserByUsername(authentication.getName()));
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
         } catch (Exception e) {
@@ -121,6 +113,4 @@ public class InventoryController {
             return REDIRECT_DELETE_ERROR;
         }
     }
-
-    
 }

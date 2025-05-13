@@ -4,12 +4,12 @@
  */
 package com.mesut.repositories;
 
-import com.mesut.pojo.Receipt;
+import com.mesut.pojo.ReceiptImport;
 
 /**
  *
  * @author THANHTAIPC
  */
-public interface ReceiptRepository extends GenericRepository<Receipt>{
+public interface ReceiptImportRepository extends GenericRepository<ReceiptImport>{
     
 }

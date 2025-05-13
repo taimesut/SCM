@@ -34,6 +34,12 @@ import java.util.Set;
     @NamedQuery(name = "Warehouse.findByAddress", query = "SELECT w FROM Warehouse w WHERE w.address = :address")})
 public class Warehouse implements Serializable, Identifiable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -44,19 +50,14 @@ public class Warehouse implements Serializable, Identifiable {
     @Size(min = 1, max = 100)
     @Column(name = "address")
     private String address;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
+    private Set<ReceiptImport> receiptImportSet;
     @OneToMany(mappedBy = "warehouseId")
     private Set<LogInventory> logInventorySet;
-    @OneToMany(mappedBy = "warehouseId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
     private Set<Inventory> inventorySet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
-    private Set<Receipt> receiptSet;
+    private Set<ReceiptExport> receiptExportSet;
 
     public Warehouse() {
     }
@@ -71,7 +72,6 @@ public class Warehouse implements Serializable, Identifiable {
         this.address = address;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
@@ -80,6 +80,29 @@ public class Warehouse implements Serializable, Identifiable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Set<ReceiptImport> getReceiptImportSet() {
+        return receiptImportSet;
+    }
+
+    public void setReceiptImportSet(Set<ReceiptImport> receiptImportSet) {
+        this.receiptImportSet = receiptImportSet;
+    }
 
     public Set<LogInventory> getLogInventorySet() {
         return logInventorySet;
@@ -97,12 +120,12 @@ public class Warehouse implements Serializable, Identifiable {
         this.inventorySet = inventorySet;
     }
 
-    public Set<Receipt> getReceiptSet() {
-        return receiptSet;
+    public Set<ReceiptExport> getReceiptExportSet() {
+        return receiptExportSet;
     }
 
-    public void setReceiptSet(Set<Receipt> receiptSet) {
-        this.receiptSet = receiptSet;
+    public void setReceiptExportSet(Set<ReceiptExport> receiptExportSet) {
+        this.receiptExportSet = receiptExportSet;
     }
 
     @Override
@@ -128,22 +151,6 @@ public class Warehouse implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.Warehouse[ id=" + id + " ]";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
     
 }

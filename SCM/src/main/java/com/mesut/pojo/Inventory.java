@@ -36,12 +36,6 @@ import java.util.Date;
     @NamedQuery(name = "Inventory.findByUpdateDate", query = "SELECT i FROM Inventory i WHERE i.updateDate = :updateDate")})
 public class Inventory implements Serializable, Identifiable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "update_date")
-    @Temporal(TemporalType.DATE)
-    private Date updateDate;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,11 +47,16 @@ public class Inventory implements Serializable, Identifiable {
     @Column(name = "use_date")
     @Temporal(TemporalType.DATE)
     private Date useDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "update_date")
+    @Temporal(TemporalType.DATE)
+    private Date updateDate;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Product productId;
     @JoinColumn(name = "warehouse_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Warehouse warehouseId;
 
     public Inventory() {
@@ -72,7 +71,6 @@ public class Inventory implements Serializable, Identifiable {
         this.updateDate = updateDate;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
@@ -145,7 +143,5 @@ public class Inventory implements Serializable, Identifiable {
     public String toString() {
         return "com.mesut.pojo.Inventory[ id=" + id + " ]";
     }
-
-
     
 }

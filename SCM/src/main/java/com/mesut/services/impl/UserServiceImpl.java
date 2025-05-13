@@ -17,8 +17,10 @@ import java.util.Set;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -90,5 +92,13 @@ public class UserServiceImpl implements UserService {
     public boolean authenticate(String username, String password) {
         return this.userRepo.authenticate(username, password);
     }
-
+    
+    @Override
+    public String getCurrentUsername() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            return auth.getName();
+        }
+        return null;
+    }
 }

@@ -4,8 +4,10 @@
  */
 package com.mesut.controllers;
 
-import com.mesut.pojo.DetailReceipt;
-import com.mesut.services.DetailReceiptService;
+import com.mesut.pojo.DeliverySchedule;
+import com.mesut.pojo.DetailReceiptExport;
+import com.mesut.services.DeliveryScheduleService;
+import com.mesut.services.DetailReceiptExportService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author THANHTAIPC
  */
 @Controller
-public class DetailReceiptController {
+public class DetailReceiptExportController {
     // Đổi
-    private static final String NAME = "detail-receipt";
+    private static final String NAME = "detail-receipt-export";
 
     // Không Đụng
     private static final String PREFIX_URL = PrefixUrl.PREFIX_URL;
@@ -48,7 +50,7 @@ public class DetailReceiptController {
 
 //    Đổi Service
     @Autowired
-    private DetailReceiptService mainService;
+    private DetailReceiptExportService mainService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -60,14 +62,14 @@ public class DetailReceiptController {
     @GetMapping(URL_ADD_VIEW)
     public String addView(Model model) {
         // Đổi class
-        model.addAttribute("object", new DetailReceipt());
+        model.addAttribute("object", new DetailReceiptExport());
         model.addAttribute("name", NAME);
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") DetailReceipt o) {
+    public String addProcess(@ModelAttribute(value = "object") DetailReceiptExport o) {
         try {
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
@@ -85,7 +87,7 @@ public class DetailReceiptController {
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_UPDATE_PROCESS)
-    public String updateProcess(@ModelAttribute(value = "object") DetailReceipt o) {
+    public String updateProcess(@ModelAttribute(value = "object") DetailReceiptExport o) {
         try {
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());

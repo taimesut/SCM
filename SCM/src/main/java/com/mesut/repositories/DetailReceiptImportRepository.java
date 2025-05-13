@@ -2,13 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.mesut.utils;
+package com.mesut.repositories;
+
+import com.mesut.pojo.DetailReceiptImport;
 
 /**
  *
  * @author THANHTAIPC
  */
-public interface Identifiable {
-    Integer getId();
-    void setId(Integer id);
+public interface DetailReceiptImportRepository extends GenericRepository<DetailReceiptImport>{
+    
+    
 }

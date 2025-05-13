@@ -4,12 +4,12 @@
  */
 package com.mesut.services;
 
-import com.mesut.pojo.Invoice;
+import com.mesut.pojo.DetailReceiptExport;
 
 /**
  *
  * @author THANHTAIPC
  */
-public interface InvoiceService extends GenericService<Invoice>{
+public interface DetailReceiptExportService extends GenericService<DetailReceiptExport>{
     
 }

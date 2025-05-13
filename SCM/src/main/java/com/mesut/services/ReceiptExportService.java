@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.mesut.repositories;
+package com.mesut.services;
 
-import com.mesut.pojo.Invoice;
+import com.mesut.pojo.ReceiptExport;
 
 /**
  *
  * @author THANHTAIPC
  */
-public interface InvoiceRepository extends GenericRepository<Invoice>{
+public interface ReceiptExportService extends GenericService<ReceiptExport>{
     
 }

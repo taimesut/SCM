@@ -34,16 +34,8 @@ import java.util.Date;
     @NamedQuery(name = "DeliverySchedule.findByExpectedDate", query = "SELECT d FROM DeliverySchedule d WHERE d.expectedDate = :expectedDate"),
     @NamedQuery(name = "DeliverySchedule.findByActualDate", query = "SELECT d FROM DeliverySchedule d WHERE d.actualDate = :actualDate"),
     @NamedQuery(name = "DeliverySchedule.findByCreateDate", query = "SELECT d FROM DeliverySchedule d WHERE d.createDate = :createDate"),
-    @NamedQuery(name = "DeliverySchedule.findByTypeShipment", query = "SELECT d FROM DeliverySchedule d WHERE d.typeShipment = :typeShipment"),
     @NamedQuery(name = "DeliverySchedule.findByNote", query = "SELECT d FROM DeliverySchedule d WHERE d.note = :note")})
 public class DeliverySchedule implements Serializable, Identifiable {
-
-    @Size(max = 100)
-    @Column(name = "type_shipment")
-    private String typeShipment;
-    @Size(max = 255)
-    @Column(name = "note")
-    private String note;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,11 +52,14 @@ public class DeliverySchedule implements Serializable, Identifiable {
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
-    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
-    @ManyToOne
-    private Receipt receiptId;
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
+    @JoinColumn(name = "shipment_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Shipment shipmentId;
     @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private ShipmentCompany shipmentCompanyId;
 
     public DeliverySchedule() {
@@ -74,7 +69,6 @@ public class DeliverySchedule implements Serializable, Identifiable {
         this.id = id;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
@@ -107,21 +101,20 @@ public class DeliverySchedule implements Serializable, Identifiable {
         this.createDate = createDate;
     }
 
-    public String getTypeShipment() {
-        return typeShipment;
+    public String getNote() {
+        return note;
     }
 
-    public void setTypeShipment(String typeShipment) {
-        this.typeShipment = typeShipment;
+    public void setNote(String note) {
+        this.note = note;
     }
 
-
-    public Receipt getReceiptId() {
-        return receiptId;
+    public Shipment getShipmentId() {
+        return shipmentId;
     }
 
-    public void setReceiptId(Receipt receiptId) {
-        this.receiptId = receiptId;
+    public void setShipmentId(Shipment shipmentId) {
+        this.shipmentId = shipmentId;
     }
 
     public ShipmentCompany getShipmentCompanyId() {
@@ -155,15 +148,6 @@ public class DeliverySchedule implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.DeliverySchedule[ id=" + id + " ]";
-    }
-
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
     
 }

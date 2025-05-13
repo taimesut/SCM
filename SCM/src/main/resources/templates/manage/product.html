@@ -28,7 +28,8 @@
                 <tr>
                     <th>Id</th>
                     <th>Tên</th>
-                                        <th>Ảnh</th>
+                                        <!--<th>Ảnh</th>-->
+                    <th>Nhà cung cấp</th>
 
                     <th>Giá</th>
                     <th>Danh mục</th>
@@ -41,9 +42,11 @@
 
                     <td th:text="${i.id}"></td>
                     <td th:text="${i.name}"></td>
-                    <td>
+                                        <td th:text="${i.supplierId.name}"></td>
+
+<!--                    <td>
                         <img th:src="${i.image}" width="200"/>
-                    </td>
+                    </td>-->
 
                     <td th:text="${i.price}"></td>
                     <td th:text="${i.categoryId.name}"></td>

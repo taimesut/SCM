@@ -27,7 +27,11 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Tên</th>
+                    <th>Nhà cung cấp</th>
+                    <th>Người tạo</th>
+                    <th>Kho</th>
+                    <th>Ngày tạo</th>
+                    <th>Ghi chú</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -35,7 +39,12 @@
                 <tr th:each="i : ${list}">
 
                     <td th:text="${i.id}"></td>
-                    <td th:text="${i.name}"></td>
+                    <td th:text="${i.supplierId.name}"></td>
+                    <td th:text="${i.creatorId.name}"></td>
+                    <td th:text="${i.warehouseId.name}"></td>
+                    <td th:text="${i.createDate}"></td>
+                    <td th:text="${i.note}"></td>
+
 
                     <td>
                         <a th:href="@{${g_prefix + '/' + name + '/' + i.id}}" class="btn btn-info" th:utext="${g_icons['update']}"></a>

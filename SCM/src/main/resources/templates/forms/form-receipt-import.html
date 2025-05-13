@@ -31,29 +31,25 @@
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
-
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Sản phẩm</span>
-                <select class="form-select" th:field="*{productId}">
-                    <option th:each="c:${list_product}" th:value="${c.id}" th:text="${c.name}"></option>
+                <span class="input-group-text">Nhà cung cấp</span>
+                <select class="form-select" th:field="*{supplierId}">
+                    <option th:each="c:${g_list_supplier}" th:value="${c.id}" th:text="${c.name}"></option>
                 </select>
-                <a th:href="@{${g_prefix + '/' + 'product' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
+                <a th:href="@{${g_prefix + '/' + 'supplier' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Kho</span>
                 <select class="form-select" th:field="*{warehouseId}">
-                    <option th:each="c:${list_warehouse}" th:value="${c.id}" th:text="${c.name}"></option>
+                    <option th:each="c:${g_list_warehouse}" th:value="${c.id}" th:text="${c.name}"></option>
                 </select>
                 <a th:href="@{${g_prefix + '/' + 'warehouse' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Số lượng</span>
-                <input type="number" class="form-control" th:field="*{amount}" required min=0 step=1/>
+                <span class="input-group-text">Ghi chú</span>
+                <input type="text" class="form-control" th:field="*{note}" />
             </div>
-            <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Hạn sử dụng</span>
-                <input type="date" class="form-control" th:field="*{useDate}"/>
-            </div>
+
             <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>
         </form>
 

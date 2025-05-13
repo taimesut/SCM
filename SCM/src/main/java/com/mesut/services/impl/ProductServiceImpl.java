@@ -24,15 +24,15 @@ public class ProductServiceImpl extends GenericServiceImpl<Product> implements P
     
     @Override
     public Product addOrUpdate(Product c) {
-        if (!c.getFile().isEmpty()) {
-            try {
-                Map res = cloudinary.uploader().upload(c.getFile().getBytes(),
-                        ObjectUtils.asMap("resource_type", "auto"));
-                c.setImage(res.get("secure_url").toString());
-            } catch (IOException ex) {
-                Logger.getLogger(ProductServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        if (!c.getFile().isEmpty()) {
+//            try {
+//                Map res = cloudinary.uploader().upload(c.getFile().getBytes(),
+//                        ObjectUtils.asMap("resource_type", "auto"));
+//                c.setImage(res.get("secure_url").toString());
+//            } catch (IOException ex) {
+//                Logger.getLogger(ProductServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 

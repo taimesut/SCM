@@ -6,6 +6,7 @@ package com.mesut.pojo;
 
 import com.mesut.utils.Identifiable;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,19 +33,18 @@ import java.util.Set;
     @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")})
 public class Category implements Serializable, Identifiable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "name")
-    private String name;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @OneToMany(mappedBy = "categoryId")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "name")
+    private String name;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     private Set<Product> productSet;
 
     public Category() {
@@ -59,7 +59,6 @@ public class Category implements Serializable, Identifiable {
         this.name = name;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
@@ -68,6 +67,13 @@ public class Category implements Serializable, Identifiable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Set<Product> getProductSet() {
         return productSet;
@@ -101,13 +107,5 @@ public class Category implements Serializable, Identifiable {
     public String toString() {
         return "com.mesut.pojo.Category[ id=" + id + " ]";
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    
 }

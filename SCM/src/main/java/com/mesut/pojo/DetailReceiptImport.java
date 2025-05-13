@@ -24,14 +24,20 @@ import java.io.Serializable;
  * @author THANHTAIPC
  */
 @Entity
-@Table(name = "detail_receipt")
+@Table(name = "detail_receipt_import")
 @NamedQueries({
-    @NamedQuery(name = "DetailReceipt.findAll", query = "SELECT d FROM DetailReceipt d"),
-    @NamedQuery(name = "DetailReceipt.findById", query = "SELECT d FROM DetailReceipt d WHERE d.id = :id"),
-    @NamedQuery(name = "DetailReceipt.findByAmount", query = "SELECT d FROM DetailReceipt d WHERE d.amount = :amount"),
-    @NamedQuery(name = "DetailReceipt.findByPrice", query = "SELECT d FROM DetailReceipt d WHERE d.price = :price")})
-public class DetailReceipt implements Serializable, Identifiable {
+    @NamedQuery(name = "DetailReceiptImport.findAll", query = "SELECT d FROM DetailReceiptImport d"),
+    @NamedQuery(name = "DetailReceiptImport.findById", query = "SELECT d FROM DetailReceiptImport d WHERE d.id = :id"),
+    @NamedQuery(name = "DetailReceiptImport.findByAmount", query = "SELECT d FROM DetailReceiptImport d WHERE d.amount = :amount"),
+    @NamedQuery(name = "DetailReceiptImport.findByPrice", query = "SELECT d FROM DetailReceiptImport d WHERE d.price = :price")})
+public class DetailReceiptImport implements Serializable, Identifiable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "amount")
@@ -40,37 +46,29 @@ public class DetailReceipt implements Serializable, Identifiable {
     @NotNull
     @Column(name = "price")
     private int price;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne
     private Product productId;
     @JoinColumn(name = "purpose_id", referencedColumnName = "id")
     @ManyToOne
     private Purpose purposeId;
-    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
+    @JoinColumn(name = "receipt_import_id", referencedColumnName = "id")
     @ManyToOne
-    private Receipt receiptId;
+    private ReceiptImport receiptImportId;
 
-    public DetailReceipt() {
+    public DetailReceiptImport() {
     }
 
-    public DetailReceipt(Integer id) {
+    public DetailReceiptImport(Integer id) {
         this.id = id;
     }
 
-    public DetailReceipt(Integer id, int amount, int price) {
+    public DetailReceiptImport(Integer id, int amount, int price) {
         this.id = id;
         this.amount = amount;
         this.price = price;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
@@ -79,6 +77,21 @@ public class DetailReceipt implements Serializable, Identifiable {
         this.id = id;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public Product getProductId() {
         return productId;
@@ -96,12 +109,12 @@ public class DetailReceipt implements Serializable, Identifiable {
         this.purposeId = purposeId;
     }
 
-    public Receipt getReceiptId() {
-        return receiptId;
+    public ReceiptImport getReceiptImportId() {
+        return receiptImportId;
     }
 
-    public void setReceiptId(Receipt receiptId) {
-        this.receiptId = receiptId;
+    public void setReceiptImportId(ReceiptImport receiptImportId) {
+        this.receiptImportId = receiptImportId;
     }
 
     @Override
@@ -114,10 +127,10 @@ public class DetailReceipt implements Serializable, Identifiable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DetailReceipt)) {
+        if (!(object instanceof DetailReceiptImport)) {
             return false;
         }
-        DetailReceipt other = (DetailReceipt) object;
+        DetailReceiptImport other = (DetailReceiptImport) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -126,23 +139,7 @@ public class DetailReceipt implements Serializable, Identifiable {
 
     @Override
     public String toString() {
-        return "com.mesut.pojo.DetailReceipt[ id=" + id + " ]";
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+        return "com.mesut.pojo.DetailReceiptImport[ id=" + id + " ]";
     }
     
 }

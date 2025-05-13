@@ -6,6 +6,7 @@ package com.mesut.pojo;
 
 import com.mesut.utils.Identifiable;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +36,12 @@ import java.util.Set;
     @NamedQuery(name = "Supplier.findByAddress", query = "SELECT s FROM Supplier s WHERE s.address = :address")})
 public class Supplier implements Serializable, Identifiable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 100)
     @Column(name = "email")
@@ -53,13 +60,10 @@ public class Supplier implements Serializable, Identifiable {
     @Size(min = 1, max = 100)
     @Column(name = "address")
     private String address;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
+    @OneToMany(mappedBy = "supplierId")
+    private Set<ReceiptImport> receiptImportSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
+    private Set<Product> productSet;
     @OneToMany(mappedBy = "supplierId")
     private Set<ReviewSupplier> reviewSupplierSet;
 
@@ -76,47 +80,12 @@ public class Supplier implements Serializable, Identifiable {
         this.address = address;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-
-    public Set<ReviewSupplier> getReviewSupplierSet() {
-        return reviewSupplierSet;
-    }
-
-    public void setReviewSupplierSet(Set<ReviewSupplier> reviewSupplierSet) {
-        this.reviewSupplierSet = reviewSupplierSet;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Supplier)) {
-            return false;
-        }
-        Supplier other = (Supplier) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mesut.pojo.Supplier[ id=" + id + " ]";
     }
 
     public String getEmail() {
@@ -149,6 +118,55 @@ public class Supplier implements Serializable, Identifiable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Set<ReceiptImport> getReceiptImportSet() {
+        return receiptImportSet;
+    }
+
+    public void setReceiptImportSet(Set<ReceiptImport> receiptImportSet) {
+        this.receiptImportSet = receiptImportSet;
+    }
+
+    public Set<Product> getProductSet() {
+        return productSet;
+    }
+
+    public void setProductSet(Set<Product> productSet) {
+        this.productSet = productSet;
+    }
+
+    public Set<ReviewSupplier> getReviewSupplierSet() {
+        return reviewSupplierSet;
+    }
+
+    public void setReviewSupplierSet(Set<ReviewSupplier> reviewSupplierSet) {
+        this.reviewSupplierSet = reviewSupplierSet;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Supplier)) {
+            return false;
+        }
+        Supplier other = (Supplier) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.mesut.pojo.Supplier[ id=" + id + " ]";
     }
     
 }

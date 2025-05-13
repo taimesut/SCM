@@ -34,25 +34,24 @@ import java.io.Serializable;
     @NamedQuery(name = "ReviewSupplier.findBySupport", query = "SELECT r FROM ReviewSupplier r WHERE r.support = :support")})
 public class ReviewSupplier implements Serializable, Identifiable {
 
-    @Size(max = 255)
-    @Column(name = "note")
-    private String note;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
     @Column(name = "price")
     private Integer price;
     @Column(name = "quality")
     private Integer quality;
     @Column(name = "support")
     private Integer support;
-    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
+    @JoinColumn(name = "receipt_import_id", referencedColumnName = "id")
     @ManyToOne
-    private Receipt receiptId;
+    private ReceiptImport receiptImportId;
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     @ManyToOne
     private Supplier supplierId;
@@ -64,7 +63,6 @@ public class ReviewSupplier implements Serializable, Identifiable {
         this.id = id;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
@@ -73,6 +71,13 @@ public class ReviewSupplier implements Serializable, Identifiable {
         this.id = id;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     public Integer getPrice() {
         return price;
@@ -98,12 +103,12 @@ public class ReviewSupplier implements Serializable, Identifiable {
         this.support = support;
     }
 
-    public Receipt getReceiptId() {
-        return receiptId;
+    public ReceiptImport getReceiptImportId() {
+        return receiptImportId;
     }
 
-    public void setReceiptId(Receipt receiptId) {
-        this.receiptId = receiptId;
+    public void setReceiptImportId(ReceiptImport receiptImportId) {
+        this.receiptImportId = receiptImportId;
     }
 
     public Supplier getSupplierId() {
@@ -137,14 +142,6 @@ public class ReviewSupplier implements Serializable, Identifiable {
     @Override
     public String toString() {
         return "com.mesut.pojo.ReviewSupplier[ id=" + id + " ]";
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
     
 }

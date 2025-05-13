@@ -6,6 +6,7 @@ package com.mesut.pojo;
 
 import com.mesut.utils.Identifiable;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,12 +18,10 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -36,9 +35,16 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name"),
     @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
     @NamedQuery(name = "Product.findByIsActive", query = "SELECT p FROM Product p WHERE p.isActive = :isActive"),
+    @NamedQuery(name = "Product.findByImage", query = "SELECT p FROM Product p WHERE p.image = :image"),
     @NamedQuery(name = "Product.findByNote", query = "SELECT p FROM Product p WHERE p.note = :note")})
 public class Product implements Serializable, Identifiable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -48,32 +54,28 @@ public class Product implements Serializable, Identifiable {
     @NotNull
     @Column(name = "price")
     private int price;
+    @Column(name = "is_active")
+    private Boolean isActive;
     @Size(max = 255)
     @Column(name = "image")
     private String image;
     @Size(max = 255)
     @Column(name = "note")
     private String note;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Column(name = "is_active")
-    private Boolean isActive;
-    @OneToMany(mappedBy = "productId")
-    private Set<DetailReceipt> detailReceiptSet;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Category categoryId;
+    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Supplier supplierId;
+    @OneToMany(mappedBy = "productId")
+    private Set<DetailReceiptExport> detailReceiptExportSet;
     @OneToMany(mappedBy = "productId")
     private Set<LogInventory> logInventorySet;
-    @OneToMany(mappedBy = "productId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Set<Inventory> inventorySet;
-    @Transient
-    private MultipartFile file;
+    @OneToMany(mappedBy = "productId")
+    private Set<DetailReceiptImport> detailReceiptImportSet;
 
     public Product() {
     }
@@ -88,7 +90,6 @@ public class Product implements Serializable, Identifiable {
         this.price = price;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
@@ -97,6 +98,21 @@ public class Product implements Serializable, Identifiable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public Boolean getIsActive() {
         return isActive;
@@ -106,13 +122,20 @@ public class Product implements Serializable, Identifiable {
         this.isActive = isActive;
     }
 
-
-    public Set<DetailReceipt> getDetailReceiptSet() {
-        return detailReceiptSet;
+    public String getImage() {
+        return image;
     }
 
-    public void setDetailReceiptSet(Set<DetailReceipt> detailReceiptSet) {
-        this.detailReceiptSet = detailReceiptSet;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public Category getCategoryId() {
@@ -121,6 +144,22 @@ public class Product implements Serializable, Identifiable {
 
     public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Supplier getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Supplier supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public Set<DetailReceiptExport> getDetailReceiptExportSet() {
+        return detailReceiptExportSet;
+    }
+
+    public void setDetailReceiptExportSet(Set<DetailReceiptExport> detailReceiptExportSet) {
+        this.detailReceiptExportSet = detailReceiptExportSet;
     }
 
     public Set<LogInventory> getLogInventorySet() {
@@ -137,6 +176,14 @@ public class Product implements Serializable, Identifiable {
 
     public void setInventorySet(Set<Inventory> inventorySet) {
         this.inventorySet = inventorySet;
+    }
+
+    public Set<DetailReceiptImport> getDetailReceiptImportSet() {
+        return detailReceiptImportSet;
+    }
+
+    public void setDetailReceiptImportSet(Set<DetailReceiptImport> detailReceiptImportSet) {
+        this.detailReceiptImportSet = detailReceiptImportSet;
     }
 
     @Override
@@ -163,51 +210,5 @@ public class Product implements Serializable, Identifiable {
     public String toString() {
         return "com.mesut.pojo.Product[ id=" + id + " ]";
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-
+    
 }

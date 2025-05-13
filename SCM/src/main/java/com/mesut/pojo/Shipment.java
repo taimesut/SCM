@@ -6,6 +6,7 @@ package com.mesut.pojo;
 
 import com.mesut.utils.Identifiable;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,16 +36,8 @@ import java.util.Set;
     @NamedQuery(name = "Shipment.findById", query = "SELECT s FROM Shipment s WHERE s.id = :id"),
     @NamedQuery(name = "Shipment.findByExportDate", query = "SELECT s FROM Shipment s WHERE s.exportDate = :exportDate"),
     @NamedQuery(name = "Shipment.findByShipDate", query = "SELECT s FROM Shipment s WHERE s.shipDate = :shipDate"),
-    @NamedQuery(name = "Shipment.findByTypeShipment", query = "SELECT s FROM Shipment s WHERE s.typeShipment = :typeShipment"),
     @NamedQuery(name = "Shipment.findByNote", query = "SELECT s FROM Shipment s WHERE s.note = :note")})
 public class Shipment implements Serializable, Identifiable {
-
-    @Size(max = 100)
-    @Column(name = "type_shipment")
-    private String typeShipment;
-    @Size(max = 255)
-    @Column(name = "note")
-    private String note;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,12 +51,17 @@ public class Shipment implements Serializable, Identifiable {
     @Column(name = "ship_date")
     @Temporal(TemporalType.DATE)
     private Date shipDate;
-    @JoinColumn(name = "receipt_id", referencedColumnName = "id")
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
+    @JoinColumn(name = "receipt_export_id", referencedColumnName = "id")
     @ManyToOne
-    private Receipt receiptId;
+    private ReceiptExport receiptExportId;
     @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
     @ManyToOne
     private ShipmentCompany shipmentCompanyId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipmentId")
+    private Set<DeliverySchedule> deliveryScheduleSet;
     @OneToMany(mappedBy = "shipmentId")
     private Set<ReviewShipmentCompany> reviewShipmentCompanySet;
 
@@ -74,7 +72,6 @@ public class Shipment implements Serializable, Identifiable {
         this.id = id;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
@@ -99,20 +96,20 @@ public class Shipment implements Serializable, Identifiable {
         this.shipDate = shipDate;
     }
 
-    public String getTypeShipment() {
-        return typeShipment;
+    public String getNote() {
+        return note;
     }
 
-    public void setTypeShipment(String typeShipment) {
-        this.typeShipment = typeShipment;
+    public void setNote(String note) {
+        this.note = note;
     }
 
-    public Receipt getReceiptId() {
-        return receiptId;
+    public ReceiptExport getReceiptExportId() {
+        return receiptExportId;
     }
 
-    public void setReceiptId(Receipt receiptId) {
-        this.receiptId = receiptId;
+    public void setReceiptExportId(ReceiptExport receiptExportId) {
+        this.receiptExportId = receiptExportId;
     }
 
     public ShipmentCompany getShipmentCompanyId() {
@@ -121,6 +118,14 @@ public class Shipment implements Serializable, Identifiable {
 
     public void setShipmentCompanyId(ShipmentCompany shipmentCompanyId) {
         this.shipmentCompanyId = shipmentCompanyId;
+    }
+
+    public Set<DeliverySchedule> getDeliveryScheduleSet() {
+        return deliveryScheduleSet;
+    }
+
+    public void setDeliveryScheduleSet(Set<DeliverySchedule> deliveryScheduleSet) {
+        this.deliveryScheduleSet = deliveryScheduleSet;
     }
 
     public Set<ReviewShipmentCompany> getReviewShipmentCompanySet() {
@@ -155,15 +160,5 @@ public class Shipment implements Serializable, Identifiable {
     public String toString() {
         return "com.mesut.pojo.Shipment[ id=" + id + " ]";
     }
-
-
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
+    
 }

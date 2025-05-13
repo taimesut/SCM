@@ -4,8 +4,10 @@
  */
 package com.mesut.controllers;
 
-import com.mesut.pojo.Invoice;
-import com.mesut.services.InvoiceService;
+import com.mesut.pojo.DeliverySchedule;
+import com.mesut.pojo.ReceiptExport;
+import com.mesut.services.DeliveryScheduleService;
+import com.mesut.services.ReceiptExportService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author THANHTAIPC
  */
 @Controller
-public class InvoiceController {
+public class ReceiptExportController {
     // Đổi
-    private static final String NAME = "invoice";
+    private static final String NAME = "receipt-export";
 
     // Không Đụng
     private static final String PREFIX_URL = PrefixUrl.PREFIX_URL;
@@ -48,7 +50,7 @@ public class InvoiceController {
 
 //    Đổi Service
     @Autowired
-    private InvoiceService mainService;
+    private ReceiptExportService mainService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -60,14 +62,14 @@ public class InvoiceController {
     @GetMapping(URL_ADD_VIEW)
     public String addView(Model model) {
         // Đổi class
-        model.addAttribute("object", new Invoice());
+        model.addAttribute("object", new ReceiptExport());
         model.addAttribute("name", NAME);
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") Invoice o) {
+    public String addProcess(@ModelAttribute(value = "object") ReceiptExport o) {
         try {
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
@@ -85,7 +87,7 @@ public class InvoiceController {
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_UPDATE_PROCESS)
-    public String updateProcess(@ModelAttribute(value = "object") Invoice o) {
+    public String updateProcess(@ModelAttribute(value = "object") ReceiptExport o) {
         try {
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());

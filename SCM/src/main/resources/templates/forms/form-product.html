@@ -37,19 +37,27 @@
                 <input type="text" class="form-control" th:field="*{name}" required/>
             </div>
             <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Nhà cung cấp</span>
+                <select class="form-select" th:field="*{supplierId}">
+                    <option th:each="c:${g_list_supplier}" th:value="${c.id}" th:text="${c.name}"></option>
+                </select>
+                <a th:href="@{${g_prefix + '/' + 'supplier' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
+            </div>
+            <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Giá</span>
                 <input type="number" class="form-control" th:field="*{price}" required min=0 step=1/>
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Kho</span>
+                <span class="input-group-text">Danh mục</span>
                 <select class="form-select" th:field="*{categoryId}">
                     <option th:each="c:${g_list_category}" th:value="${c.id}" th:text="${c.name}"></option>
                 </select>
+                <a th:href="@{${g_prefix + '/' + 'category' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
-            <div class="input-group mb-3 mt-3">
+<!--            <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Ảnh</span>
                 <input type="file" class="form-control" th:field="*{file}" />
-            </div>
+            </div>-->
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Ghi chú</span>
                 <input type="text" class="form-control" th:field="*{note}" />

@@ -20,5 +20,9 @@
     <class>com.mesut.pojo.Inventory</class>
     <class>com.mesut.pojo.DetailReceipt</class>
     <class>com.mesut.pojo.Receipt</class>
+    <class>com.mesut.pojo.ReceiptImport</class>
+    <class>com.mesut.pojo.DetailReceiptExport</class>
+    <class>com.mesut.pojo.ReceiptExport</class>
+    <class>com.mesut.pojo.DetailReceiptImport</class>
   </persistence-unit>
 </persistence>

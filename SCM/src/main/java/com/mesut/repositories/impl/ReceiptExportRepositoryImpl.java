@@ -4,17 +4,19 @@
  */
 package com.mesut.repositories.impl;
 
-import com.mesut.pojo.Receipt;
-import com.mesut.repositories.ReceiptRepository;
+import com.mesut.pojo.ReceiptExport;
+import com.mesut.repositories.ReceiptExportRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class ReceiptRepositoryImpl extends GenericRepositoryImpl<Receipt> implements ReceiptRepository {
+public class ReceiptExportRepositoryImpl  extends GenericRepositoryImpl<ReceiptExport> implements ReceiptExportRepository {
 
-    public ReceiptRepositoryImpl() {
-        super(Receipt.class);
+    public ReceiptExportRepositoryImpl() {
+        super(ReceiptExport.class);
     }
 
+   
+    
 }

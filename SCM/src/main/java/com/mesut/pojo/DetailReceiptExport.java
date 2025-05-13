@@ -16,24 +16,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
  * @author THANHTAIPC
  */
 @Entity
-@Table(name = "log_inventory")
+@Table(name = "detail_receipt_export")
 @NamedQueries({
-    @NamedQuery(name = "LogInventory.findAll", query = "SELECT l FROM LogInventory l"),
-    @NamedQuery(name = "LogInventory.findById", query = "SELECT l FROM LogInventory l WHERE l.id = :id"),
-    @NamedQuery(name = "LogInventory.findByAmount", query = "SELECT l FROM LogInventory l WHERE l.amount = :amount"),
-    @NamedQuery(name = "LogInventory.findByPrice", query = "SELECT l FROM LogInventory l WHERE l.price = :price"),
-    @NamedQuery(name = "LogInventory.findByCreateDate", query = "SELECT l FROM LogInventory l WHERE l.createDate = :createDate")})
-public class LogInventory implements Serializable, Identifiable {
+    @NamedQuery(name = "DetailReceiptExport.findAll", query = "SELECT d FROM DetailReceiptExport d"),
+    @NamedQuery(name = "DetailReceiptExport.findById", query = "SELECT d FROM DetailReceiptExport d WHERE d.id = :id"),
+    @NamedQuery(name = "DetailReceiptExport.findByAmount", query = "SELECT d FROM DetailReceiptExport d WHERE d.amount = :amount"),
+    @NamedQuery(name = "DetailReceiptExport.findByPrice", query = "SELECT d FROM DetailReceiptExport d WHERE d.price = :price")})
+public class DetailReceiptExport implements Serializable, Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,31 +38,35 @@ public class LogInventory implements Serializable, Identifiable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "amount")
-    private Integer amount;
+    private int amount;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "price")
-    private Integer price;
-    @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
+    private int price;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne
     private Product productId;
+    @JoinColumn(name = "purpose_id", referencedColumnName = "id")
+    @ManyToOne
+    private Purpose purposeId;
     @JoinColumn(name = "receipt_export_id", referencedColumnName = "id")
     @ManyToOne
     private ReceiptExport receiptExportId;
-    @JoinColumn(name = "receipt_import_id", referencedColumnName = "id")
-    @ManyToOne
-    private ReceiptImport receiptImportId;
-    @JoinColumn(name = "warehouse_id", referencedColumnName = "id")
-    @ManyToOne
-    private Warehouse warehouseId;
 
-    public LogInventory() {
+    public DetailReceiptExport() {
     }
 
-    public LogInventory(Integer id) {
+    public DetailReceiptExport(Integer id) {
         this.id = id;
+    }
+
+    public DetailReceiptExport(Integer id, int amount, int price) {
+        this.id = id;
+        this.amount = amount;
+        this.price = price;
     }
 
     public Integer getId() {
@@ -76,28 +77,20 @@ public class LogInventory implements Serializable, Identifiable {
         this.id = id;
     }
 
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(int price) {
         this.price = price;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public Product getProductId() {
@@ -108,28 +101,20 @@ public class LogInventory implements Serializable, Identifiable {
         this.productId = productId;
     }
 
+    public Purpose getPurposeId() {
+        return purposeId;
+    }
+
+    public void setPurposeId(Purpose purposeId) {
+        this.purposeId = purposeId;
+    }
+
     public ReceiptExport getReceiptExportId() {
         return receiptExportId;
     }
 
     public void setReceiptExportId(ReceiptExport receiptExportId) {
         this.receiptExportId = receiptExportId;
-    }
-
-    public ReceiptImport getReceiptImportId() {
-        return receiptImportId;
-    }
-
-    public void setReceiptImportId(ReceiptImport receiptImportId) {
-        this.receiptImportId = receiptImportId;
-    }
-
-    public Warehouse getWarehouseId() {
-        return warehouseId;
-    }
-
-    public void setWarehouseId(Warehouse warehouseId) {
-        this.warehouseId = warehouseId;
     }
 
     @Override
@@ -142,10 +127,10 @@ public class LogInventory implements Serializable, Identifiable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LogInventory)) {
+        if (!(object instanceof DetailReceiptExport)) {
             return false;
         }
-        LogInventory other = (LogInventory) object;
+        DetailReceiptExport other = (DetailReceiptExport) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -154,7 +139,7 @@ public class LogInventory implements Serializable, Identifiable {
 
     @Override
     public String toString() {
-        return "com.mesut.pojo.LogInventory[ id=" + id + " ]";
+        return "com.mesut.pojo.DetailReceiptExport[ id=" + id + " ]";
     }
     
 }

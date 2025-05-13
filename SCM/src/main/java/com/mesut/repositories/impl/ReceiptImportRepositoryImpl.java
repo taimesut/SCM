@@ -4,19 +4,19 @@
  */
 package com.mesut.repositories.impl;
 
-import com.mesut.pojo.DetailReceipt;
-import com.mesut.repositories.DetailReceiptRepository;
+import com.mesut.pojo.ReceiptImport;
+import com.mesut.repositories.ReceiptImportRepository;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class DetailReceiptRepositoryImpl extends GenericRepositoryImpl<DetailReceipt> implements DetailReceiptRepository {
+public class ReceiptImportRepositoryImpl extends GenericRepositoryImpl<ReceiptImport> implements ReceiptImportRepository {
 
-    public DetailReceiptRepositoryImpl() {
-        super(DetailReceipt.class);
+    public ReceiptImportRepositoryImpl() {
+        super(ReceiptImport.class);
     }
 
    
-    
 }

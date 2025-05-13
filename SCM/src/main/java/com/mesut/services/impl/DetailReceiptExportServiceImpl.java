@@ -4,17 +4,18 @@
  */
 package com.mesut.services.impl;
 
-import com.mesut.pojo.DetailReceipt;
-import com.mesut.repositories.DetailReceiptRepository;
-import com.mesut.services.DetailReceiptService;
+import com.mesut.pojo.DetailReceiptExport;
+import com.mesut.repositories.DetailReceiptExportRepository;
+import com.mesut.services.DetailReceiptExportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DetailReceiptServiceImpl extends GenericServiceImpl<DetailReceipt> implements DetailReceiptService {
+
+public class DetailReceiptExportServiceImpl extends GenericServiceImpl<DetailReceiptExport> implements DetailReceiptExportService {
 
     @Autowired
-    public DetailReceiptServiceImpl(DetailReceiptRepository repository) {
+    public DetailReceiptExportServiceImpl(DetailReceiptExportRepository repository) {
         super(repository);
     }
 
