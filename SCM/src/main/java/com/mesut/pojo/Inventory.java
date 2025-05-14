@@ -33,7 +33,15 @@ import java.util.Date;
     @NamedQuery(name = "Inventory.findByAmount", query = "SELECT i FROM Inventory i WHERE i.amount = :amount"),
     @NamedQuery(name = "Inventory.findByUseDate", query = "SELECT i FROM Inventory i WHERE i.useDate = :useDate"),
     @NamedQuery(name = "Inventory.findByUpdateDate", query = "SELECT i FROM Inventory i WHERE i.updateDate = :updateDate")})
-public class Inventory implements Serializable , Identifiable {
+public class Inventory implements Serializable, Identifiable {
+
+    public Integer getMin() {
+        return min;
+    }
+
+    public void setMin(Integer min) {
+        this.min = min;
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,6 +51,8 @@ public class Inventory implements Serializable , Identifiable {
     private Integer id;
     @Column(name = "amount")
     private Integer amount;
+    @Column(name = "min")
+    private Integer min;
     @Column(name = "use_date")
     @Temporal(TemporalType.DATE)
     private Date useDate;
@@ -135,5 +145,5 @@ public class Inventory implements Serializable , Identifiable {
     public String toString() {
         return "com.mesut.pojo.Inventory[ id=" + id + " ]";
     }
-    
+
 }

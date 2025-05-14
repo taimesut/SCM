@@ -20,6 +20,7 @@
 
         <!--Thay đổi-->
         <h1 class="text-center text-primary" th:text="${g_list_item_menu['/' + name]}"></h1>
+        <a th:href="@{${g_prefix + '/' + name + '/add'}}" class="btn btn-success mt-1">Thêm</a>     
 
         <!--Thay đổi-->
         <table class="table table-striped">
@@ -29,8 +30,11 @@
                     <th>Tên</th>
                     <th>Kho</th>
                     <th>Số lượng</th>
+                    <th>Hạn mức tồn</th>
                     <th>Hạn sử dụng</th>
                     <th>Cập nhật</th>
+                    <th>Thao tác</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -40,9 +44,17 @@
                     <td th:text="${i.productId.name}"></td>
                     <td th:text="${i.warehouseId.name}"></td>
                     <td th:text="${i.amount}"></td>
+                    <td th:text="${i.min}"></td>
                     <td th:text="${i.useDate}"></td>
                     <td th:text="${i.updateDate}"></td>
-
+                    <td>
+                        <a th:href="@{${g_prefix + '/' + name + '/' + i.id}}" class="btn btn-info" th:utext="${g_icons['update']}"></a>
+                        <a th:href="@{${g_prefix + '/' + name + '/delete/' + i.id}}" 
+                           class="btn btn-danger"
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa dữ liệu này?');"
+                           th:utext="${g_icons['delete']}">
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>

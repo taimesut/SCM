@@ -124,10 +124,12 @@ CREATE TABLE `inventory` (
 	`product_id` int not null,
 	`warehouse_id` int not null,
 	`amount` int CHECK (`amount` >= 0),
+	`min` int CHECK (`min` >= 0) default 100,
     `use_date` date,
     `update_date` date,
 	FOREIGN KEY (`product_id`) REFERENCES `product`(`id`),
-	FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse`(`id`)
+	FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse`(`id`),
+    unique(`product_id`,`warehouse_id`)
 );
 
 CREATE TABLE `log_inventory` (

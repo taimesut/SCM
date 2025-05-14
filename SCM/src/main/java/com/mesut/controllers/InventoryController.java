@@ -67,10 +67,58 @@ public class InventoryController {
     public String listView(Model model) {
         model.addAttribute("list", this.mainService.getList());
         model.addAttribute("name", NAME);
-        model.addAttribute("list_product", this.productService.getList());
-        model.addAttribute("list_warehouse", this.warehouseService.getList());
+
 
         return RETURN_LIST_VIEW;
     }
+    @GetMapping(URL_ADD_VIEW)
+    public String addView(Model model) {
+        // Đổi class
+        model.addAttribute("object", new Inventory());
+        model.addAttribute("name", NAME);
+        model.addAttribute("list_product", this.productService.getList());
+        model.addAttribute("list_warehouse", this.warehouseService.getList());
+        return FORM;
+    }
 
+    // Đổi class @ModelAttribute
+    @PostMapping(URL_ADD_PROCESS)
+    public String addProcess(@ModelAttribute(value = "object") Inventory o) {
+        try {
+            this.mainService.addOrUpdate(o);
+            return REDIRECT_ADD_SUCCESS;
+        } catch (Exception e) {
+            return REDIRECT_ADD_ERROR;
+        }
+    }
+
+    @GetMapping(URL_UPDATE_VIEW)
+    public String updateView(Model model, @PathVariable(value = "id") int id) {
+        model.addAttribute("object", this.mainService.getById(id));
+        model.addAttribute("name", NAME);
+        model.addAttribute("list_product", this.productService.getList());
+        model.addAttribute("list_warehouse", this.warehouseService.getList());
+        return FORM;
+    }
+
+    // Đổi class @ModelAttribute
+    @PostMapping(URL_UPDATE_PROCESS)
+    public String updateProcess(@ModelAttribute(value = "object") Inventory o) {
+        try {
+            this.mainService.addOrUpdate(o);
+            return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
+        } catch (Exception e) {
+            return String.format(REDIRECT_UPDATE_ERROR, o.getId());
+        }
+    }
+
+    @GetMapping(URL_DELETE_PROCESS)
+    public String deleteProcess(@PathVariable(value = "id") int id) {
+        try {
+            this.mainService.deleteById(id);
+            return REDIRECT_DELETE_SUCCESS;
+        } catch (Exception e) {
+            return REDIRECT_DELETE_ERROR;
+        }
+    }
 }
