@@ -27,7 +27,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAI
+ * @author THANHTAIPC
  */
 @Entity
 @Table(name = "receipt_export")
@@ -37,7 +37,7 @@ import java.util.Set;
     @NamedQuery(name = "ReceiptExport.findByCreateDate", query = "SELECT r FROM ReceiptExport r WHERE r.createDate = :createDate"),
     @NamedQuery(name = "ReceiptExport.findByStatus", query = "SELECT r FROM ReceiptExport r WHERE r.status = :status"),
     @NamedQuery(name = "ReceiptExport.findByNote", query = "SELECT r FROM ReceiptExport r WHERE r.note = :note")})
-public class ReceiptExport implements Serializable ,Identifiable{
+public class ReceiptExport implements Serializable , Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -70,7 +70,7 @@ public class ReceiptExport implements Serializable ,Identifiable{
     @ManyToOne(optional = false)
     private Warehouse warehouseId;
     @OneToOne(mappedBy = "receiptExportId")
-    private Invoice invoice;
+    private InvoiceExport invoiceExport;
 
     public ReceiptExport() {
     }
@@ -159,12 +159,12 @@ public class ReceiptExport implements Serializable ,Identifiable{
         this.warehouseId = warehouseId;
     }
 
-    public Invoice getInvoice() {
-        return invoice;
+    public InvoiceExport getInvoiceExport() {
+        return invoiceExport;
     }
 
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
+    public void setInvoiceExport(InvoiceExport invoiceExport) {
+        this.invoiceExport = invoiceExport;
     }
 
     @Override

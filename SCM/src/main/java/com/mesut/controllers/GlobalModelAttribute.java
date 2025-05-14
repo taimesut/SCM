@@ -42,6 +42,7 @@ public class GlobalModelAttribute {
         menu.put("/detail-receipt-export", "Chi tiết Phiếu xuất");// xong
         menu.put("/detail-receipt-import", "Chi tiết Phiếu nhập");// xong
         menu.put("/inventory", "Tồn kho");// xong
+        menu.put("/invoice-export", "Hóa đơn xuất");// xong
         menu.put("/log-inventory", "Lịch sử kho");
         menu.put("/product", "Sản phẩm");// xong
         menu.put("/receipt-export", "Phiếu xuất");// xong
@@ -58,7 +59,7 @@ public class GlobalModelAttribute {
     }
 
     private Map<String, String> getIcon() {
-        Map<String, String> menu = new LinkedHashMap<>(); // Giữ đúng thứ tự thêm vào
+        Map<String, String> menu = new LinkedHashMap<>();
         menu.put("update", "<i class='fa fa-wrench'></i>");
         menu.put("delete", "<i class='fa fa-trash'></i>");
         return menu;
@@ -66,23 +67,33 @@ public class GlobalModelAttribute {
 
     private List<String> getUserRole() {
         List<String> roles = new ArrayList<>();
-        // Giả sử bạn có một số vai trò cố định
         roles.add("ROLE_USER");
         roles.add("ROLE_ADMIN");
         return roles;
     }
 
+    private List<String> getPaymentMethod() {
+        List<String> roles = new ArrayList<>();
+        roles.add("Chuyển Khoản");
+        roles.add("Tiền mặt");
+        return roles;
+    }
+
+    private List<String> getStatusInvoice() {
+        List<String> roles = new ArrayList<>();
+        roles.add("Chưa thanh toán");
+        roles.add("Đã thanh toán");
+        return roles;
+    }
+
     @ModelAttribute
     public void addAttributes(Model model) {
-        model.addAttribute("g_list_category", this.categoryService.getList());
-        model.addAttribute("g_list_supplier", this.supplierService.getList());
-        model.addAttribute("g_list_warehouse", this.warehouseService.getList());
-        model.addAttribute("g_list_shipment_company", this.shipmentCompanyService.getList());
-
         model.addAttribute("g_list_item_menu", this.getItemMenu());
         model.addAttribute("g_prefix", PrefixUrl.PREFIX_URL);
         model.addAttribute("g_icons", this.getIcon());
         model.addAttribute("g_role", this.getUserRole());
+        model.addAttribute("g_status_invoice", this.getStatusInvoice());
+        model.addAttribute("g_payment_method", this.getPaymentMethod());
 
     }
 }

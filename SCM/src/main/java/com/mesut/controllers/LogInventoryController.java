@@ -52,10 +52,7 @@ public class LogInventoryController {
 //    Đổi Service
     @Autowired
     private LogInventoryService mainService;
-    @Autowired
-    private ReceiptExportService receiptExportService;
-    @Autowired
-    private ReceiptImportService receiptImportService;
+
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {

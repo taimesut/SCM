@@ -42,6 +42,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         if(c.getId()==null){
             c.setCreateDate(CreateDateUtils.createDate());
         }
+        c.setPassword(this.passEncoder.encode(c.getPassword()));
         return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
@@ -100,7 +101,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 
         return this.userRepo.addUser(u);
     }
-
+    
     @Override
     public boolean authenticate(String username, String password) {
         return this.userRepo.authenticate(username, password);

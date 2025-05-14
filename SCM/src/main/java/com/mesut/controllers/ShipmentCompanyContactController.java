@@ -6,6 +6,7 @@ package com.mesut.controllers;
 
 import com.mesut.pojo.ShipmentCompanyContact;
 import com.mesut.services.ShipmentCompanyContactService;
+import com.mesut.services.ShipmentCompanyService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class ShipmentCompanyContactController {
+
     // Đổi
     private static final String NAME = "shipment-company-contact";
 
@@ -49,6 +51,8 @@ public class ShipmentCompanyContactController {
 //    Đổi Service
     @Autowired
     private ShipmentCompanyContactService mainService;
+    @Autowired
+    private ShipmentCompanyService shipmentCompanyService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -62,6 +66,8 @@ public class ShipmentCompanyContactController {
         // Đổi class
         model.addAttribute("object", new ShipmentCompanyContact());
         model.addAttribute("name", NAME);
+        model.addAttribute("list_shipment_company", this.shipmentCompanyService.getList());
+
         return FORM;
     }
 
@@ -80,6 +86,7 @@ public class ShipmentCompanyContactController {
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
+        model.addAttribute("list_shipment_company", this.shipmentCompanyService.getList());
         return FORM;
     }
 

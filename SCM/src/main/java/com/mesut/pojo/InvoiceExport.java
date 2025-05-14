@@ -24,20 +24,20 @@ import java.util.Date;
 
 /**
  *
- * @author THANHTAI
+ * @author THANHTAIPC
  */
 @Entity
-@Table(name = "invoice")
+@Table(name = "invoice_export")
 @NamedQueries({
-    @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM Invoice i"),
-    @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id"),
-    @NamedQuery(name = "Invoice.findByCreateDate", query = "SELECT i FROM Invoice i WHERE i.createDate = :createDate"),
-    @NamedQuery(name = "Invoice.findByStatus", query = "SELECT i FROM Invoice i WHERE i.status = :status"),
-    @NamedQuery(name = "Invoice.findByTotal", query = "SELECT i FROM Invoice i WHERE i.total = :total"),
-    @NamedQuery(name = "Invoice.findByPaymentMethod", query = "SELECT i FROM Invoice i WHERE i.paymentMethod = :paymentMethod"),
-    @NamedQuery(name = "Invoice.findByNote", query = "SELECT i FROM Invoice i WHERE i.note = :note"),
-    @NamedQuery(name = "Invoice.findByPaymentDate", query = "SELECT i FROM Invoice i WHERE i.paymentDate = :paymentDate")})
-public class Invoice implements Serializable ,Identifiable{
+    @NamedQuery(name = "InvoiceExport.findAll", query = "SELECT i FROM InvoiceExport i"),
+    @NamedQuery(name = "InvoiceExport.findById", query = "SELECT i FROM InvoiceExport i WHERE i.id = :id"),
+    @NamedQuery(name = "InvoiceExport.findByCreateDate", query = "SELECT i FROM InvoiceExport i WHERE i.createDate = :createDate"),
+    @NamedQuery(name = "InvoiceExport.findByStatus", query = "SELECT i FROM InvoiceExport i WHERE i.status = :status"),
+    @NamedQuery(name = "InvoiceExport.findByTotal", query = "SELECT i FROM InvoiceExport i WHERE i.total = :total"),
+    @NamedQuery(name = "InvoiceExport.findByPaymentMethod", query = "SELECT i FROM InvoiceExport i WHERE i.paymentMethod = :paymentMethod"),
+    @NamedQuery(name = "InvoiceExport.findByNote", query = "SELECT i FROM InvoiceExport i WHERE i.note = :note"),
+    @NamedQuery(name = "InvoiceExport.findByPaymentDate", query = "SELECT i FROM InvoiceExport i WHERE i.paymentDate = :paymentDate")})
+public class InvoiceExport implements Serializable , Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -65,14 +65,11 @@ public class Invoice implements Serializable ,Identifiable{
     @JoinColumn(name = "receipt_export_id", referencedColumnName = "id")
     @OneToOne
     private ReceiptExport receiptExportId;
-    @JoinColumn(name = "receipt_import_id", referencedColumnName = "id")
-    @OneToOne
-    private ReceiptImport receiptImportId;
 
-    public Invoice() {
+    public InvoiceExport() {
     }
 
-    public Invoice(Integer id) {
+    public InvoiceExport(Integer id) {
         this.id = id;
     }
 
@@ -140,14 +137,6 @@ public class Invoice implements Serializable ,Identifiable{
         this.receiptExportId = receiptExportId;
     }
 
-    public ReceiptImport getReceiptImportId() {
-        return receiptImportId;
-    }
-
-    public void setReceiptImportId(ReceiptImport receiptImportId) {
-        this.receiptImportId = receiptImportId;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -158,10 +147,10 @@ public class Invoice implements Serializable ,Identifiable{
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Invoice)) {
+        if (!(object instanceof InvoiceExport)) {
             return false;
         }
-        Invoice other = (Invoice) object;
+        InvoiceExport other = (InvoiceExport) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -170,7 +159,7 @@ public class Invoice implements Serializable ,Identifiable{
 
     @Override
     public String toString() {
-        return "com.mesut.pojo.Invoice[ id=" + id + " ]";
+        return "com.mesut.pojo.InvoiceExport[ id=" + id + " ]";
     }
     
 }

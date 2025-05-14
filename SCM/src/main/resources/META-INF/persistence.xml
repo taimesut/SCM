@@ -24,5 +24,6 @@
     <class>com.mesut.pojo.DetailReceiptExport</class>
     <class>com.mesut.pojo.ReceiptExport</class>
     <class>com.mesut.pojo.DetailReceiptImport</class>
+    <class>com.mesut.pojo.InvoiceExport</class>
   </persistence-unit>
 </persistence>

@@ -67,10 +67,10 @@ public class InventoryController {
     public String listView(Model model) {
         model.addAttribute("list", this.mainService.getList());
         model.addAttribute("name", NAME);
+        model.addAttribute("list_product", this.productService.getList());
+        model.addAttribute("list_warehouse", this.warehouseService.getList());
+
         return RETURN_LIST_VIEW;
     }
 
-   
-
-    
 }

@@ -24,7 +24,7 @@ import java.util.Date;
 
 /**
  *
- * @author THANHTAI
+ * @author THANHTAIPC
  */
 @Entity
 @Table(name = "delivery_schedule")
@@ -35,7 +35,7 @@ import java.util.Date;
     @NamedQuery(name = "DeliverySchedule.findByActualDate", query = "SELECT d FROM DeliverySchedule d WHERE d.actualDate = :actualDate"),
     @NamedQuery(name = "DeliverySchedule.findByCreateDate", query = "SELECT d FROM DeliverySchedule d WHERE d.createDate = :createDate"),
     @NamedQuery(name = "DeliverySchedule.findByNote", query = "SELECT d FROM DeliverySchedule d WHERE d.note = :note")})
-public class DeliverySchedule implements Serializable ,Identifiable{
+public class DeliverySchedule implements Serializable, Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id

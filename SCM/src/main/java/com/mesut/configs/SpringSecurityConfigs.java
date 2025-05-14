@@ -63,6 +63,7 @@ public class SpringSecurityConfigs {
                 -> requests.requestMatchers("/", "/home").authenticated()
                         .requestMatchers("/js/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/admin/**").hasAnyRole("USER")
                         .anyRequest().permitAll())
                 .formLogin(form -> form.loginPage("/login")
                 .loginProcessingUrl("/login")

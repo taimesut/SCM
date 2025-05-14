@@ -31,7 +31,6 @@
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
-            
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Id phiếu xuất</span>
                 <select class="form-select" th:field="*{receiptExportId}">
@@ -40,28 +39,25 @@
                 <a th:href="@{${g_prefix + '/' + 'receipt-export' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Đối tác</span>
-                <select class="form-select" th:field="*{shipmentCompanyId}">
-                    <option th:each="c:${list_shipment_company}" th:value="${c.id}" th:text="${c.name}"></option>
-                </select>
-                <a th:href="@{${g_prefix + '/' + 'shipment-company' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
+                <span class="input-group-text">Tổng</span>
+                <input type="number" class="form-control" th:field="*{total}" required min = 1 step = 1/>
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Ngày xuất kho</span>
-                <input type="date" class="form-control" th:field="*{exportDate}" required/>
+                <span class="input-group-text">Trạng thái</span>
+                <select class="form-select" th:field="*{status}">
+                    <option th:each="c:${g_status_invoice}" th:value="${c}" th:text="${c}"></option>
+                </select>           
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Ngày giao</span>
-                <input type="date" class="form-control" th:field="*{shipDate}"/>
+                <span class="input-group-text">Phương thức thanh toán</span>
+                <select class="form-select" th:field="*{paymentMethod}">
+                    <option th:each="c:${g_payment_method}" th:value="${c}" th:text="${c}"></option>
+                </select>             
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Ghi chú</span>
-                <input type="text" class="form-control" th:field="*{note}"/>
+                <span class="input-group-text">Ngày thanh toán</span>
+                <input type="date" class="form-control" th:field="*{paymentDate}"/>            
             </div>
-            <div th:if="${list_receipt_export == null}">
-                <p>Không có phiếu xuất nào để chọn.</p>
-            </div>
-
             <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>
         </form>
 

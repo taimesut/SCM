@@ -32,8 +32,9 @@ public class DetailReceiptExportServiceImpl extends GenericServiceImpl<DetailRec
         log.setPrice(c.getPrice());
         log.setAmount(c.getAmount());
         log.setProductId(c.getProductId());
-        this.logInventoryService.addOrUpdate(log);
         this.inventoryService.updateAmount(warehouse_id, product_id, -amount);
+                this.logInventoryService.addOrUpdate(log);
+
         return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 

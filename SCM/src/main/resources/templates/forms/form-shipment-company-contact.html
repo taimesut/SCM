@@ -35,7 +35,7 @@
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Đối tác</span>
                 <select class="form-select" th:field="*{shipmentCompanyId}">
-                    <option th:each="c:${g_list_shipment_company}" th:value="${c.id}" th:text="${c.name}"></option>
+                    <option th:each="c:${list_shipment_company}" th:value="${c.id}" th:text="${c.name}"></option>
                 </select>
                 <a th:href="@{${g_prefix + '/' + 'shipment-company' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>

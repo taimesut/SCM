@@ -6,6 +6,7 @@ package com.mesut.controllers;
 
 import com.mesut.pojo.Shipment;
 import com.mesut.services.ReceiptExportService;
+import com.mesut.services.ShipmentCompanyService;
 import com.mesut.services.ShipmentService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,8 @@ public class ShipmentController {
     private ShipmentService mainService;
     @Autowired
     private ReceiptExportService receiptExportService;
-
+    @Autowired
+    private ShipmentCompanyService shipmentCompanyService;
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
         model.addAttribute("list", this.mainService.getList());
@@ -68,6 +70,7 @@ public class ShipmentController {
         model.addAttribute("object", new Shipment());
         model.addAttribute("name", NAME);
         model.addAttribute("list_receipt_export", this.receiptExportService.getList());
+        model.addAttribute("list_shipment_company", this.shipmentCompanyService.getList());
 
         return FORM;
     }
@@ -88,6 +91,7 @@ public class ShipmentController {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
         model.addAttribute("list_receipt_export", this.receiptExportService.getList());
+        model.addAttribute("list_shipment_company", this.shipmentCompanyService.getList());
 
         return FORM;
     }

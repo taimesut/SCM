@@ -26,7 +26,7 @@ import java.util.Date;
 
 /**
  *
- * @author THANHTAI
+ * @author THANHTAIPC
  */
 @Entity
 @Table(name = "shipment")
@@ -36,7 +36,7 @@ import java.util.Date;
     @NamedQuery(name = "Shipment.findByExportDate", query = "SELECT s FROM Shipment s WHERE s.exportDate = :exportDate"),
     @NamedQuery(name = "Shipment.findByShipDate", query = "SELECT s FROM Shipment s WHERE s.shipDate = :shipDate"),
     @NamedQuery(name = "Shipment.findByNote", query = "SELECT s FROM Shipment s WHERE s.note = :note")})
-public class Shipment implements Serializable ,Identifiable{
+public class Shipment implements Serializable , Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id

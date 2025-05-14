@@ -25,7 +25,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAI
+ * @author THANHTAIPC
  */
 @Entity
 @Table(name = "user")
@@ -41,7 +41,7 @@ import java.util.Set;
     @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone"),
     @NamedQuery(name = "User.findByAddress", query = "SELECT u FROM User u WHERE u.address = :address"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
-public class User implements Serializable ,Identifiable{
+public class User implements Serializable , Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id

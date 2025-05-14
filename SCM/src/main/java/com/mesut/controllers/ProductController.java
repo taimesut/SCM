@@ -4,9 +4,18 @@
  */
 package com.mesut.controllers;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.mesut.pojo.Product;
+import com.mesut.services.CategoryService;
 import com.mesut.services.ProductService;
+import com.mesut.services.SupplierService;
+import com.mesut.services.impl.UserServiceImpl;
 import com.mesut.utils.PrefixUrl;
+import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +23,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -21,7 +32,8 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class ProductController {
-  // Đổi
+    // Đổi
+
     private static final String NAME = "product";
 
     // Không Đụng
@@ -49,6 +61,12 @@ public class ProductController {
 //    Đổi Service
     @Autowired
     private ProductService mainService;
+    @Autowired
+    private Cloudinary cloudinary;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private SupplierService supplierService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -62,13 +80,25 @@ public class ProductController {
         // Đổi class
         model.addAttribute("object", new Product());
         model.addAttribute("name", NAME);
+        model.addAttribute("list_supplier", this.supplierService.getList());
+        model.addAttribute("list_category", this.categoryService.getList());
+
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") Product o) {
+    public String addProcess(@ModelAttribute(value = "object") Product o, @RequestParam("file") MultipartFile file) {
         try {
+            if (!file.isEmpty()) {
+                try {
+                    Map res = cloudinary.uploader().upload(file.getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    o.setImage(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
         } catch (Exception e) {
@@ -80,13 +110,24 @@ public class ProductController {
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
+        model.addAttribute("list_supplier", this.supplierService.getList());
+        model.addAttribute("list_category", this.categoryService.getList());
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_UPDATE_PROCESS)
-    public String updateProcess(@ModelAttribute(value = "object") Product o) {
+    public String updateProcess(@ModelAttribute(value = "object") Product o, @RequestParam("file") MultipartFile file) {
         try {
+            if (!file.isEmpty()) {
+                try {
+                    Map res = cloudinary.uploader().upload(file.getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    o.setImage(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
         } catch (Exception e) {
@@ -95,7 +136,8 @@ public class ProductController {
     }
 
     @GetMapping(URL_DELETE_PROCESS)
-    public String deleteProcess(@PathVariable(value = "id") int id) {
+    public String deleteProcess(@PathVariable(value = "id") int id
+    ) {
         try {
             this.mainService.deleteById(id);
             return REDIRECT_DELETE_SUCCESS;

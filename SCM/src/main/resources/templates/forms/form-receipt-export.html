@@ -41,7 +41,7 @@
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Kho</span>
                 <select class="form-select" th:field="*{warehouseId}">
-                    <option th:each="c:${g_list_warehouse}" th:value="${c.id}" th:text="${c.name}"></option>
+                    <option th:each="c:${list_warehouse}" th:value="${c.id}" th:text="${c.name}"></option>
                 </select>
                 <a th:href="@{${g_prefix + '/' + 'warehouse' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>

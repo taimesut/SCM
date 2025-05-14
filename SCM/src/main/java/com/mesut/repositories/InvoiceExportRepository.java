@@ -4,12 +4,12 @@
  */
 package com.mesut.repositories;
 
-import com.mesut.pojo.Invoice;
+import com.mesut.pojo.InvoiceExport;
 
 /**
  *
- * @author THANHTAI
+ * @author THANHTAIPC
  */
-public interface InvoiceRepository extends GenericRepository<Invoice>{
+public interface InvoiceExportRepository extends GenericRepository<InvoiceExport>{
     
 }

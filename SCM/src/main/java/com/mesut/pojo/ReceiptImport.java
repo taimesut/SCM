@@ -27,7 +27,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAI
+ * @author THANHTAIPC
  */
 @Entity
 @Table(name = "receipt_import")
@@ -37,7 +37,7 @@ import java.util.Set;
     @NamedQuery(name = "ReceiptImport.findByCreateDate", query = "SELECT r FROM ReceiptImport r WHERE r.createDate = :createDate"),
     @NamedQuery(name = "ReceiptImport.findByStatus", query = "SELECT r FROM ReceiptImport r WHERE r.status = :status"),
     @NamedQuery(name = "ReceiptImport.findByNote", query = "SELECT r FROM ReceiptImport r WHERE r.note = :note")})
-public class ReceiptImport implements Serializable ,Identifiable{
+public class ReceiptImport implements Serializable , Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -69,8 +69,6 @@ public class ReceiptImport implements Serializable ,Identifiable{
     private ReviewSupplier reviewSupplier;
     @OneToMany(mappedBy = "receiptImportId")
     private Set<DetailReceiptImport> detailReceiptImportSet;
-    @OneToOne(mappedBy = "receiptImportId")
-    private Invoice invoice;
 
     public ReceiptImport() {
     }
@@ -157,14 +155,6 @@ public class ReceiptImport implements Serializable ,Identifiable{
 
     public void setDetailReceiptImportSet(Set<DetailReceiptImport> detailReceiptImportSet) {
         this.detailReceiptImportSet = detailReceiptImportSet;
-    }
-
-    public Invoice getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
     }
 
     @Override

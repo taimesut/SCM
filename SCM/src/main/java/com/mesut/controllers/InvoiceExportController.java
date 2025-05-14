@@ -5,11 +5,13 @@
 package com.mesut.controllers;
 
 import com.mesut.pojo.Category;
-import com.mesut.pojo.Invoice;
+import com.mesut.pojo.InvoiceExport;
 import com.mesut.services.CategoryService;
-import com.mesut.services.InvoiceService;
+import com.mesut.services.InvoiceExportService;
+import com.mesut.services.ReceiptExportService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,11 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
- * @author THANHTAI
+ * @author THANHTAIPC
  */
-public class InvoiceController {
+@Controller
+public class InvoiceExportController {
+
     // Đổi
-    private static final String NAME = "invoice";
+    private static final String NAME = "invoice-export";
 
     // Không Đụng
     private static final String PREFIX_URL = PrefixUrl.PREFIX_URL;
@@ -48,7 +52,9 @@ public class InvoiceController {
 
 //    Đổi Service
     @Autowired
-    private InvoiceService mainService;
+    private InvoiceExportService mainService;
+    @Autowired
+    private ReceiptExportService receiptExportService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -60,14 +66,16 @@ public class InvoiceController {
     @GetMapping(URL_ADD_VIEW)
     public String addView(Model model) {
         // Đổi class
-        model.addAttribute("object", new Invoice());
+        model.addAttribute("object", new InvoiceExport());
         model.addAttribute("name", NAME);
+        model.addAttribute("list_receipt_export", this.receiptExportService.getList());
+
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") Invoice o) {
+    public String addProcess(@ModelAttribute(value = "object") InvoiceExport o) {
         try {
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
@@ -80,12 +88,14 @@ public class InvoiceController {
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
+        model.addAttribute("list_receipt_export", this.receiptExportService.getList());
+
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_UPDATE_PROCESS)
-    public String updateProcess(@ModelAttribute(value = "object") Invoice o) {
+    public String updateProcess(@ModelAttribute(value = "object") InvoiceExport o) {
         try {
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());

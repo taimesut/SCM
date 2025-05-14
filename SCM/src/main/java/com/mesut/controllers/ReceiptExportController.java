@@ -9,6 +9,7 @@ import com.mesut.pojo.ReceiptExport;
 import com.mesut.services.DeliveryScheduleService;
 import com.mesut.services.ReceiptExportService;
 import com.mesut.services.UserService;
+import com.mesut.services.WarehouseService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -56,6 +57,8 @@ public class ReceiptExportController {
     private ReceiptExportService mainService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private WarehouseService warehouseSerivce;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -70,6 +73,8 @@ public class ReceiptExportController {
         model.addAttribute("object", new ReceiptExport());
         model.addAttribute("name", NAME);
         model.addAttribute("list_user", this.userService.getList());
+        model.addAttribute("list_warehouse", this.warehouseSerivce.getList());
+
         return FORM;
     }
 
@@ -90,6 +95,7 @@ public class ReceiptExportController {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
         model.addAttribute("list_user", this.userService.getList());
+        model.addAttribute("list_warehouse", this.warehouseSerivce.getList());
 
         return FORM;
     }
