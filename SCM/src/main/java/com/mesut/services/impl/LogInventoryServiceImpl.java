@@ -7,6 +7,7 @@ package com.mesut.services.impl;
 import com.mesut.pojo.LogInventory;
 import com.mesut.repositories.LogInventoryRepository;
 import com.mesut.services.LogInventoryService;
+import com.mesut.utils.CreateDateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,12 @@ public class LogInventoryServiceImpl extends GenericServiceImpl<LogInventory> im
         super(repository);
     }
 
-   
-    
+    @Override
+    public LogInventory addOrUpdate(LogInventory c) {
+        if (c.getId() == null) {
+            c.setCreateDate(CreateDateUtils.createDate());
+        }
+        return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
 }

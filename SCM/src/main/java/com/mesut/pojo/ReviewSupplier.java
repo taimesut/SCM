@@ -32,7 +32,7 @@ import java.io.Serializable;
     @NamedQuery(name = "ReviewSupplier.findByPrice", query = "SELECT r FROM ReviewSupplier r WHERE r.price = :price"),
     @NamedQuery(name = "ReviewSupplier.findByQuality", query = "SELECT r FROM ReviewSupplier r WHERE r.quality = :quality"),
     @NamedQuery(name = "ReviewSupplier.findBySupport", query = "SELECT r FROM ReviewSupplier r WHERE r.support = :support")})
-public class ReviewSupplier implements Serializable, Identifiable  {
+public class ReviewSupplier implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id

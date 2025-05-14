@@ -20,7 +20,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
@@ -38,7 +37,7 @@ import java.util.Set;
     @NamedQuery(name = "ReceiptImport.findByCreateDate", query = "SELECT r FROM ReceiptImport r WHERE r.createDate = :createDate"),
     @NamedQuery(name = "ReceiptImport.findByStatus", query = "SELECT r FROM ReceiptImport r WHERE r.status = :status"),
     @NamedQuery(name = "ReceiptImport.findByNote", query = "SELECT r FROM ReceiptImport r WHERE r.note = :note")})
-public class ReceiptImport implements Serializable, Identifiable  {
+public class ReceiptImport implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,8 +45,6 @@ public class ReceiptImport implements Serializable, Identifiable  {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
@@ -80,11 +77,6 @@ public class ReceiptImport implements Serializable, Identifiable  {
 
     public ReceiptImport(Integer id) {
         this.id = id;
-    }
-
-    public ReceiptImport(Integer id, Date createDate) {
-        this.id = id;
-        this.createDate = createDate;
     }
 
     public Integer getId() {

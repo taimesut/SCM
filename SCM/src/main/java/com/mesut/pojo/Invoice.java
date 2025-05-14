@@ -37,7 +37,7 @@ import java.util.Date;
     @NamedQuery(name = "Invoice.findByPaymentMethod", query = "SELECT i FROM Invoice i WHERE i.paymentMethod = :paymentMethod"),
     @NamedQuery(name = "Invoice.findByNote", query = "SELECT i FROM Invoice i WHERE i.note = :note"),
     @NamedQuery(name = "Invoice.findByPaymentDate", query = "SELECT i FROM Invoice i WHERE i.paymentDate = :paymentDate")})
-public class Invoice implements Serializable, Identifiable  {
+public class Invoice implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id

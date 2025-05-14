@@ -34,7 +34,7 @@ import java.util.Set;
     @NamedQuery(name = "Supplier.findByName", query = "SELECT s FROM Supplier s WHERE s.name = :name"),
     @NamedQuery(name = "Supplier.findByPhone", query = "SELECT s FROM Supplier s WHERE s.phone = :phone"),
     @NamedQuery(name = "Supplier.findByAddress", query = "SELECT s FROM Supplier s WHERE s.address = :address")})
-public class Supplier implements Serializable, Identifiable {
+public class Supplier implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id

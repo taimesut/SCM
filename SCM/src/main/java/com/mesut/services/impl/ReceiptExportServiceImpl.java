@@ -13,18 +13,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 
-public class ReceiptExportServiceImpl extends GenericServiceImpl<ReceiptExport>implements ReceiptExportService {
+public class ReceiptExportServiceImpl extends GenericServiceImpl<ReceiptExport> implements ReceiptExportService {
 
     @Autowired
     public ReceiptExportServiceImpl(ReceiptExportRepository repository) {
         super(repository);
     }
+
     @Override
     public ReceiptExport addOrUpdate(ReceiptExport c) {
-        if(c.getCreateDate()==null)
+        if (c.getId() == null) {
             c.setCreateDate(CreateDateUtils.createDate());
-        
-        
+        }
         return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+
 }

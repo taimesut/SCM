@@ -18,7 +18,6 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -34,7 +33,7 @@ import java.util.Date;
     @NamedQuery(name = "Inventory.findByAmount", query = "SELECT i FROM Inventory i WHERE i.amount = :amount"),
     @NamedQuery(name = "Inventory.findByUseDate", query = "SELECT i FROM Inventory i WHERE i.useDate = :useDate"),
     @NamedQuery(name = "Inventory.findByUpdateDate", query = "SELECT i FROM Inventory i WHERE i.updateDate = :updateDate")})
-public class Inventory implements Serializable, Identifiable  {
+public class Inventory implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,8 +46,6 @@ public class Inventory implements Serializable, Identifiable  {
     @Column(name = "use_date")
     @Temporal(TemporalType.DATE)
     private Date useDate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "update_date")
     @Temporal(TemporalType.DATE)
     private Date updateDate;
@@ -64,11 +61,6 @@ public class Inventory implements Serializable, Identifiable  {
 
     public Inventory(Integer id) {
         this.id = id;
-    }
-
-    public Inventory(Integer id, Date updateDate) {
-        this.id = id;
-        this.updateDate = updateDate;
     }
 
     public Integer getId() {

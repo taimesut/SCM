@@ -32,7 +32,7 @@ import java.util.Set;
     @NamedQuery(name = "Warehouse.findById", query = "SELECT w FROM Warehouse w WHERE w.id = :id"),
     @NamedQuery(name = "Warehouse.findByName", query = "SELECT w FROM Warehouse w WHERE w.name = :name"),
     @NamedQuery(name = "Warehouse.findByAddress", query = "SELECT w FROM Warehouse w WHERE w.address = :address")})
-public class Warehouse implements Serializable, Identifiable {
+public class Warehouse implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id

@@ -88,7 +88,6 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         u.setUsername(params.get("username"));
         u.setPassword(this.passEncoder.encode(params.get("password")));
         u.setCreateDate(CreateDateUtils.createDate());
-
         if (!avatar.isEmpty()) {
             try {
                 Map res = cloudinary.uploader().upload(avatar.getBytes(),

@@ -16,21 +16,17 @@ import org.springframework.stereotype.Service;
 
 public class ReceiptImportServiceImpl extends GenericServiceImpl<ReceiptImport> implements ReceiptImportService {
 
-    
-    @Override
-    public ReceiptImport addOrUpdate(ReceiptImport c) {
-        if(c.getCreateDate()==null)
-            c.setCreateDate(CreateDateUtils.createDate());
-        
-        
-        return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
     @Autowired
     public ReceiptImportServiceImpl(ReceiptImportRepository repository) {
         super(repository);
     }
 
-   
-    
+    @Override
+    public ReceiptImport addOrUpdate(ReceiptImport c) {
+        if (c.getId() == null) {
+            c.setCreateDate(CreateDateUtils.createDate());
+        }
+        return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
 }

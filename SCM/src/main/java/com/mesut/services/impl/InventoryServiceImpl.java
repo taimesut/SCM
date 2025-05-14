@@ -15,12 +15,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class InventoryServiceImpl extends GenericServiceImpl<Inventory> implements InventoryService {
-    
+
     @Autowired
     private InventoryRepository mainRepository;
+
     @Override
     public Inventory addOrUpdate(Inventory c) {
+
         c.setUpdateDate(CreateDateUtils.createDate());
+
         return super.addOrUpdate(c);
     }
 
@@ -39,5 +42,4 @@ public class InventoryServiceImpl extends GenericServiceImpl<Inventory> implemen
         return this.mainRepository.findByWarehouseIdAndProductId(warehouse_id, product_id);
     }
 
-    
 }

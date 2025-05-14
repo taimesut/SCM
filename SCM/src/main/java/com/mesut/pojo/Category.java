@@ -31,7 +31,7 @@ import java.util.Set;
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
     @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id"),
     @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")})
-public class Category implements Serializable, Identifiable {
+public class Category implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
