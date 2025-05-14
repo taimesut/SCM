@@ -22,7 +22,6 @@
         <h1 class="text-center text-primary" th:text="${g_list_item_menu['/' + name]}"></h1>
 
         <!--Thay đổi-->
-        <a th:href="@{${g_prefix + '/' + name + '/add'}}" class="btn btn-success mt-1">Thêm</a>     
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -45,14 +44,6 @@
                     <td th:text="${i.useDate}"></td>
                     <td th:text="${i.updateDate}"></td>
 
-                    <td>
-                        <a th:href="@{${g_prefix + '/' + name + '/' + i.id}}" class="btn btn-info" th:utext="${g_icons['update']}"></a>
-                        <a th:href="@{${g_prefix + '/' + name + '/delete/' + i.id}}" 
-                           class="btn btn-danger"
-                           onclick="return confirm('Bạn có chắc chắn muốn xóa dữ liệu này?');"
-                           th:utext="${g_icons['delete']}">
-                        </a>
-                    </td>
                 </tr>
             </tbody>
         </table>

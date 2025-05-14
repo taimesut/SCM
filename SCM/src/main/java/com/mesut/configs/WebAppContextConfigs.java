@@ -9,6 +9,7 @@ import com.mesut.formatters.ProductFormatter;
 import com.mesut.formatters.ReceiptExportFormatter;
 import com.mesut.formatters.ReceiptImportFormatter;
 import com.mesut.formatters.ShipmentCompanyFormatter;
+import com.mesut.formatters.ShipmentFormatter;
 import com.mesut.formatters.SupplierFormatter;
 import com.mesut.formatters.UserFormatter;
 import com.mesut.formatters.WarehouseFormatter;
@@ -52,6 +53,7 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
         registry.addFormatter(new ReceiptImportFormatter());
         registry.addFormatter(new ReceiptExportFormatter());
         registry.addFormatter(new ShipmentCompanyFormatter());
+        registry.addFormatter(new ShipmentFormatter());
 
     }
 

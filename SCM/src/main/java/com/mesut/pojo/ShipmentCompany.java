@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,7 +23,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "shipment_company")
@@ -33,7 +34,7 @@ import java.util.Set;
     @NamedQuery(name = "ShipmentCompany.findByName", query = "SELECT s FROM ShipmentCompany s WHERE s.name = :name"),
     @NamedQuery(name = "ShipmentCompany.findByPhone", query = "SELECT s FROM ShipmentCompany s WHERE s.phone = :phone"),
     @NamedQuery(name = "ShipmentCompany.findByAddress", query = "SELECT s FROM ShipmentCompany s WHERE s.address = :address")})
-public class ShipmentCompany implements Serializable, Identifiable {
+public class ShipmentCompany implements Serializable , Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,8 +60,8 @@ public class ShipmentCompany implements Serializable, Identifiable {
     @Size(min = 1, max = 100)
     @Column(name = "address")
     private String address;
-    @OneToMany(mappedBy = "shipmentCompanyId")
-    private Set<Shipment> shipmentSet;
+    @OneToOne(mappedBy = "shipmentCompanyId")
+    private Shipment shipment;
     @OneToMany(mappedBy = "shipmentCompanyId")
     private Set<ShipmentCompanyContact> shipmentCompanyContactSet;
 
@@ -117,12 +118,12 @@ public class ShipmentCompany implements Serializable, Identifiable {
         this.address = address;
     }
 
-    public Set<Shipment> getShipmentSet() {
-        return shipmentSet;
+    public Shipment getShipment() {
+        return shipment;
     }
 
-    public void setShipmentSet(Set<Shipment> shipmentSet) {
-        this.shipmentSet = shipmentSet;
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
     }
 
     public Set<ShipmentCompanyContact> getShipmentCompanyContactSet() {

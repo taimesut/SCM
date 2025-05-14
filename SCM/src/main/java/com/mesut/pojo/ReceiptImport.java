@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -27,7 +28,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "receipt_import")
@@ -37,7 +38,7 @@ import java.util.Set;
     @NamedQuery(name = "ReceiptImport.findByCreateDate", query = "SELECT r FROM ReceiptImport r WHERE r.createDate = :createDate"),
     @NamedQuery(name = "ReceiptImport.findByStatus", query = "SELECT r FROM ReceiptImport r WHERE r.status = :status"),
     @NamedQuery(name = "ReceiptImport.findByNote", query = "SELECT r FROM ReceiptImport r WHERE r.note = :note")})
-public class ReceiptImport implements Serializable, Identifiable {
+public class ReceiptImport implements Serializable, Identifiable  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,10 +68,12 @@ public class ReceiptImport implements Serializable, Identifiable {
     private Warehouse warehouseId;
     @OneToMany(mappedBy = "receiptImportId")
     private Set<LogInventory> logInventorySet;
-    @OneToMany(mappedBy = "receiptImportId")
-    private Set<ReviewSupplier> reviewSupplierSet;
+    @OneToOne(mappedBy = "receiptImportId")
+    private ReviewSupplier reviewSupplier;
     @OneToMany(mappedBy = "receiptImportId")
     private Set<DetailReceiptImport> detailReceiptImportSet;
+    @OneToOne(mappedBy = "receiptImportId")
+    private Invoice invoice;
 
     public ReceiptImport() {
     }
@@ -148,12 +151,12 @@ public class ReceiptImport implements Serializable, Identifiable {
         this.logInventorySet = logInventorySet;
     }
 
-    public Set<ReviewSupplier> getReviewSupplierSet() {
-        return reviewSupplierSet;
+    public ReviewSupplier getReviewSupplier() {
+        return reviewSupplier;
     }
 
-    public void setReviewSupplierSet(Set<ReviewSupplier> reviewSupplierSet) {
-        this.reviewSupplierSet = reviewSupplierSet;
+    public void setReviewSupplier(ReviewSupplier reviewSupplier) {
+        this.reviewSupplier = reviewSupplier;
     }
 
     public Set<DetailReceiptImport> getDetailReceiptImportSet() {
@@ -162,6 +165,14 @@ public class ReceiptImport implements Serializable, Identifiable {
 
     public void setDetailReceiptImportSet(Set<DetailReceiptImport> detailReceiptImportSet) {
         this.detailReceiptImportSet = detailReceiptImportSet;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     @Override

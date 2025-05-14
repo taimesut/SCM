@@ -12,16 +12,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "review_shipment_company")
@@ -30,7 +30,7 @@ import java.io.Serializable;
     @NamedQuery(name = "ReviewShipmentCompany.findById", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.id = :id"),
     @NamedQuery(name = "ReviewShipmentCompany.findByNote", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.note = :note"),
     @NamedQuery(name = "ReviewShipmentCompany.findByPerformance", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.performance = :performance")})
-public class ReviewShipmentCompany implements Serializable, Identifiable {
+public class ReviewShipmentCompany implements Serializable, Identifiable  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,7 +44,7 @@ public class ReviewShipmentCompany implements Serializable, Identifiable {
     @Column(name = "performance")
     private Integer performance;
     @JoinColumn(name = "shipment_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Shipment shipmentId;
 
     public ReviewShipmentCompany() {

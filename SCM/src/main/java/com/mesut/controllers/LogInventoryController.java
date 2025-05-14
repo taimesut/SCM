@@ -6,6 +6,8 @@ package com.mesut.controllers;
 
 import com.mesut.pojo.LogInventory;
 import com.mesut.services.LogInventoryService;
+import com.mesut.services.ReceiptExportService;
+import com.mesut.services.ReceiptImportService;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class LogInventoryController {
+
     // Đổi
     private static final String NAME = "log-inventory";
 
@@ -49,6 +52,10 @@ public class LogInventoryController {
 //    Đổi Service
     @Autowired
     private LogInventoryService mainService;
+    @Autowired
+    private ReceiptExportService receiptExportService;
+    @Autowired
+    private ReceiptImportService receiptImportService;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -57,50 +64,5 @@ public class LogInventoryController {
         return RETURN_LIST_VIEW;
     }
 
-    @GetMapping(URL_ADD_VIEW)
-    public String addView(Model model) {
-        // Đổi class
-        model.addAttribute("object", new LogInventory());
-        model.addAttribute("name", NAME);
-        return FORM;
-    }
-
-    // Đổi class @ModelAttribute
-    @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") LogInventory o) {
-        try {
-            this.mainService.addOrUpdate(o);
-            return REDIRECT_ADD_SUCCESS;
-        } catch (Exception e) {
-            return REDIRECT_ADD_ERROR;
-        }
-    }
-
-    @GetMapping(URL_UPDATE_VIEW)
-    public String updateView(Model model, @PathVariable(value = "id") int id) {
-        model.addAttribute("object", this.mainService.getById(id));
-        model.addAttribute("name", NAME);
-        return FORM;
-    }
-
-    // Đổi class @ModelAttribute
-    @PostMapping(URL_UPDATE_PROCESS)
-    public String updateProcess(@ModelAttribute(value = "object") LogInventory o) {
-        try {
-            this.mainService.addOrUpdate(o);
-            return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
-        } catch (Exception e) {
-            return String.format(REDIRECT_UPDATE_ERROR, o.getId());
-        }
-    }
-
-    @GetMapping(URL_DELETE_PROCESS)
-    public String deleteProcess(@PathVariable(value = "id") int id) {
-        try {
-            this.mainService.deleteById(id);
-            return REDIRECT_DELETE_SUCCESS;
-        } catch (Exception e) {
-            return REDIRECT_DELETE_ERROR;
-        }
-    }
+    
 }

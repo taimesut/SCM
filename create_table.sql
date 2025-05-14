@@ -3,7 +3,7 @@ CREATE TABLE `user` (
     `username` varchar(100) not null unique,
     `password` VARCHAR(100) NOT NULL,
     `user_role` VARCHAR(100) NOT NULL,
-    `create_date` date NOT NULL,
+    `create_date` date default (current_date),
     `email` varchar(100),
     `name` varchar(100) not null,
     `phone` varchar(100),
@@ -20,7 +20,8 @@ CREATE TABLE `category` (
 CREATE TABLE `warehouse` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`name` varchar(100) not null,
-    `address` varchar(100) not null
+    `address` varchar(100) not null,
+    unique(`name`,`address`)
 );
 
 
@@ -30,7 +31,8 @@ CREATE TABLE `shipment_company` (
 	`email` varchar(100),
     `name` varchar(100) not null,
     `phone` varchar(100),
-    `address` varchar(100) not null
+    `address` varchar(100) not null,
+	unique(`name`,`address`)
 );
 
 CREATE TABLE `supplier` (
@@ -38,7 +40,8 @@ CREATE TABLE `supplier` (
 	`email` varchar(100),
     `name` varchar(100) not null unique,
     `phone` varchar(100),
-    `address` varchar(100) not null
+    `address` varchar(100) not null,
+	unique(`name`,`address`)
 );
 
 CREATE TABLE `shipment_company_contact` (
@@ -46,7 +49,8 @@ CREATE TABLE `shipment_company_contact` (
 	`shipment_company_id` int,
     `content` varchar(255) not null,
     `note` varchar(255),
-	FOREIGN KEY (`shipment_company_id`) REFERENCES shipment_company(`id`)
+	FOREIGN KEY (`shipment_company_id`) REFERENCES shipment_company(`id`),
+    unique(`shipment_company_id`,`content`)
 );
 
 CREATE TABLE `product` (
@@ -95,7 +99,8 @@ CREATE TABLE `detail_receipt_import` (
     `amount` int not null,
     `price` int not null,
 	FOREIGN KEY (`product_id`) REFERENCES product(`id`),
-	FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import`(`id`)
+	FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import`(`id`),
+    unique(`receipt_import_id`,`product_id`)
 );
 CREATE TABLE `detail_receipt_export` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -104,20 +109,23 @@ CREATE TABLE `detail_receipt_export` (
     `amount` int not null,
     `price` int not null,
 	FOREIGN KEY (`product_id`) REFERENCES product(`id`),
-	FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export`(`id`)
+	FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export`(`id`),
+	unique(`receipt_export_id`,`product_id`)
 );
 
--- CREATE TABLE `invoice` (
---     id INT PRIMARY KEY AUTO_INCREMENT,
--- 	`receipt_id` int,
---     `create_date` date,
---     `status` varchar(100),
---     `total` int,
---     `payment_method` varchar(100),
---     `note` varchar(255),
---     `payment_date` date,
--- 	FOREIGN KEY (`receipt_id`) REFERENCES `receipt`(`id`)
--- );
+CREATE TABLE `invoice` (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+	`receipt_import_id` int default null unique,
+	`receipt_export_id` int default null unique,
+    `create_date` date default (current_date),
+    `status` varchar(100),
+    `total` int,
+    `payment_method` varchar(100),
+    `note` varchar(255),
+    `payment_date` date,
+	FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import`(`id`),
+	FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export`(`id`)
+);
 
 CREATE TABLE `inventory` (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -127,7 +135,8 @@ CREATE TABLE `inventory` (
     `use_date` date default null,
     `update_date` date not null,
 	FOREIGN KEY (`product_id`) REFERENCES `product`(`id`),
-	FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse`(`id`)
+	FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse`(`id`),
+    unique(`product_id`,`warehouse_id`)
 );
 
 CREATE TABLE `log_inventory` (
@@ -135,20 +144,20 @@ CREATE TABLE `log_inventory` (
 	`receipt_import_id` int default null,
 	`receipt_export_id` int default null,
 	`product_id` int default null,
-	`warehouse_id` int default null,
 	`amount` int,
     `price` int,
-    `create_date` date,
+    `create_date` date default(current_date),
 	FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import`(`id`),
 	FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export`(`id`),
 	FOREIGN KEY (`product_id`) REFERENCES `product`(`id`),
-	FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse`(`id`)
+    unique(`receipt_import_id`,`product_id`),
+    unique(`receipt_export_id`,`product_id`)
 );
 
 CREATE TABLE `shipment` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`receipt_export_id` int,
-	`shipment_company_id` int,
+	`shipment_company_id` int unique,
 	`export_date` date,
 	`ship_date` date,
     `note` varchar(255),
@@ -158,10 +167,10 @@ CREATE TABLE `shipment` (
 
 CREATE TABLE `delivery_schedule` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-	`shipment_id` int not null,
+	`shipment_id` int not null unique,
 	`expected_date` date,
 	`actual_date` date,
-	`create_date` date,
+	`create_date` date DEFAULT (CURRENT_DATE),
     `note` varchar(255),
 	FOREIGN KEY (`shipment_id`) REFERENCES `shipment`(`id`)
 );
@@ -170,7 +179,7 @@ CREATE TABLE `delivery_schedule` (
 
 CREATE TABLE `review_shipment_company` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-	`shipment_id` int,
+	`shipment_id` int unique,
     `note` varchar(255),
     `performance` int,
 	FOREIGN KEY (`shipment_id`) REFERENCES `shipment`(`id`)
@@ -178,7 +187,7 @@ CREATE TABLE `review_shipment_company` (
 
 CREATE TABLE `review_supplier` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-	`receipt_import_id` int,
+	`receipt_import_id` int unique,
     `note` varchar(255),
     `price` int,
     `quality` int,

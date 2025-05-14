@@ -7,6 +7,7 @@ package com.mesut.controllers;
 import com.mesut.pojo.DeliverySchedule;
 import com.mesut.services.DeliveryScheduleService;
 import com.mesut.services.ShipmentService;
+import com.mesut.utils.CreateDateUtils;
 import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,6 +76,9 @@ public class DeliveryScheduleController {
     @PostMapping(URL_ADD_PROCESS)
     public String addProcess(@ModelAttribute(value = "object") DeliverySchedule o) {
         try {
+            if (o.getId() == null) {
+                o.setCreateDate(CreateDateUtils.createDate());
+            }
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
         } catch (Exception e) {
@@ -95,6 +99,9 @@ public class DeliveryScheduleController {
     @PostMapping(URL_UPDATE_PROCESS)
     public String updateProcess(@ModelAttribute(value = "object") DeliverySchedule o) {
         try {
+            if (o.getId() == null) {
+                o.setCreateDate(CreateDateUtils.createDate());
+            }
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
         } catch (Exception e) {

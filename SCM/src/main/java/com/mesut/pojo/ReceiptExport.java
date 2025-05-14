@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -27,7 +28,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "receipt_export")
@@ -37,7 +38,7 @@ import java.util.Set;
     @NamedQuery(name = "ReceiptExport.findByCreateDate", query = "SELECT r FROM ReceiptExport r WHERE r.createDate = :createDate"),
     @NamedQuery(name = "ReceiptExport.findByStatus", query = "SELECT r FROM ReceiptExport r WHERE r.status = :status"),
     @NamedQuery(name = "ReceiptExport.findByNote", query = "SELECT r FROM ReceiptExport r WHERE r.note = :note")})
-public class ReceiptExport implements Serializable, Identifiable {
+public class ReceiptExport implements Serializable, Identifiable  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -71,6 +72,8 @@ public class ReceiptExport implements Serializable, Identifiable {
     @JoinColumn(name = "warehouse_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Warehouse warehouseId;
+    @OneToOne(mappedBy = "receiptExportId")
+    private Invoice invoice;
 
     public ReceiptExport() {
     }
@@ -162,6 +165,14 @@ public class ReceiptExport implements Serializable, Identifiable {
 
     public void setWarehouseId(Warehouse warehouseId) {
         this.warehouseId = warehouseId;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     @Override

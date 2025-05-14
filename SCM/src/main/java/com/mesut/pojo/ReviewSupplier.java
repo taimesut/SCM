@@ -12,16 +12,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "review_supplier")
@@ -32,7 +32,7 @@ import java.io.Serializable;
     @NamedQuery(name = "ReviewSupplier.findByPrice", query = "SELECT r FROM ReviewSupplier r WHERE r.price = :price"),
     @NamedQuery(name = "ReviewSupplier.findByQuality", query = "SELECT r FROM ReviewSupplier r WHERE r.quality = :quality"),
     @NamedQuery(name = "ReviewSupplier.findBySupport", query = "SELECT r FROM ReviewSupplier r WHERE r.support = :support")})
-public class ReviewSupplier implements Serializable, Identifiable {
+public class ReviewSupplier implements Serializable, Identifiable  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,7 +50,7 @@ public class ReviewSupplier implements Serializable, Identifiable {
     @Column(name = "support")
     private Integer support;
     @JoinColumn(name = "receipt_import_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private ReceiptImport receiptImportId;
 
     public ReviewSupplier() {

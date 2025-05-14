@@ -38,7 +38,7 @@ public class GlobalModelAttribute {
     private Map<String, String> getItemMenu() {
         Map<String, String> menu = new LinkedHashMap<>();
         menu.put("/category", "Danh mục");// xong
-        menu.put("/delivery-schedule", "Lịch vận chuyển");
+        menu.put("/delivery-schedule", "Lịch vận chuyển");// xong
         menu.put("/detail-receipt-export", "Chi tiết Phiếu xuất");// xong
         menu.put("/detail-receipt-import", "Chi tiết Phiếu nhập");// xong
         menu.put("/inventory", "Tồn kho");// xong

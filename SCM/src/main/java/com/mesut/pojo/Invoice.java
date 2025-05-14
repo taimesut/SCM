@@ -12,12 +12,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,14 +27,17 @@ import java.util.Date;
  * @author THANHTAI
  */
 @Entity
-@Table(name = "log_inventory")
+@Table(name = "invoice")
 @NamedQueries({
-    @NamedQuery(name = "LogInventory.findAll", query = "SELECT l FROM LogInventory l"),
-    @NamedQuery(name = "LogInventory.findById", query = "SELECT l FROM LogInventory l WHERE l.id = :id"),
-    @NamedQuery(name = "LogInventory.findByAmount", query = "SELECT l FROM LogInventory l WHERE l.amount = :amount"),
-    @NamedQuery(name = "LogInventory.findByPrice", query = "SELECT l FROM LogInventory l WHERE l.price = :price"),
-    @NamedQuery(name = "LogInventory.findByCreateDate", query = "SELECT l FROM LogInventory l WHERE l.createDate = :createDate")})
-public class LogInventory implements Serializable, Identifiable  {
+    @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM Invoice i"),
+    @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id"),
+    @NamedQuery(name = "Invoice.findByCreateDate", query = "SELECT i FROM Invoice i WHERE i.createDate = :createDate"),
+    @NamedQuery(name = "Invoice.findByStatus", query = "SELECT i FROM Invoice i WHERE i.status = :status"),
+    @NamedQuery(name = "Invoice.findByTotal", query = "SELECT i FROM Invoice i WHERE i.total = :total"),
+    @NamedQuery(name = "Invoice.findByPaymentMethod", query = "SELECT i FROM Invoice i WHERE i.paymentMethod = :paymentMethod"),
+    @NamedQuery(name = "Invoice.findByNote", query = "SELECT i FROM Invoice i WHERE i.note = :note"),
+    @NamedQuery(name = "Invoice.findByPaymentDate", query = "SELECT i FROM Invoice i WHERE i.paymentDate = :paymentDate")})
+public class Invoice implements Serializable, Identifiable  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,27 +45,34 @@ public class LogInventory implements Serializable, Identifiable  {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "amount")
-    private Integer amount;
-    @Column(name = "price")
-    private Integer price;
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne
-    private Product productId;
+    @Size(max = 100)
+    @Column(name = "status")
+    private String status;
+    @Column(name = "total")
+    private Integer total;
+    @Size(max = 100)
+    @Column(name = "payment_method")
+    private String paymentMethod;
+    @Size(max = 255)
+    @Column(name = "note")
+    private String note;
+    @Column(name = "payment_date")
+    @Temporal(TemporalType.DATE)
+    private Date paymentDate;
     @JoinColumn(name = "receipt_export_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private ReceiptExport receiptExportId;
     @JoinColumn(name = "receipt_import_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private ReceiptImport receiptImportId;
 
-    public LogInventory() {
+    public Invoice() {
     }
 
-    public LogInventory(Integer id) {
+    public Invoice(Integer id) {
         this.id = id;
     }
 
@@ -73,22 +84,6 @@ public class LogInventory implements Serializable, Identifiable  {
         this.id = id;
     }
 
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -97,12 +92,44 @@ public class LogInventory implements Serializable, Identifiable  {
         this.createDate = createDate;
     }
 
-    public Product getProductId() {
-        return productId;
+    public String getStatus() {
+        return status;
     }
 
-    public void setProductId(Product productId) {
-        this.productId = productId;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public ReceiptExport getReceiptExportId() {
@@ -131,10 +158,10 @@ public class LogInventory implements Serializable, Identifiable  {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LogInventory)) {
+        if (!(object instanceof Invoice)) {
             return false;
         }
-        LogInventory other = (LogInventory) object;
+        Invoice other = (Invoice) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -143,7 +170,7 @@ public class LogInventory implements Serializable, Identifiable  {
 
     @Override
     public String toString() {
-        return "com.mesut.pojo.LogInventory[ id=" + id + " ]";
+        return "com.mesut.pojo.Invoice[ id=" + id + " ]";
     }
     
 }

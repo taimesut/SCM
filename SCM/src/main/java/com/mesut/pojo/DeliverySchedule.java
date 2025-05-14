@@ -12,9 +12,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -24,7 +24,7 @@ import java.util.Date;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "delivery_schedule")
@@ -35,7 +35,7 @@ import java.util.Date;
     @NamedQuery(name = "DeliverySchedule.findByActualDate", query = "SELECT d FROM DeliverySchedule d WHERE d.actualDate = :actualDate"),
     @NamedQuery(name = "DeliverySchedule.findByCreateDate", query = "SELECT d FROM DeliverySchedule d WHERE d.createDate = :createDate"),
     @NamedQuery(name = "DeliverySchedule.findByNote", query = "SELECT d FROM DeliverySchedule d WHERE d.note = :note")})
-public class DeliverySchedule implements Serializable, Identifiable {
+public class DeliverySchedule implements Serializable, Identifiable  {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,7 +56,7 @@ public class DeliverySchedule implements Serializable, Identifiable {
     @Column(name = "note")
     private String note;
     @JoinColumn(name = "shipment_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Shipment shipmentId;
 
     public DeliverySchedule() {

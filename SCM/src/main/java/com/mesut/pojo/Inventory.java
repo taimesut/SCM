@@ -24,7 +24,7 @@ import java.util.Date;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "inventory")
@@ -34,7 +34,7 @@ import java.util.Date;
     @NamedQuery(name = "Inventory.findByAmount", query = "SELECT i FROM Inventory i WHERE i.amount = :amount"),
     @NamedQuery(name = "Inventory.findByUseDate", query = "SELECT i FROM Inventory i WHERE i.useDate = :useDate"),
     @NamedQuery(name = "Inventory.findByUpdateDate", query = "SELECT i FROM Inventory i WHERE i.updateDate = :updateDate")})
-public class Inventory implements Serializable, Identifiable {
+public class Inventory implements Serializable, Identifiable  {
 
     private static final long serialVersionUID = 1L;
     @Id

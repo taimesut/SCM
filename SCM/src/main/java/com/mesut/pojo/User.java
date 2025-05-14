@@ -25,7 +25,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "user")
@@ -64,8 +64,6 @@ public class User implements Serializable, Identifiable {
     @Size(min = 1, max = 100)
     @Column(name = "user_role")
     private String userRole;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
@@ -102,12 +100,11 @@ public class User implements Serializable, Identifiable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String password, String userRole, Date createDate, String name) {
+    public User(Integer id, String username, String password, String userRole, String name) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.userRole = userRole;
-        this.createDate = createDate;
         this.name = name;
     }
 

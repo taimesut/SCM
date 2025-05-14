@@ -16,18 +16,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "shipment")
@@ -58,12 +57,12 @@ public class Shipment implements Serializable, Identifiable {
     @ManyToOne
     private ReceiptExport receiptExportId;
     @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private ShipmentCompany shipmentCompanyId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipmentId")
-    private Set<DeliverySchedule> deliveryScheduleSet;
-    @OneToMany(mappedBy = "shipmentId")
-    private Set<ReviewShipmentCompany> reviewShipmentCompanySet;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "shipmentId")
+    private DeliverySchedule deliverySchedule;
+    @OneToOne(mappedBy = "shipmentId")
+    private ReviewShipmentCompany reviewShipmentCompany;
 
     public Shipment() {
     }
@@ -120,20 +119,20 @@ public class Shipment implements Serializable, Identifiable {
         this.shipmentCompanyId = shipmentCompanyId;
     }
 
-    public Set<DeliverySchedule> getDeliveryScheduleSet() {
-        return deliveryScheduleSet;
+    public DeliverySchedule getDeliverySchedule() {
+        return deliverySchedule;
     }
 
-    public void setDeliveryScheduleSet(Set<DeliverySchedule> deliveryScheduleSet) {
-        this.deliveryScheduleSet = deliveryScheduleSet;
+    public void setDeliverySchedule(DeliverySchedule deliverySchedule) {
+        this.deliverySchedule = deliverySchedule;
     }
 
-    public Set<ReviewShipmentCompany> getReviewShipmentCompanySet() {
-        return reviewShipmentCompanySet;
+    public ReviewShipmentCompany getReviewShipmentCompany() {
+        return reviewShipmentCompany;
     }
 
-    public void setReviewShipmentCompanySet(Set<ReviewShipmentCompany> reviewShipmentCompanySet) {
-        this.reviewShipmentCompanySet = reviewShipmentCompanySet;
+    public void setReviewShipmentCompany(ReviewShipmentCompany reviewShipmentCompany) {
+        this.reviewShipmentCompany = reviewShipmentCompany;
     }
 
     @Override

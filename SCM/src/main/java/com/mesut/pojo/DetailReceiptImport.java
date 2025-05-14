@@ -21,7 +21,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "detail_receipt_import")
@@ -30,7 +30,7 @@ import java.io.Serializable;
     @NamedQuery(name = "DetailReceiptImport.findById", query = "SELECT d FROM DetailReceiptImport d WHERE d.id = :id"),
     @NamedQuery(name = "DetailReceiptImport.findByAmount", query = "SELECT d FROM DetailReceiptImport d WHERE d.amount = :amount"),
     @NamedQuery(name = "DetailReceiptImport.findByPrice", query = "SELECT d FROM DetailReceiptImport d WHERE d.price = :price")})
-public class DetailReceiptImport implements Serializable, Identifiable {
+public class DetailReceiptImport implements Serializable, Identifiable  {
 
     private static final long serialVersionUID = 1L;
     @Id

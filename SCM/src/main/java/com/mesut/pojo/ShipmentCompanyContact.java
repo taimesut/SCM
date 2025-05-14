@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "shipment_company_contact")

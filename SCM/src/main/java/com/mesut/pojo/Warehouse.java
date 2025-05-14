@@ -23,7 +23,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "warehouse")
@@ -52,8 +52,6 @@ public class Warehouse implements Serializable, Identifiable {
     private String address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
     private Set<ReceiptImport> receiptImportSet;
-    @OneToMany(mappedBy = "warehouseId")
-    private Set<LogInventory> logInventorySet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
     private Set<Inventory> inventorySet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
@@ -102,14 +100,6 @@ public class Warehouse implements Serializable, Identifiable {
 
     public void setReceiptImportSet(Set<ReceiptImport> receiptImportSet) {
         this.receiptImportSet = receiptImportSet;
-    }
-
-    public Set<LogInventory> getLogInventorySet() {
-        return logInventorySet;
-    }
-
-    public void setLogInventorySet(Set<LogInventory> logInventorySet) {
-        this.logInventorySet = logInventorySet;
     }
 
     public Set<Inventory> getInventorySet() {
