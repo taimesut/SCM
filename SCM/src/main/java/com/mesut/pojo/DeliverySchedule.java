@@ -58,9 +58,6 @@ public class DeliverySchedule implements Serializable, Identifiable {
     @JoinColumn(name = "shipment_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Shipment shipmentId;
-    @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private ShipmentCompany shipmentCompanyId;
 
     public DeliverySchedule() {
     }
@@ -115,14 +112,6 @@ public class DeliverySchedule implements Serializable, Identifiable {
 
     public void setShipmentId(Shipment shipmentId) {
         this.shipmentId = shipmentId;
-    }
-
-    public ShipmentCompany getShipmentCompanyId() {
-        return shipmentCompanyId;
-    }
-
-    public void setShipmentCompanyId(ShipmentCompany shipmentCompanyId) {
-        this.shipmentCompanyId = shipmentCompanyId;
     }
 
     @Override

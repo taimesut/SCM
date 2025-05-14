@@ -31,8 +31,28 @@
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
-            <div class="mb-3 mt-3">
-                <input type="text" class="form-control" th:field="*{name}" placeholder="Tên danh mục" required/>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Id vận chuyển</span>
+                <select class="form-select" th:field="*{shipmentId}">
+                    <option th:each="c:${list_shipment}" th:value="${c.id}" th:text="${c.id}"></option>
+                </select>
+                <a th:href="@{${g_prefix + '/' + 'shipment' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Ngày Dự kiến</span>
+                <input type="date" class="form-control" th:field="*{expectedDate}" readonly />
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Ngày Giao</span>
+                <input type="date" class="form-control" th:field="*{actualDate}" readonly />
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Ngày Tạo</span>
+                <input type="date" class="form-control" th:field="*{createDate}" readonly />
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Ghi chú</span>
+                <input type="text" class="form-control" th:field="*{note}"/>
             </div>
 
             <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>

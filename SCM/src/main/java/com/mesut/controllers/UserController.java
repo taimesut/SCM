@@ -4,10 +4,19 @@
  */
 package com.mesut.controllers;
 
-import com.mesut.pojo.DeliverySchedule;
-import com.mesut.services.DeliveryScheduleService;
-import com.mesut.services.ShipmentService;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.mesut.pojo.Category;
+import com.mesut.pojo.User;
+import com.mesut.services.CategoryService;
+import com.mesut.services.UserService;
+import com.mesut.services.impl.UserServiceImpl;
+import com.mesut.utils.CreateDateUtils;
 import com.mesut.utils.PrefixUrl;
+import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +24,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author THANHTAIPC
  */
 @Controller
-public class DeliveryScheduleController {
+public class UserController {
 
     // Đổi
-    private static final String NAME = "delivery-schedule";
+    private static final String NAME = "user";
 
     // Không Đụng
     private static final String PREFIX_URL = PrefixUrl.PREFIX_URL;
@@ -50,9 +61,9 @@ public class DeliveryScheduleController {
 
 //    Đổi Service
     @Autowired
-    private DeliveryScheduleService mainService;
+    private UserService mainService;
     @Autowired
-    private ShipmentService shipmentService;
+    private Cloudinary cloudinary;
 
     @GetMapping(URL_LIST_VIEW)
     public String listView(Model model) {
@@ -64,17 +75,24 @@ public class DeliveryScheduleController {
     @GetMapping(URL_ADD_VIEW)
     public String addView(Model model) {
         // Đổi class
-        model.addAttribute("object", new DeliverySchedule());
+        model.addAttribute("object", new User());
         model.addAttribute("name", NAME);
-        model.addAttribute("list_shipment", this.shipmentService.getList());
-
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") DeliverySchedule o) {
+    public String addProcess(@ModelAttribute(value = "object") User o, @RequestParam("avatar") MultipartFile avatar) {
         try {
+            if (!avatar.isEmpty()) {
+                try {
+                    Map res = cloudinary.uploader().upload(avatar.getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    o.setAvatar(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
         } catch (Exception e) {
@@ -86,18 +104,26 @@ public class DeliveryScheduleController {
     public String updateView(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("object", this.mainService.getById(id));
         model.addAttribute("name", NAME);
-        model.addAttribute("list_shipment", this.shipmentService.getList());
-
         return FORM;
     }
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_UPDATE_PROCESS)
-    public String updateProcess(@ModelAttribute(value = "object") DeliverySchedule o) {
+    public String updateProcess(@ModelAttribute(value = "object") User o, @RequestParam("avatarFile") MultipartFile avatarFile) {
         try {
+            if (!avatarFile.isEmpty()) {
+                try {
+                    Map res = cloudinary.uploader().upload(avatarFile.getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    o.setAvatar(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
         } catch (Exception e) {
+            System.out.print(e);
             return String.format(REDIRECT_UPDATE_ERROR, o.getId());
         }
     }
@@ -111,4 +137,5 @@ public class DeliveryScheduleController {
             return REDIRECT_DELETE_ERROR;
         }
     }
+
 }

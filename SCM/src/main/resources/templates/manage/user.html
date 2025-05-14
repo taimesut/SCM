@@ -27,7 +27,13 @@
             <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Avatar</th>
+                    <th>username</th>
                     <th>Tên</th>
+                    <th>SĐT</th>
+                    <th>Email</th>
+                    <th>Địa chỉ</th>
+                    <th>USER_ROLE</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -35,7 +41,15 @@
                 <tr th:each="i : ${list}">
 
                     <td th:text="${i.id}"></td>
+                    <td>
+                        <img th:src="${i.avatar}" width="200" />
+                    </td>
+                    <td th:text="${i.username}"></td>
                     <td th:text="${i.name}"></td>
+                    <td th:text="${i.phone}"></td>
+                    <td th:text="${i.email}"></td>
+                    <td th:text="${i.address}"></td>
+                    <td th:text="${i.userRole}"></td>
 
                     <td>
                         <a th:href="@{${g_prefix + '/' + name + '/' + i.id}}" class="btn btn-info" th:utext="${g_icons['update']}"></a>

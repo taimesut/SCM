@@ -159,13 +159,11 @@ CREATE TABLE `shipment` (
 CREATE TABLE `delivery_schedule` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`shipment_id` int not null,
-	`shipment_company_id` int not null,
 	`expected_date` date,
 	`actual_date` date,
 	`create_date` date,
     `note` varchar(255),
-	FOREIGN KEY (`shipment_id`) REFERENCES `shipment`(`id`),
-	FOREIGN KEY (`shipment_company_id`) REFERENCES `shipment_company`(`id`)
+	FOREIGN KEY (`shipment_id`) REFERENCES `shipment`(`id`)
 );
 
 

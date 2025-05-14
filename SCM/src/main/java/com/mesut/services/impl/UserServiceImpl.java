@@ -37,6 +37,14 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
 
+    @Override
+    public User addOrUpdate(User c) {
+        if(c.getId()==null){
+            c.setCreateDate(CreateDateUtils.createDate());
+        }
+        return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
     @Autowired
     private UserRepository userRepo;
 

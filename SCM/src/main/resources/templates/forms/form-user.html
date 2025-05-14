@@ -1,15 +1,84 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+        <title>Trang chủ</title>
+    <th:block th:replace="~{base :: styles}"></th:block>
+</head>
+<body>
+    <div th:replace="~{base :: sidebar}"></div>
+
+    <!-- Page content -->
+    <div class="content">
+        <div class="alert alert-success" th:if="${param.addSuccess}" role="alert">
+            Thêm mới thành công!
+        </div>
+        <div class="alert alert-danger" th:if="${param.addError}" role="alert">
+            Thêm mới thất bại!
+        </div>
+        <div class="alert alert-success" th:if="${param.updateSuccess}" role="alert">
+            Cập nhật thành công!
+        </div>
+        <div class="alert alert-danger" th:if="${param.updateError}" role="alert">
+            Cập nhật thất bại!
+        </div>
+        <!-- Thay đổi -->
+        <h1 class="text-center text-info mt-1" th:text="${g_list_item_menu['/' + name]}"></h1>
+
+        <a class="btn btn-primary" th:href="@{${g_prefix + '/' + name}}">Quay lại</a>
+
+        <form th:action="@{${g_prefix + '/' + name + (object.id != null ? '/update' : '/add')}}"
+              th:object="${object}" method="post"
+              onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');"
+              enctype="multipart/form-data">
+            <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
+
+
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Username</span>
+                <input type="text" class="form-control" th:field="*{username}" required/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Password</span>
+                <input type="password" class="form-control" th:field="*{password}" required/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Role</span>
+                <select class="form-select" th:field="*{userRole}">
+                    <option th:each="c:${g_role}" th:value="${c}" th:text="${c}"></option>
+                </select>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Tên người dùng</span>
+                <input type="text" class="form-control" th:field="*{name}" required/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">SĐT</span>
+                <input type="text" class="form-control" th:field="*{phone}" required/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Email</span>
+                <input type="email" class="form-control" th:field="*{email}" required/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Địa chỉ</span>
+                <input type="text" class="form-control" th:field="*{address}" required/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Avatar</span>
+                <input type="file" class="form-control" name="avatarFile"/>
+            </div>
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Ngày Tạo</span>
+                <input type="date" class="form-control" th:field="*{createDate}" readonly />
+            </div>
+            <button type="submit" class="btn btn-primary">[[${object.id} != null ? 'Cập nhật' : 'Thêm mới']]</button>
+        </form>
+
+    </div>
+
+
+
+
+</body>
 </html>
+

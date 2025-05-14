@@ -45,7 +45,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerProcess(@RequestParam Map<String, String> params,
-            Model model, @RequestParam("avatar") MultipartFile avatar, Locale locale
+            Model model, @RequestParam("avatar") MultipartFile avatar
     ) {
 
         String username = params.get("username");

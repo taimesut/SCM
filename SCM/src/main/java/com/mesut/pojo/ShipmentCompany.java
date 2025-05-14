@@ -6,7 +6,6 @@ package com.mesut.pojo;
 
 import com.mesut.utils.Identifiable;
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -62,8 +61,6 @@ public class ShipmentCompany implements Serializable, Identifiable {
     private String address;
     @OneToMany(mappedBy = "shipmentCompanyId")
     private Set<Shipment> shipmentSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipmentCompanyId")
-    private Set<DeliverySchedule> deliveryScheduleSet;
     @OneToMany(mappedBy = "shipmentCompanyId")
     private Set<ShipmentCompanyContact> shipmentCompanyContactSet;
 
@@ -126,14 +123,6 @@ public class ShipmentCompany implements Serializable, Identifiable {
 
     public void setShipmentSet(Set<Shipment> shipmentSet) {
         this.shipmentSet = shipmentSet;
-    }
-
-    public Set<DeliverySchedule> getDeliveryScheduleSet() {
-        return deliveryScheduleSet;
-    }
-
-    public void setDeliveryScheduleSet(Set<DeliverySchedule> deliveryScheduleSet) {
-        this.deliveryScheduleSet = deliveryScheduleSet;
     }
 
     public Set<ShipmentCompanyContact> getShipmentCompanyContactSet() {

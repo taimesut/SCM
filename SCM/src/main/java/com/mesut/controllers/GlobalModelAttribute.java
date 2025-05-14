@@ -9,7 +9,9 @@ import com.mesut.services.ShipmentCompanyService;
 import com.mesut.services.SupplierService;
 import com.mesut.services.WarehouseService;
 import com.mesut.utils.PrefixUrl;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -32,6 +34,7 @@ public class GlobalModelAttribute {
     private WarehouseService warehouseService;
     @Autowired
     private ShipmentCompanyService shipmentCompanyService;
+
     private Map<String, String> getItemMenu() {
         Map<String, String> menu = new LinkedHashMap<>();
         menu.put("/category", "Danh mục");// xong
@@ -43,13 +46,13 @@ public class GlobalModelAttribute {
         menu.put("/product", "Sản phẩm");// xong
         menu.put("/receipt-export", "Phiếu xuất");// xong
         menu.put("/receipt-import", "Phiếu nhập");// xong
-        menu.put("/review-shipment-company", "Đánh giá đối tác vận chuyển");
+        menu.put("/review-shipment-company", "Đánh giá đối tác vận chuyển");// xong
         menu.put("/review-supplier", "Đánh giá nhà cung cấp");// xong
         menu.put("/shipment-company-contact", "Điều kiện hợp tác");// xong
         menu.put("/shipment-company", "Đối tác vận chuyển");// xong
         menu.put("/shipment", "Vận chuyển");// xong
         menu.put("/supplier", "Nhà cung cấp");// xong
-        menu.put("/user", "Người dùng");
+        menu.put("/user", "Người dùng");// xong
         menu.put("/warehouse", "Kho hàng");// xong
         return menu;
     }
@@ -59,6 +62,14 @@ public class GlobalModelAttribute {
         menu.put("update", "<i class='fa fa-wrench'></i>");
         menu.put("delete", "<i class='fa fa-trash'></i>");
         return menu;
+    }
+
+    private List<String> getUserRole() {
+        List<String> roles = new ArrayList<>();
+        // Giả sử bạn có một số vai trò cố định
+        roles.add("ROLE_USER");
+        roles.add("ROLE_ADMIN");
+        return roles;
     }
 
     @ModelAttribute
@@ -71,6 +82,7 @@ public class GlobalModelAttribute {
         model.addAttribute("g_list_item_menu", this.getItemMenu());
         model.addAttribute("g_prefix", PrefixUrl.PREFIX_URL);
         model.addAttribute("g_icons", this.getIcon());
+        model.addAttribute("g_role", this.getUserRole());
 
     }
 }
