@@ -14,6 +14,10 @@ public interface StatsService {
 
     List<Object[]> currentInventory();
 
+    List<Object[]> danhSachSanPhamCanNhapHang();
+
+    List<Object[]> danhGiaHieuSuatNhaCungCap();
+
     List<Object[]> expiringInventory(int days); // VD: 30 ngày tới
 
     List<Object[]> expiredInventory();

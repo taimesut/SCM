@@ -9,12 +9,31 @@
 
     <!-- Page content -->
     <div class="content">
-        
+        <div th:replace="~{stats :: base}"></div>
+        <div class="container mt-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Sản phẩm</th>
+                        <th>Kho</th>
+                        <th>Số lượng</th>
+                        <th>Hạn sử dụng</th>
+                        <th>Ngày cập nhật</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="i : ${list_expiring}">
+                        <td th:text="${i[0]}"></td>
+                        <td th:text="${i[1]}"></td>
+                        <td th:text="${i[2]}"></td>
+                        <td th:text="${i[3]}"></td>
+                        <td th:text="${i[4]}"></td>
+                        <td th:text="${i[5]}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-
-
-
-</body>
-</html>
 

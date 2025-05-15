@@ -25,10 +25,10 @@ public class StatsRepositoryImpl implements StatsRepository {
         Session session = factory.getObject().getCurrentSession();
 
         String hql = """
-            SELECT i.id, p.name, w.name, i.amount, i.useDate, i.updateDate
+            SELECT i.id, p.name, w.name, i.amount, i.min, i.useDate, i.updateDate
             FROM Inventory i
-            JOIN i.product p
-            JOIN i.warehouse w
+            JOIN i.productId p
+            JOIN i.warehouseId w
             ORDER BY i.amount ASC
         """;
 
@@ -43,8 +43,8 @@ public class StatsRepositoryImpl implements StatsRepository {
         String hql = """
             SELECT i.id, p.name, w.name, i.amount, i.useDate, i.updateDate
             FROM Inventory i
-            JOIN i.product p
-            JOIN i.warehouse w
+            JOIN i.productId p
+            JOIN i.warehouseId w
             WHERE i.useDate IS NOT NULL AND DATEDIFF(i.useDate, CURRENT_DATE) BETWEEN 0 AND :days
             ORDER BY i.useDate ASC
         """;
@@ -61,8 +61,8 @@ public class StatsRepositoryImpl implements StatsRepository {
         String hql = """
             SELECT i.id, p.name, w.name, i.amount, i.useDate, i.updateDate
             FROM Inventory i
-            JOIN i.product p
-            JOIN i.warehouse w
+            JOIN i.productId p
+            JOIN i.warehouseId w
             WHERE i.useDate IS NOT NULL AND i.useDate < CURRENT_DATE
             ORDER BY i.useDate ASC
         """;
@@ -71,4 +71,44 @@ public class StatsRepositoryImpl implements StatsRepository {
         return query.getResultList();
     }
 
+    @Override
+    public List<Object[]> danhSachSanPhamCanNhapHang() {
+        Session session = factory.getObject().getCurrentSession();
+
+        String hql = """
+            SELECT i.id, p.name, w.name, i.amount, i.min, i.useDate, i.updateDate
+            FROM Inventory i
+            JOIN i.productId p
+            JOIN i.warehouseId w
+            WHERE i.amount < i.min
+            ORDER BY i.amount ASC
+        """;
+
+        Query query = session.createQuery(hql, Object.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Object[]> danhGiaHieuSuatNhaCungCap() {
+
+        Session session = factory.getObject().getCurrentSession();
+
+        String hql = """
+            SELECT 
+                s.id, 
+                s.name, 
+                COUNT(r.id), 
+                AVG(rv.price), 
+                AVG(rv.quality), 
+                AVG(rv.support)
+            FROM Supplier s
+            LEFT JOIN ReceiptImport r ON s.id = r.supplierId.id
+            LEFT JOIN ReviewSupplier rv ON r.id = rv.receiptImportId.id
+            GROUP BY s.id, s.name
+            ORDER BY s.name
+        """;
+
+        Query query = session.createQuery(hql, Object.class);
+        return query.getResultList();
+    }
 }

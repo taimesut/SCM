@@ -31,6 +31,6 @@ public class HomeController {
             session.setAttribute("currentUser", user);
         }
 
-        return "stats";
+        return "index";
     }
 }

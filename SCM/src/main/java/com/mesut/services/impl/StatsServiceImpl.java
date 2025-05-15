@@ -30,5 +30,15 @@ public class StatsServiceImpl implements StatsService {
     public List<Object[]> expiredInventory() {
         return this.mainRepository.expiredInventory();
     }
+
+    @Override
+    public List<Object[]> danhSachSanPhamCanNhapHang() {
+        return this.mainRepository.danhSachSanPhamCanNhapHang();
+    }
+
+    @Override
+    public List<Object[]> danhGiaHieuSuatNhaCungCap() {
+        return this.mainRepository.danhGiaHieuSuatNhaCungCap();
+    }
     
 }

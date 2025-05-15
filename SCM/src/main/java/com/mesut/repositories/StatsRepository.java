@@ -17,4 +17,9 @@ public interface StatsRepository {
     List<Object[]> expiringInventory(int days);
 
     List<Object[]> expiredInventory();
+
+    List<Object[]> danhSachSanPhamCanNhapHang();
+    List<Object[]> danhGiaHieuSuatNhaCungCap();
+
+    
 }
