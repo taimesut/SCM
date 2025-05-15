@@ -34,7 +34,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = {
     "com.mesut.controllers",
     "com.mesut.repositories",
-    "com.mesut.services"
+    "com.mesut.services",
+    "com.mesut.apis"
 })
 public class WebAppContextConfigs implements WebMvcConfigurer {
 

@@ -10,7 +10,6 @@ import com.mesut.services.DeliveryScheduleService;
 import com.mesut.services.DetailReceiptImportService;
 import com.mesut.services.ProductService;
 import com.mesut.services.ReceiptImportService;
-import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

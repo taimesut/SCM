@@ -4,7 +4,6 @@
  */
 package com.mesut.pojo;
 
-import com.mesut.utils.Identifiable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

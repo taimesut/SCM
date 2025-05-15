@@ -5,7 +5,7 @@
 package com.mesut.repositories.impl;
 
 import com.mesut.repositories.GenericRepository;
-import com.mesut.utils.Identifiable;
+import com.mesut.pojo.Identifiable;
 import jakarta.persistence.Query;
 import java.util.List;
 import org.hibernate.Session;

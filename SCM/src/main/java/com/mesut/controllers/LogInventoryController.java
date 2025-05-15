@@ -8,7 +8,6 @@ import com.mesut.pojo.LogInventory;
 import com.mesut.services.LogInventoryService;
 import com.mesut.services.ReceiptExportService;
 import com.mesut.services.ReceiptImportService;
-import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

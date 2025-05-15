@@ -8,7 +8,6 @@ import com.mesut.pojo.Inventory;
 import com.mesut.services.InventoryService;
 import com.mesut.services.ProductService;
 import com.mesut.services.WarehouseService;
-import com.mesut.utils.PrefixUrl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;

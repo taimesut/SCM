@@ -4,7 +4,7 @@
  */
 package com.mesut.pojo;
 
-import com.mesut.utils.Identifiable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,7 +32,7 @@ import java.util.Set;
     @NamedQuery(name = "Warehouse.findById", query = "SELECT w FROM Warehouse w WHERE w.id = :id"),
     @NamedQuery(name = "Warehouse.findByName", query = "SELECT w FROM Warehouse w WHERE w.name = :name"),
     @NamedQuery(name = "Warehouse.findByAddress", query = "SELECT w FROM Warehouse w WHERE w.address = :address")})
-public class Warehouse implements Serializable  ,Identifiable {
+public class Warehouse implements Serializable, Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,10 +50,13 @@ public class Warehouse implements Serializable  ,Identifiable {
     @Size(min = 1, max = 100)
     @Column(name = "address")
     private String address;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
     private Set<ReceiptImport> receiptImportSet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
     private Set<Inventory> inventorySet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouseId")
     private Set<ReceiptExport> receiptExportSet;
 
@@ -142,5 +145,5 @@ public class Warehouse implements Serializable  ,Identifiable {
     public String toString() {
         return "com.mesut.pojo.Warehouse[ id=" + id + " ]";
     }
-    
+
 }

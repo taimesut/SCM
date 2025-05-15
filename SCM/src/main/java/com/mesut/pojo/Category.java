@@ -4,7 +4,7 @@
  */
 package com.mesut.pojo;
 
-import com.mesut.utils.Identifiable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -44,6 +44,7 @@ public class Category implements Serializable ,Identifiable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     private Set<Product> productSet;
 

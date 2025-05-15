@@ -2,14 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mesut.utils;
+package com.mesut.apis;
 
 /**
  *
  * @author THANHTAIPC
  */
-public class PrefixUrl {
-
-    public static final String PREFIX_URL = "/admin";
-
+public class PrefixApi {
+    public static final String PREFIX_API = "/api";
 }

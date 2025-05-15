@@ -6,6 +6,7 @@ package com.mesut.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 /**
@@ -44,7 +48,7 @@ public class SpringSecurityConfigs {
     public HandlerMappingIntrospector mvcHandlerMappingIntrospector() {
         return new HandlerMappingIntrospector();
     }
-    
+
     @Bean
     public Cloudinary cloudinary() {
         Cloudinary cloudinary
@@ -53,14 +57,15 @@ public class SpringSecurityConfigs {
                         "api_key", "675115286763916",
                         "api_secret", "YmFNxxs4iZTU5pv-qrBFpldsgMw",
                         "secure", true));
-        
+
         return cloudinary;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(c -> c.disable()).authorizeHttpRequests(requests 
-                -> requests.requestMatchers("/", "/home").authenticated()
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(c -> c.disable()).authorizeHttpRequests(
+                requests -> requests.requestMatchers("/", "/home").authenticated()
                         .requestMatchers("/js/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/admin/**").hasAnyRole("USER")
@@ -69,9 +74,25 @@ public class SpringSecurityConfigs {
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/login?error=true").permitAll())
-                .logout(logout -> logout.logoutSuccessUrl("/login").permitAll())
-                ;
-        
+                .logout(logout -> logout.logoutSuccessUrl("/login").permitAll());
+
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.setAllowedOrigins(List.of("http://localhost:3000/"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setExposedHeaders(List.of("Authorization"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+
+        return source;
     }
 }

@@ -11,7 +11,6 @@ import com.mesut.services.ReceiptImportService;
 import com.mesut.services.SupplierService;
 import com.mesut.services.UserService;
 import com.mesut.services.WarehouseService;
-import com.mesut.utils.PrefixUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

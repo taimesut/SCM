@@ -4,7 +4,6 @@
  */
 package com.mesut.controllers;
 
-import com.mesut.utils.PrefixUrl;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

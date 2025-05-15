@@ -4,7 +4,7 @@
  */
 package com.mesut.pojo;
 
-import com.mesut.utils.Identifiable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -37,7 +37,7 @@ import java.util.Set;
     @NamedQuery(name = "Product.findByIsActive", query = "SELECT p FROM Product p WHERE p.isActive = :isActive"),
     @NamedQuery(name = "Product.findByImage", query = "SELECT p FROM Product p WHERE p.image = :image"),
     @NamedQuery(name = "Product.findByNote", query = "SELECT p FROM Product p WHERE p.note = :note")})
-public class Product implements Serializable  ,Identifiable {
+public class Product implements Serializable, Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -68,12 +68,16 @@ public class Product implements Serializable  ,Identifiable {
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Supplier supplierId;
+    @JsonIgnore
     @OneToMany(mappedBy = "productId")
     private Set<DetailReceiptExport> detailReceiptExportSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "productId")
     private Set<LogInventory> logInventorySet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Set<Inventory> inventorySet;
+    @JsonIgnore
     @OneToMany(mappedBy = "productId")
     private Set<DetailReceiptImport> detailReceiptImportSet;
 
@@ -210,5 +214,5 @@ public class Product implements Serializable  ,Identifiable {
     public String toString() {
         return "com.mesut.pojo.Product[ id=" + id + " ]";
     }
-    
+
 }

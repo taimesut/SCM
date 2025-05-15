@@ -4,7 +4,7 @@
  */
 package com.mesut.services;
 
-import com.mesut.utils.Identifiable;
+import com.mesut.pojo.Identifiable;
 import java.util.List;
 
 /**

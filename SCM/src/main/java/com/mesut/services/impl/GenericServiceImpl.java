@@ -6,7 +6,7 @@ package com.mesut.services.impl;
 
 import com.mesut.repositories.GenericRepository;
 import com.mesut.services.GenericService;
-import com.mesut.utils.Identifiable;
+import com.mesut.pojo.Identifiable;
 import java.util.List;
 import org.springframework.stereotype.Service;
 

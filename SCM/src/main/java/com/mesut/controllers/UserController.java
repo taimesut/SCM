@@ -12,7 +12,6 @@ import com.mesut.services.CategoryService;
 import com.mesut.services.UserService;
 import com.mesut.services.impl.UserServiceImpl;
 import com.mesut.utils.CreateDateUtils;
-import com.mesut.utils.PrefixUrl;
 import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
