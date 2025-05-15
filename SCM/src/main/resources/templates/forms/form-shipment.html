@@ -31,7 +31,7 @@
               onsubmit="return confirm('Bạn có chắc chắn muốn thực hiện thao tác này?');">
             <input type="hidden" th:if="${object.id != null}" th:field="*{id}"/>
 
-            
+
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Id phiếu xuất</span>
                 <select class="form-select" th:field="*{receiptExportId}">
@@ -47,12 +47,10 @@
                 <a th:href="@{${g_prefix + '/' + 'shipment-company' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Ngày xuất kho</span>
-                <input type="date" class="form-control" th:field="*{exportDate}" required/>
-            </div>
-            <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Ngày giao</span>
-                <input type="date" class="form-control" th:field="*{shipDate}"/>
+                <span class="input-group-text">Trạng thái</span>
+                <select class="form-select" th:field="*{status}">
+                    <option th:each="c:${g_shipment_status}" th:value="${c}" th:text="${c}"></option>
+                </select>
             </div>
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Ghi chú</span>

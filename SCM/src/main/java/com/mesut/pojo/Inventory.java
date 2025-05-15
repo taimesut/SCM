@@ -31,17 +31,10 @@ import java.util.Date;
     @NamedQuery(name = "Inventory.findAll", query = "SELECT i FROM Inventory i"),
     @NamedQuery(name = "Inventory.findById", query = "SELECT i FROM Inventory i WHERE i.id = :id"),
     @NamedQuery(name = "Inventory.findByAmount", query = "SELECT i FROM Inventory i WHERE i.amount = :amount"),
+    @NamedQuery(name = "Inventory.findByMin", query = "SELECT i FROM Inventory i WHERE i.min = :min"),
     @NamedQuery(name = "Inventory.findByUseDate", query = "SELECT i FROM Inventory i WHERE i.useDate = :useDate"),
     @NamedQuery(name = "Inventory.findByUpdateDate", query = "SELECT i FROM Inventory i WHERE i.updateDate = :updateDate")})
-public class Inventory implements Serializable, Identifiable {
-
-    public Integer getMin() {
-        return min;
-    }
-
-    public void setMin(Integer min) {
-        this.min = min;
-    }
+public class Inventory implements Serializable  ,Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -87,6 +80,14 @@ public class Inventory implements Serializable, Identifiable {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public Integer getMin() {
+        return min;
+    }
+
+    public void setMin(Integer min) {
+        this.min = min;
     }
 
     public Date getUseDate() {
@@ -145,5 +146,5 @@ public class Inventory implements Serializable, Identifiable {
     public String toString() {
         return "com.mesut.pojo.Inventory[ id=" + id + " ]";
     }
-
+    
 }

@@ -18,10 +18,10 @@
 
         <ul class="nav nav-pills flex-column mb-auto">
             <div style="min-height:100px" class="text-center">
-                <img th:src="${session.currentUser.avatar != null ? session.currentUser.avatar : 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1747240782/jwrisb5z5czb8zo3s8tx.jpg'}" width="100"  class="rounded-circle"/>
+                <img th:src="${session.currentUser.getAvatar != null ? session.currentUser.avatar : g_avatar_default}" width="100"  class="rounded-circle"/>
             </div>
             <li class="text-white text-center">
-                <strong th:text="${session.currentUser.name != null ? 'Chào, ' + session.currentUser.name : 'Xin chào'}"></strong>
+                <strong th:text="${'Chào, ' + session.currentUser.name}"></strong>
             </li>
             <li>
                 <a th:href="@{/logout}" class="nav-link text-danger">Đăng xuất</a>

@@ -46,6 +46,12 @@
                 <a th:href="@{${g_prefix + '/' + 'warehouse' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
             <div class="input-group mb-3 mt-3">
+                <span class="input-group-text">Trạng thái</span>
+                <select class="form-select" th:field="*{status}">
+                    <option th:each="c:${g_receipt_export_status}" th:value="${c}" th:text="${c}"></option>
+                </select>
+            </div>
+            <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Ghi chú</span>
                 <input type="text" class="form-control" th:field="*{note}" />
             </div>

@@ -37,7 +37,7 @@ import java.util.Set;
     @NamedQuery(name = "Product.findByIsActive", query = "SELECT p FROM Product p WHERE p.isActive = :isActive"),
     @NamedQuery(name = "Product.findByImage", query = "SELECT p FROM Product p WHERE p.image = :image"),
     @NamedQuery(name = "Product.findByNote", query = "SELECT p FROM Product p WHERE p.note = :note")})
-public class Product implements Serializable , Identifiable {
+public class Product implements Serializable  ,Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id

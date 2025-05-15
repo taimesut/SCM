@@ -76,9 +76,6 @@ public class DeliveryScheduleController {
     @PostMapping(URL_ADD_PROCESS)
     public String addProcess(@ModelAttribute(value = "object") DeliverySchedule o) {
         try {
-            if (o.getId() == null) {
-                o.setCreateDate(CreateDateUtils.createDate());
-            }
             this.mainService.addOrUpdate(o);
             return REDIRECT_ADD_SUCCESS;
         } catch (Exception e) {
@@ -99,9 +96,6 @@ public class DeliveryScheduleController {
     @PostMapping(URL_UPDATE_PROCESS)
     public String updateProcess(@ModelAttribute(value = "object") DeliverySchedule o) {
         try {
-            if (o.getId() == null) {
-                o.setCreateDate(CreateDateUtils.createDate());
-            }
             this.mainService.addOrUpdate(o);
             return String.format(REDIRECT_UPDATE_SUCCESS, o.getId());
         } catch (Exception e) {

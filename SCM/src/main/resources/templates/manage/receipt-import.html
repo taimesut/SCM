@@ -30,6 +30,7 @@
                     <th>Nhà cung cấp</th>
                     <th>Người tạo</th>
                     <th>Kho</th>
+                    <th>Trạng thái</th>
                     <th>Ngày tạo</th>
                     <th>Ghi chú</th>
                     <th>Thao tác</th>
@@ -42,6 +43,7 @@
                     <td th:text="${i.supplierId.name}"></td>
                     <td th:text="${i.creatorId.name}"></td>
                     <td th:text="${i.warehouseId.name}"></td>
+                    <td th:text="${i.status}"></td>
                     <td th:text="${i.createDate}"></td>
                     <td th:text="${i.note}"></td>
 

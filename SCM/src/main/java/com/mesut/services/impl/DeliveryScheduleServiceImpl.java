@@ -19,12 +19,4 @@ public class DeliveryScheduleServiceImpl extends GenericServiceImpl<DeliverySche
         super(repository);
     }
 
-    @Override
-    public DeliverySchedule addOrUpdate(DeliverySchedule c) {
-        if (c.getId() == null) {
-            c.setCreateDate(CreateDateUtils.createDate());
-        }
-        return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
 }

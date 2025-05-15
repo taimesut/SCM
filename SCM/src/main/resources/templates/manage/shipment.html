@@ -29,8 +29,7 @@
                     <th>Id</th>
                     <th>Id phiếu xuất</th>
                     <th>Đối tác vận chuyển</th>
-                    <th>Ngày xuất kho</th>
-                    <th>Ngày giao hàng</th>
+                    <th>Trạng thái</th>
                     <th>Ghi chú</th>
 
                     <th>Thao tác</th>
@@ -42,8 +41,7 @@
                     <td th:text="${i.id}"></td>
                     <td th:text="${i.receiptExportId.id}"></td>
                     <td th:text="${i.shipmentCompanyId.name}"></td>
-                    <td th:text="${i.exportDate}"></td>
-                    <td th:text="${i.shipDate}"></td>
+                    <td th:text="${i.status}"></td>
                     <td th:text="${i.note}"></td>
 
 

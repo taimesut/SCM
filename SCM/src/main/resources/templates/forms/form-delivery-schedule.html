@@ -39,16 +39,18 @@
                 <a th:href="@{${g_prefix + '/' + 'shipment' + '/add'}}" class="btn btn-success mt-1">Thêm</a>  
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Ngày Dự kiến</span>
-                <input type="date" class="form-control" th:field="*{expectedDate}"  />
+                <span class="input-group-text">Địa chỉ</span>
+                <input type="text" class="form-control" th:field="*{address}" />
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Ngày Giao</span>
-                <input type="date" class="form-control" th:field="*{actualDate}"  />
+                <span class="input-group-text">Ngày tới</span>
+                <input type="date" class="form-control" th:field="*{date}" />
             </div>
             <div class="input-group mb-3 mt-3">
-                <span class="input-group-text">Ngày Tạo</span>
-                <input type="date" class="form-control" th:field="*{createDate}" readonly />
+                <span class="input-group-text">Trạng thái</span>
+                <select class="form-select" th:field="*{status}">
+                    <option th:each="c:${g_delivery_schedule_status}" th:value="${c}" th:text="${c}"></option>
+                </select>
             </div>
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Ghi chú</span>

@@ -18,11 +18,8 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -33,10 +30,9 @@ import java.util.Date;
 @NamedQueries({
     @NamedQuery(name = "Shipment.findAll", query = "SELECT s FROM Shipment s"),
     @NamedQuery(name = "Shipment.findById", query = "SELECT s FROM Shipment s WHERE s.id = :id"),
-    @NamedQuery(name = "Shipment.findByExportDate", query = "SELECT s FROM Shipment s WHERE s.exportDate = :exportDate"),
-    @NamedQuery(name = "Shipment.findByShipDate", query = "SELECT s FROM Shipment s WHERE s.shipDate = :shipDate"),
+    @NamedQuery(name = "Shipment.findByStatus", query = "SELECT s FROM Shipment s WHERE s.status = :status"),
     @NamedQuery(name = "Shipment.findByNote", query = "SELECT s FROM Shipment s WHERE s.note = :note")})
-public class Shipment implements Serializable , Identifiable {
+public class Shipment implements Serializable  ,Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,12 +40,9 @@ public class Shipment implements Serializable , Identifiable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "export_date")
-    @Temporal(TemporalType.DATE)
-    private Date exportDate;
-    @Column(name = "ship_date")
-    @Temporal(TemporalType.DATE)
-    private Date shipDate;
+    @Size(max = 100)
+    @Column(name = "status")
+    private String status;
     @Size(max = 255)
     @Column(name = "note")
     private String note;
@@ -79,20 +72,12 @@ public class Shipment implements Serializable , Identifiable {
         this.id = id;
     }
 
-    public Date getExportDate() {
-        return exportDate;
+    public String getStatus() {
+        return status;
     }
 
-    public void setExportDate(Date exportDate) {
-        this.exportDate = exportDate;
-    }
-
-    public Date getShipDate() {
-        return shipDate;
-    }
-
-    public void setShipDate(Date shipDate) {
-        this.shipDate = shipDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getNote() {

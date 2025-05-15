@@ -31,11 +31,11 @@ import java.util.Date;
 @NamedQueries({
     @NamedQuery(name = "DeliverySchedule.findAll", query = "SELECT d FROM DeliverySchedule d"),
     @NamedQuery(name = "DeliverySchedule.findById", query = "SELECT d FROM DeliverySchedule d WHERE d.id = :id"),
-    @NamedQuery(name = "DeliverySchedule.findByExpectedDate", query = "SELECT d FROM DeliverySchedule d WHERE d.expectedDate = :expectedDate"),
-    @NamedQuery(name = "DeliverySchedule.findByActualDate", query = "SELECT d FROM DeliverySchedule d WHERE d.actualDate = :actualDate"),
-    @NamedQuery(name = "DeliverySchedule.findByCreateDate", query = "SELECT d FROM DeliverySchedule d WHERE d.createDate = :createDate"),
+    @NamedQuery(name = "DeliverySchedule.findByDate", query = "SELECT d FROM DeliverySchedule d WHERE d.date = :date"),
+    @NamedQuery(name = "DeliverySchedule.findByAddress", query = "SELECT d FROM DeliverySchedule d WHERE d.address = :address"),
+    @NamedQuery(name = "DeliverySchedule.findByStatus", query = "SELECT d FROM DeliverySchedule d WHERE d.status = :status"),
     @NamedQuery(name = "DeliverySchedule.findByNote", query = "SELECT d FROM DeliverySchedule d WHERE d.note = :note")})
-public class DeliverySchedule implements Serializable, Identifiable {
+public class DeliverySchedule implements Serializable  ,Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,15 +43,15 @@ public class DeliverySchedule implements Serializable, Identifiable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "expected_date")
+    @Column(name = "date")
     @Temporal(TemporalType.DATE)
-    private Date expectedDate;
-    @Column(name = "actual_date")
+    private Date date;
+    @Column(name = "address")
     @Temporal(TemporalType.DATE)
-    private Date actualDate;
-    @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
+    private Date address;
+    @Size(max = 100)
+    @Column(name = "status")
+    private String status;
     @Size(max = 255)
     @Column(name = "note")
     private String note;
@@ -74,28 +74,28 @@ public class DeliverySchedule implements Serializable, Identifiable {
         this.id = id;
     }
 
-    public Date getExpectedDate() {
-        return expectedDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setExpectedDate(Date expectedDate) {
-        this.expectedDate = expectedDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Date getActualDate() {
-        return actualDate;
+    public Date getAddress() {
+        return address;
     }
 
-    public void setActualDate(Date actualDate) {
-        this.actualDate = actualDate;
+    public void setAddress(Date address) {
+        this.address = address;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getNote() {

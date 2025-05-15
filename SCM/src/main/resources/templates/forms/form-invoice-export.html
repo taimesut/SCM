@@ -45,13 +45,13 @@
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Trạng thái</span>
                 <select class="form-select" th:field="*{status}">
-                    <option th:each="c:${g_status_invoice}" th:value="${c}" th:text="${c}"></option>
+                    <option th:each="c:${g_invoice_export_status}" th:value="${c}" th:text="${c}"></option>
                 </select>           
             </div>
             <div class="input-group mb-3 mt-3">
                 <span class="input-group-text">Phương thức thanh toán</span>
                 <select class="form-select" th:field="*{paymentMethod}">
-                    <option th:each="c:${g_payment_method}" th:value="${c}" th:text="${c}"></option>
+                    <option th:each="c:${g_invoice_export_payment_method}" th:value="${c}" th:text="${c}"></option>
                 </select>             
             </div>
             <div class="input-group mb-3 mt-3">

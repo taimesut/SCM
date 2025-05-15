@@ -28,9 +28,9 @@
                 <tr>
                     <th>Id</th>
                     <th>Id vận chuyển</th>
-                    <th>Ngày dự kiến giao</th>
-                    <th>Ngày thực giao</th>
-                    <th>Ngày tạo</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày tới</th>
+                    <th>Trạng thái</th>
                     <th>Ghi chú</th>
 
                     <th>Thao tác</th>
@@ -41,9 +41,9 @@
 
                     <td th:text="${i.id}"></td>
                     <td th:text="${i.shipmentId.id}"></td>
-                    <td th:text="${i.expectedDate}"></td>
-                    <td th:text="${i.actualDate}"></td>
-                    <td th:text="${i.createDate}"></td>
+                    <td th:text="${i.address}"></td>
+                    <td th:text="${i.date}"></td>
+                    <td th:text="${i.status}"></td>
                     <td th:text="${i.note}"></td>
 
 

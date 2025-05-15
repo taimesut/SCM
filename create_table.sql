@@ -2,7 +2,7 @@ CREATE TABLE `user` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `username` varchar(100) not null unique,
     `password` VARCHAR(100) NOT NULL,
-    `user_role` VARCHAR(100) NOT NULL,
+    `user_role` VARCHAR(100) NOT NULL, -- ROLE_USER, ROLE_ADMIN
     `create_date` date,
     `email` varchar(100),
     `name` varchar(100) not null,
@@ -67,7 +67,7 @@ CREATE TABLE `receipt_export` (
     `create_date` date,
     `customer_id` int,
     `creator_id` int,
-    `status` varchar(50),
+    `status` varchar(50), -- Đã xác nhận, Chưa xác nhận, Đã hủy
     `note` varchar(255),
     `warehouse_id` int not null,
 	FOREIGN KEY (`warehouse_id`) REFERENCES warehouse(`id`),
@@ -80,7 +80,7 @@ CREATE TABLE `receipt_import` (
     `create_date` date,
     `supplier_id` int,
     `creator_id` int,
-    `status` varchar(50),
+    `status` varchar(50), -- Đã xác nhận, Chưa xác nhận, Đã hủy
     `note` varchar(255),
     `warehouse_id` int not null,
 	FOREIGN KEY (`warehouse_id`) REFERENCES warehouse(`id`),
@@ -111,9 +111,9 @@ CREATE TABLE `invoice_export` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`receipt_export_id` int default null unique,
     `create_date` date,
-    `status` varchar(100),
+    `status` varchar(100), -- Đã thanh toán, Chưa thanh toán
     `total` int,
-    `payment_method` varchar(100),
+    `payment_method` varchar(100),-- Chuyển khoản, Tiền mặt
     `note` varchar(255),
     `payment_date` date,
 	FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export`(`id`)
@@ -149,19 +149,19 @@ CREATE TABLE `shipment` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`receipt_export_id` int,
 	`shipment_company_id` int unique,
-	`export_date` date,
-	`ship_date` date,
+    `status` varchar(100), -- Đang giao, Đã giao
     `note` varchar(255),
 	FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export`(`id`),
 	FOREIGN KEY (`shipment_company_id`) REFERENCES `shipment_company`(`id`)
 );
 
+
 CREATE TABLE `delivery_schedule` (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	`shipment_id` int not null unique,
-	`expected_date` date,
-	`actual_date` date,
-	`create_date` date,
+	`date` date,
+	`address` date,
+	`status` varchar(100), -- Đã tới, Chưa tới
     `note` varchar(255),
 	FOREIGN KEY (`shipment_id`) REFERENCES `shipment`(`id`)
 );
