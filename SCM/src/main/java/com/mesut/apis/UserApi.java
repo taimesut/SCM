@@ -5,36 +5,51 @@
 package com.mesut.apis;
 
 import com.mesut.pojo.User;
-import com.mesut.services.GenericService;
 import com.mesut.services.UserService;
 import java.security.Principal;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.boot.web.server.Http2;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author THANHTAIPC
+ * @author TAN TAI
  */
 @RestController
-@RequestMapping("/api/users")
-public class UserApi extends GenericApi<User>{
-    
+@RequestMapping("/api/secure")
+public class UserApi extends GenericApi<User> {
+
+    private final UserService userService;
+
     @Autowired
     public UserApi(UserService service) {
         super(service);
+        this.userService = service;
     }
 
-    @Override
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> create(@RequestBody User entity) {
-        return super.create(entity); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    @CrossOrigin
+    @ResponseBody
+    @RequestMapping("/profile")
+    public ResponseEntity<User> getProfile(Principal principal) {
+        return new ResponseEntity<>(this.userService.getUserByUsername(principal.getName()), HttpStatus.OK);
     }
-    
-    
-    
+
+    @PutMapping("/update")
+    @ResponseBody
+    public ResponseEntity<User> update(@RequestBody Map<String, String> params, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.ok(this.userService.updateUser(params, principal));
+    }
+
 }

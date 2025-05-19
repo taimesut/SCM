@@ -4,7 +4,6 @@
  */
 package com.mesut.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +24,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "user")
@@ -41,7 +40,7 @@ import java.util.Set;
     @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone"),
     @NamedQuery(name = "User.findByAddress", query = "SELECT u FROM User u WHERE u.address = :address"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
-public class User implements Serializable  ,Identifiable {
+public class User implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,11 +85,11 @@ public class User implements Serializable  ,Identifiable {
     @Size(max = 255)
     @Column(name = "avatar")
     private String avatar;
-    @JsonIgnore@OneToMany(mappedBy = "creatorId")
+    @OneToMany(mappedBy = "creatorId")
     private Set<ReceiptImport> receiptImportSet;
-    @JsonIgnore@OneToMany(mappedBy = "customerId")
+    @OneToMany(mappedBy = "customerId")
     private Set<ReceiptExport> receiptExportSet;
-    @JsonIgnore@OneToMany(mappedBy = "creatorId")
+    @OneToMany(mappedBy = "creatorId")
     private Set<ReceiptExport> receiptExportSet1;
 
     public User() {

@@ -6,9 +6,11 @@ package com.mesut.pojo;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 public interface Identifiable {
+
     Integer getId();
+
     void setId(Integer id);
 }

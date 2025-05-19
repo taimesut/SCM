@@ -10,6 +10,7 @@ import com.mesut.pojo.Product;
 import com.mesut.repositories.ProductRepository;
 import com.mesut.services.ProductService;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,8 @@ public class ProductServiceImpl extends GenericServiceImpl<Product> implements P
     
     @Autowired
     private Cloudinary cloudinary;
-    
+        @Autowired
+    private ProductRepository prodRepo;
     @Override
     public Product addOrUpdate(Product c) {
 //        if (!c.getFile().isEmpty()) {
@@ -42,5 +44,9 @@ public class ProductServiceImpl extends GenericServiceImpl<Product> implements P
     }
 
     
+        @Override
+    public List<Product> getProducts(Map<String, String> params) {
+        return this.prodRepo.getProducts(params);
     
+    }
 }

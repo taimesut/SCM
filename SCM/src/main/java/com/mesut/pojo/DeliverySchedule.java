@@ -11,9 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -23,7 +23,7 @@ import java.util.Date;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "delivery_schedule")
@@ -34,7 +34,7 @@ import java.util.Date;
     @NamedQuery(name = "DeliverySchedule.findByAddress", query = "SELECT d FROM DeliverySchedule d WHERE d.address = :address"),
     @NamedQuery(name = "DeliverySchedule.findByStatus", query = "SELECT d FROM DeliverySchedule d WHERE d.status = :status"),
     @NamedQuery(name = "DeliverySchedule.findByNote", query = "SELECT d FROM DeliverySchedule d WHERE d.note = :note")})
-public class DeliverySchedule implements Serializable  ,Identifiable {
+public class DeliverySchedule implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,9 +45,9 @@ public class DeliverySchedule implements Serializable  ,Identifiable {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
+    @Size(max = 100)
     @Column(name = "address")
-    @Temporal(TemporalType.DATE)
-    private Date address;
+    private String address;
     @Size(max = 100)
     @Column(name = "status")
     private String status;
@@ -55,7 +55,7 @@ public class DeliverySchedule implements Serializable  ,Identifiable {
     @Column(name = "note")
     private String note;
     @JoinColumn(name = "shipment_id", referencedColumnName = "id")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Shipment shipmentId;
 
     public DeliverySchedule() {
@@ -81,11 +81,11 @@ public class DeliverySchedule implements Serializable  ,Identifiable {
         this.date = date;
     }
 
-    public Date getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Date address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 

@@ -26,7 +26,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "receipt_import")
@@ -36,7 +36,7 @@ import java.util.Set;
     @NamedQuery(name = "ReceiptImport.findByCreateDate", query = "SELECT r FROM ReceiptImport r WHERE r.createDate = :createDate"),
     @NamedQuery(name = "ReceiptImport.findByStatus", query = "SELECT r FROM ReceiptImport r WHERE r.status = :status"),
     @NamedQuery(name = "ReceiptImport.findByNote", query = "SELECT r FROM ReceiptImport r WHERE r.note = :note")})
-public class ReceiptImport implements Serializable  ,Identifiable {
+public class ReceiptImport implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id

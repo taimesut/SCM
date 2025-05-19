@@ -4,7 +4,6 @@
  */
 package com.mesut.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,7 +22,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "category")
@@ -31,7 +30,7 @@ import java.util.Set;
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
     @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id"),
     @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")})
-public class Category implements Serializable ,Identifiable {
+public class Category implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,7 +43,6 @@ public class Category implements Serializable ,Identifiable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     private Set<Product> productSet;
 

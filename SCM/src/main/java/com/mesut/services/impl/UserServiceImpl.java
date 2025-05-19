@@ -12,6 +12,7 @@ import com.mesut.repositories.UserRepository;
 import com.mesut.services.UserService;
 import com.mesut.utils.CreateDateUtils;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +28,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -41,9 +43,6 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     public User addOrUpdate(User c) {
         if(c.getId()==null){
             c.setCreateDate(CreateDateUtils.createDate());
-        }
-        if(c.getUserRole()==null){
-            c.setUserRole("ROLE_USER");
         }
         c.setPassword(this.passEncoder.encode(c.getPassword()));
         return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
@@ -115,6 +114,14 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
             return auth.getName();
+        }
+        return null;
+    }
+
+    @Override
+    public User updateUser(Map<String, String> params, Principal principal) {
+        if (!params.isEmpty()) {
+            return this.userRepo.updateUser(params, principal);
         }
         return null;
     }

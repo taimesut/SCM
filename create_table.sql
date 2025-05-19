@@ -158,9 +158,9 @@ CREATE TABLE `shipment` (
 
 CREATE TABLE `delivery_schedule` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-	`shipment_id` int not null unique,
+	`shipment_id` int not null,
 	`date` date,
-	`address` date,
+	`address` varchar(100),
 	`status` varchar(100), -- Đã tới, Chưa tới
     `note` varchar(255),
 	FOREIGN KEY (`shipment_id`) REFERENCES `shipment`(`id`)

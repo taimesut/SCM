@@ -4,7 +4,6 @@
  */
 package com.mesut.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,7 +22,7 @@ import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "supplier")
@@ -34,7 +33,7 @@ import java.util.Set;
     @NamedQuery(name = "Supplier.findByName", query = "SELECT s FROM Supplier s WHERE s.name = :name"),
     @NamedQuery(name = "Supplier.findByPhone", query = "SELECT s FROM Supplier s WHERE s.phone = :phone"),
     @NamedQuery(name = "Supplier.findByAddress", query = "SELECT s FROM Supplier s WHERE s.address = :address")})
-public class Supplier implements Serializable, Identifiable {
+public class Supplier implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,10 +59,8 @@ public class Supplier implements Serializable, Identifiable {
     @Size(min = 1, max = 100)
     @Column(name = "address")
     private String address;
-    @JsonIgnore
     @OneToMany(mappedBy = "supplierId")
     private Set<ReceiptImport> receiptImportSet;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplierId")
     private Set<Product> productSet;
 
@@ -160,5 +157,5 @@ public class Supplier implements Serializable, Identifiable {
     public String toString() {
         return "com.mesut.pojo.Supplier[ id=" + id + " ]";
     }
-
+    
 }

@@ -15,14 +15,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "shipment")
@@ -31,7 +33,7 @@ import java.io.Serializable;
     @NamedQuery(name = "Shipment.findById", query = "SELECT s FROM Shipment s WHERE s.id = :id"),
     @NamedQuery(name = "Shipment.findByStatus", query = "SELECT s FROM Shipment s WHERE s.status = :status"),
     @NamedQuery(name = "Shipment.findByNote", query = "SELECT s FROM Shipment s WHERE s.note = :note")})
-public class Shipment implements Serializable  ,Identifiable {
+public class Shipment implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,8 +53,8 @@ public class Shipment implements Serializable  ,Identifiable {
     @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
     @OneToOne
     private ShipmentCompany shipmentCompanyId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "shipmentId")
-    private DeliverySchedule deliverySchedule;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipmentId")
+    private Set<DeliverySchedule> deliveryScheduleSet;
     @OneToOne(mappedBy = "shipmentId")
     private ReviewShipmentCompany reviewShipmentCompany;
 
@@ -103,12 +105,12 @@ public class Shipment implements Serializable  ,Identifiable {
         this.shipmentCompanyId = shipmentCompanyId;
     }
 
-    public DeliverySchedule getDeliverySchedule() {
-        return deliverySchedule;
+    public Set<DeliverySchedule> getDeliveryScheduleSet() {
+        return deliveryScheduleSet;
     }
 
-    public void setDeliverySchedule(DeliverySchedule deliverySchedule) {
-        this.deliverySchedule = deliverySchedule;
+    public void setDeliveryScheduleSet(Set<DeliverySchedule> deliveryScheduleSet) {
+        this.deliveryScheduleSet = deliveryScheduleSet;
     }
 
     public ReviewShipmentCompany getReviewShipmentCompany() {

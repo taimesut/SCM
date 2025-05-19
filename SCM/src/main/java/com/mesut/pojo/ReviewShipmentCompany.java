@@ -20,7 +20,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "review_shipment_company")
@@ -29,7 +29,7 @@ import java.io.Serializable;
     @NamedQuery(name = "ReviewShipmentCompany.findById", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.id = :id"),
     @NamedQuery(name = "ReviewShipmentCompany.findByNote", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.note = :note"),
     @NamedQuery(name = "ReviewShipmentCompany.findByPerformance", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.performance = :performance")})
-public class ReviewShipmentCompany implements Serializable  ,Identifiable {
+public class ReviewShipmentCompany implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id

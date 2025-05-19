@@ -23,7 +23,7 @@ import java.util.Date;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "invoice_export")
@@ -36,7 +36,7 @@ import java.util.Date;
     @NamedQuery(name = "InvoiceExport.findByPaymentMethod", query = "SELECT i FROM InvoiceExport i WHERE i.paymentMethod = :paymentMethod"),
     @NamedQuery(name = "InvoiceExport.findByNote", query = "SELECT i FROM InvoiceExport i WHERE i.note = :note"),
     @NamedQuery(name = "InvoiceExport.findByPaymentDate", query = "SELECT i FROM InvoiceExport i WHERE i.paymentDate = :paymentDate")})
-public class InvoiceExport implements Serializable  ,Identifiable {
+public class InvoiceExport implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id

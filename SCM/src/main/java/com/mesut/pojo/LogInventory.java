@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  *
- * @author THANHTAIPC
+ * @author THANHTAI
  */
 @Entity
 @Table(name = "log_inventory")
@@ -32,7 +32,7 @@ import java.util.Date;
     @NamedQuery(name = "LogInventory.findByAmount", query = "SELECT l FROM LogInventory l WHERE l.amount = :amount"),
     @NamedQuery(name = "LogInventory.findByPrice", query = "SELECT l FROM LogInventory l WHERE l.price = :price"),
     @NamedQuery(name = "LogInventory.findByCreateDate", query = "SELECT l FROM LogInventory l WHERE l.createDate = :createDate")})
-public class LogInventory implements Serializable  ,Identifiable {
+public class LogInventory implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;
     @Id
