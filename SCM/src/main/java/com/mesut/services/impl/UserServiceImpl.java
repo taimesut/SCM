@@ -42,6 +42,9 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         if(c.getId()==null){
             c.setCreateDate(CreateDateUtils.createDate());
         }
+        if(c.getUserRole()==null){
+            c.setUserRole("ROLE_USER");
+        }
         c.setPassword(this.passEncoder.encode(c.getPassword()));
         return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
