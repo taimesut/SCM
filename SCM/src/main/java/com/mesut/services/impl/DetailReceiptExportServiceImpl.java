@@ -10,6 +10,7 @@ import com.mesut.repositories.DetailReceiptExportRepository;
 import com.mesut.services.DetailReceiptExportService;
 import com.mesut.services.InventoryService;
 import com.mesut.services.LogInventoryService;
+import com.mesut.services.ReceiptExportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +23,11 @@ public class DetailReceiptExportServiceImpl extends GenericServiceImpl<DetailRec
     @Autowired
     private LogInventoryService logInventoryService;
 
+    @Autowired
+    private ReceiptExportService receiptExportService;
     @Override
     public DetailReceiptExport addOrUpdate(DetailReceiptExport c) {
-        int warehouse_id = c.getReceiptExportId().getId();
+        int warehouse_id = this.receiptExportService.getById(c.getReceiptExportId().getId()).getWarehouseId().getId();
         int amount = c.getAmount();
         int product_id = c.getProductId().getId();
         LogInventory log = new LogInventory();
@@ -33,7 +36,7 @@ public class DetailReceiptExportServiceImpl extends GenericServiceImpl<DetailRec
         log.setAmount(c.getAmount());
         log.setProductId(c.getProductId());
         this.inventoryService.updateAmount(warehouse_id, product_id, -amount);
-                this.logInventoryService.addOrUpdate(log);
+        this.logInventoryService.addOrUpdate(log);
 
         return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }

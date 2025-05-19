@@ -11,6 +11,7 @@ import com.mesut.services.DetailReceiptImportService;
 import com.mesut.services.InventoryService;
 import com.mesut.services.LogInventoryService;
 import com.mesut.services.ProductService;
+import com.mesut.services.ReceiptImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +24,12 @@ public class DetailReceiptImportServiceImpl extends GenericServiceImpl<DetailRec
     @Autowired
     private LogInventoryService logInventoryService;
 
+    @Autowired
+    private ReceiptImportService receiptImportService;
     
     @Override
     public DetailReceiptImport addOrUpdate(DetailReceiptImport c) {
-        int warehouse_id = c.getReceiptImportId().getId();
+        int warehouse_id = this.receiptImportService.getById(c.getReceiptImportId().getId()).getWarehouseId().getId();
         int amount = c.getAmount();
         int product_id = c.getProductId().getId();
         LogInventory log = new LogInventory();

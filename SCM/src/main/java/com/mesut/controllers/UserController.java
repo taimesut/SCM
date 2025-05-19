@@ -81,7 +81,7 @@ public class UserController {
 
     // Đổi class @ModelAttribute
     @PostMapping(URL_ADD_PROCESS)
-    public String addProcess(@ModelAttribute(value = "object") User o, @RequestParam("avatar") MultipartFile avatar) {
+    public String addProcess(@ModelAttribute(value = "object") User o, @RequestParam("avatarFile") MultipartFile avatar) {
         try {
             if (!avatar.isEmpty()) {
                 try {

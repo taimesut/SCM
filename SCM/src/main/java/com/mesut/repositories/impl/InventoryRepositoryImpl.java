@@ -22,26 +22,28 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class InventoryRepositoryImpl extends GenericRepositoryImpl<Inventory> implements InventoryRepository {
-    
+
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Autowired
     private ProductRepository productRepository;
     @Autowired
     private WarehouseRepository warehouseRepository;
-    
+
     public InventoryRepositoryImpl() {
         super(Inventory.class);
     }
-    
+
     @Override
     public void updateAmount(int warehouse_id, int product_id, int amount_insert) {
         Session s = this.factory.getObject().getCurrentSession();
         Warehouse w = this.warehouseRepository.getById(warehouse_id);
         Product p = this.productRepository.getById(product_id);
         Inventory i = this.findByWarehouseIdAndProductId(w, p);
-        
+        if (w == null || p == null) {
+            throw new IllegalArgumentException("Warehouse or Product is null");
+        }
         if (i != null) {
             i.setAmount(i.getAmount() + amount_insert);
             s.merge(i);
@@ -53,9 +55,9 @@ public class InventoryRepositoryImpl extends GenericRepositoryImpl<Inventory> im
             c.setUpdateDate(CreateDateUtils.createDate());
             this.addOrUpdate(c);
         }
-        
+
     }
-    
+
     @Override
     public Inventory findByWarehouseIdAndProductId(Warehouse warehouseId, Product productId) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -65,5 +67,5 @@ public class InventoryRepositoryImpl extends GenericRepositoryImpl<Inventory> im
         List<Inventory> result = query.getResultList();
         return result.isEmpty() ? null : result.get(0);
     }
-    
+
 }
