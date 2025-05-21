@@ -8,6 +8,8 @@ import com.mesut.pojo.LogInventory;
 import com.mesut.repositories.LogInventoryRepository;
 import com.mesut.services.LogInventoryService;
 import com.mesut.utils.CreateDateUtils;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,7 @@ public class LogInventoryServiceImpl extends GenericServiceImpl<LogInventory> im
         }
         return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+
+
 
 }

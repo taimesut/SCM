@@ -81,4 +81,15 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
         return u;
     }
 
+    @Override
+    public List<User> getAllWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
+    @Override
+    public int countWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

@@ -8,6 +8,7 @@ import com.mesut.repositories.GenericRepository;
 import com.mesut.services.GenericService;
 import com.mesut.pojo.Identifiable;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,12 +18,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public abstract class GenericServiceImpl<T extends Identifiable> implements GenericService<T> {
+
     protected final GenericRepository<T> mainRepo;
 
     protected GenericServiceImpl(GenericRepository<T> repository) {
         this.mainRepo = repository;
     }
-    
+
     @Override
     public List<T> getList() {
         return this.mainRepo.getList();
@@ -43,5 +45,15 @@ public abstract class GenericServiceImpl<T extends Identifiable> implements Gene
     public void deleteById(int id) {
         this.mainRepo.deleteById(id);
     }
-    
+
+    @Override
+    public List<T> getAllWithFilter(Map<String, String> params) {
+        return this.mainRepo.getAllWithFilter(params);
+    }
+
+    @Override
+    public int countWithFilter(Map<String, String> params) {
+        return this.mainRepo.countWithFilter(params);
+    }
+
 }

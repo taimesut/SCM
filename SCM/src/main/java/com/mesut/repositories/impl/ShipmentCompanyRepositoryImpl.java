@@ -6,6 +6,8 @@ package com.mesut.repositories.impl;
 
 import com.mesut.pojo.ShipmentCompany;
 import com.mesut.repositories.ShipmentCompanyRepository;
+import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,18 @@ public class ShipmentCompanyRepositoryImpl extends GenericRepositoryImpl<Shipmen
     public ShipmentCompanyRepositoryImpl() {
         super(ShipmentCompany.class);
     }
+
+    @Override
+    public List<ShipmentCompany> getAllWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int countWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
 
     
 }

@@ -2,15 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.mesut.repositories;
-
-import com.mesut.pojo.Category;
-import java.util.List;
-import java.util.Map;
+package com.mesut.services;
 
 /**
  *
  * @author THANHTAIPC
  */
-public interface CategoryRepository extends GenericRepository<Category> {
+public interface PaymentService {
+    String CreatePaymentLink(int ReceipExportId);
 }

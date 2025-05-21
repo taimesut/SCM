@@ -81,4 +81,16 @@ public class ProductRepositoryImpl extends GenericRepositoryImpl<Product> implem
         return query.getResultList();
     }
 
+    @Override
+    public List<Product> getAllWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int countWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+  
+
 }

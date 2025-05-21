@@ -13,6 +13,7 @@ import com.mesut.repositories.WarehouseRepository;
 import com.mesut.utils.CreateDateUtils;
 import jakarta.persistence.Query;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -67,5 +68,17 @@ public class InventoryRepositoryImpl extends GenericRepositoryImpl<Inventory> im
         List<Inventory> result = query.getResultList();
         return result.isEmpty() ? null : result.get(0);
     }
+
+    @Override
+    public List<Inventory> getAllWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int countWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+  
 
 }

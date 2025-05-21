@@ -6,6 +6,8 @@ package com.mesut.repositories.impl;
 
 import com.mesut.pojo.Supplier;
 import com.mesut.repositories.SupplierRepository;
+import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,17 @@ public class SupplierRepositoryImpl extends GenericRepositoryImpl<Supplier> impl
     public SupplierRepositoryImpl() {
         super(Supplier.class);
     }
+
+    @Override
+    public List<Supplier> getAllWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int countWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 
     
 

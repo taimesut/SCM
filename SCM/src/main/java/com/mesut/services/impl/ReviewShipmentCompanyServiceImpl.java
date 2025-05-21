@@ -7,6 +7,8 @@ package com.mesut.services.impl;
 import com.mesut.pojo.ReviewShipmentCompany;
 import com.mesut.repositories.ReviewShipmentCompanyRepository;
 import com.mesut.services.ReviewShipmentCompanyService;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class ReviewShipmentCompanyServiceImpl extends GenericServiceImpl<ReviewS
     public ReviewShipmentCompanyServiceImpl(ReviewShipmentCompanyRepository repository) {
         super(repository);
     }
+
 
     
 }

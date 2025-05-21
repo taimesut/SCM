@@ -6,6 +6,7 @@ package com.mesut.services;
 
 import com.mesut.pojo.Identifiable;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,4 +18,6 @@ public interface GenericService<T extends Identifiable> {
     T addOrUpdate(T c);
     T getById(int id);
     void deleteById(int id);
+    List<T> getAllWithFilter(Map<String,String> params);
+    int countWithFilter(Map<String, String> params);
 }

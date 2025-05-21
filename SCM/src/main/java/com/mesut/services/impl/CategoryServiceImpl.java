@@ -7,6 +7,8 @@ package com.mesut.services.impl;
 import com.mesut.pojo.Category;
 import com.mesut.repositories.CategoryRepository;
 import com.mesut.services.CategoryService;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +23,5 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category> implements
     public CategoryServiceImpl(CategoryRepository repository) {
         super(repository);
     }
+
 }

@@ -7,6 +7,8 @@ package com.mesut.services.impl;
 import com.mesut.pojo.ShipmentCompanyContact;
 import com.mesut.repositories.ShipmentCompanyContactRepository;
 import com.mesut.services.ShipmentCompanyContactService;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class ShipmentCompanyContactServiceImpl extends GenericServiceImpl<Shipme
     public ShipmentCompanyContactServiceImpl(ShipmentCompanyContactRepository repository) {
         super(repository);
     }
+
+
 
   
 }

@@ -8,6 +8,8 @@ import com.mesut.pojo.Shipment;
 import com.mesut.repositories.ShipmentRepository;
 import com.mesut.services.ShipmentService;
 import com.mesut.utils.CreateDateUtils;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ public class ShipmentServiceImpl extends GenericServiceImpl<Shipment> implements
     public ShipmentServiceImpl(ShipmentRepository repository) {
         super(repository);
     }
+
+ 
 
 
 

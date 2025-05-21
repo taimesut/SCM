@@ -7,6 +7,8 @@ package com.mesut.services.impl;
 import com.mesut.pojo.ReviewSupplier;
 import com.mesut.repositories.ReviewSupplierRepository;
 import com.mesut.services.ReviewSupplierService;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ public class ReviewSupplierServiceImpl extends GenericServiceImpl<ReviewSupplier
     public ReviewSupplierServiceImpl(ReviewSupplierRepository repository) {
         super(repository);
     }
+
+
 
     
 }

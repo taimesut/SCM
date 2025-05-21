@@ -22,6 +22,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import vn.payos.PayOS;
 
 /**
  *
@@ -60,6 +61,15 @@ public class SpringSecurityConfigs {
                         "secure", true));
 
         return cloudinary;
+    }
+
+    @Bean
+    public PayOS payOS() {
+        String clientId = "4a99d9a8-0202-4ec4-be8d-28dfb2862cf8";
+        String apiKey = "e29a3cd3-067f-44b9-8ed1-e68faca8cfc7";
+        String checksumKey = "432f7942bb392cdca02f2c8155705cac0673f2d4b9b17d6492022071e59c27f8";
+
+        return new PayOS(clientId, apiKey, checksumKey);
     }
 
     @Bean

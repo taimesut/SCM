@@ -7,6 +7,8 @@ package com.mesut.services.impl;
 import com.mesut.pojo.Warehouse;
 import com.mesut.repositories.WarehouseRepository;
 import com.mesut.services.WarehouseService;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,8 @@ public class WarehouseServiceImpl extends GenericServiceImpl<Warehouse> implemen
     public WarehouseServiceImpl(WarehouseRepository repository) {
         super(repository);
     }
-    
+
+
     
     
 }

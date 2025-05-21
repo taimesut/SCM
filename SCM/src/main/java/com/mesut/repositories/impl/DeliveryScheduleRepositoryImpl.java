@@ -6,6 +6,8 @@ package com.mesut.repositories.impl;
 
 import com.mesut.pojo.DeliverySchedule;
 import com.mesut.repositories.DeliveryScheduleRepository;
+import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,18 @@ public class DeliveryScheduleRepositoryImpl extends GenericRepositoryImpl<Delive
     public DeliveryScheduleRepositoryImpl() {
         super(DeliverySchedule.class);
     }
+
+    @Override
+    public List<DeliverySchedule> getAllWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int countWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
 
   
     

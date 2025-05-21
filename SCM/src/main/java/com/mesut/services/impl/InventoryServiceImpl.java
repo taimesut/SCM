@@ -10,6 +10,8 @@ import com.mesut.pojo.Warehouse;
 import com.mesut.repositories.InventoryRepository;
 import com.mesut.services.InventoryService;
 import com.mesut.utils.CreateDateUtils;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +43,7 @@ public class InventoryServiceImpl extends GenericServiceImpl<Inventory> implemen
     public Inventory findByWarehouseIdAndProductId(Warehouse warehouse_id, Product product_id) {
         return this.mainRepository.findByWarehouseIdAndProductId(warehouse_id, product_id);
     }
+
+
 
 }

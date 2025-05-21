@@ -6,6 +6,8 @@ package com.mesut.repositories.impl;
 
 import com.mesut.pojo.DetailReceiptImport;
 import com.mesut.repositories.DetailReceiptImportRepository;
+import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,17 @@ public class DetailReceiptImportRepositoryImpl extends GenericRepositoryImpl<Det
         super(DetailReceiptImport.class);
     }
 
+    @Override
+    public List<DetailReceiptImport> getAllWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int countWithFilter(Map<String, String> params) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+  
     
     
 }

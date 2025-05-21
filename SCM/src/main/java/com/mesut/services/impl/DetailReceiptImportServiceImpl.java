@@ -12,6 +12,8 @@ import com.mesut.services.InventoryService;
 import com.mesut.services.LogInventoryService;
 import com.mesut.services.ProductService;
 import com.mesut.services.ReceiptImportService;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,7 @@ public class DetailReceiptImportServiceImpl extends GenericServiceImpl<DetailRec
     public DetailReceiptImportServiceImpl(DetailReceiptImportRepository repository) {
         super(repository);
     }
+
 
   
     

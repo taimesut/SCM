@@ -49,4 +49,6 @@ public class ProductServiceImpl extends GenericServiceImpl<Product> implements P
         return this.prodRepo.getProducts(params);
     
     }
+
+
 }

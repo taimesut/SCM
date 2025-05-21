@@ -4,10 +4,18 @@
  */
 package com.mesut.repositories.impl;
 
+import com.mesut.constants.RepositoryConstants;
+import com.mesut.pojo.Category;
 import com.mesut.repositories.GenericRepository;
 import com.mesut.pojo.Identifiable;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -24,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class GenericRepositoryImpl<T extends Identifiable> implements GenericRepository<T> {
 
     @Autowired
-    private LocalSessionFactoryBean factory;
+    protected LocalSessionFactoryBean factory;
 
     private final Class<T> entityClass;
 

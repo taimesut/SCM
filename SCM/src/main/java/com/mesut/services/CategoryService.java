@@ -5,10 +5,12 @@
 package com.mesut.services;
 
 import com.mesut.pojo.Category;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author THANHTAIPC
  */
-public interface CategoryService extends GenericService<Category>{
+public interface CategoryService extends GenericService<Category> {
 }
