@@ -6,6 +6,9 @@ package com.mesut.repositories.impl;
 
 import com.mesut.pojo.ShipmentCompany;
 import com.mesut.repositories.ShipmentCompanyRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
@@ -20,14 +23,11 @@ public class ShipmentCompanyRepositoryImpl extends GenericRepositoryImpl<Shipmen
     }
 
     @Override
-    public List<ShipmentCompany> getAllWithFilter(Map<String, String> params) {
+    public List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<ShipmentCompany> root) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public int countWithFilter(Map<String, String> params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
 
 

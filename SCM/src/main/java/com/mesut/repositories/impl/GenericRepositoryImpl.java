@@ -73,4 +73,56 @@ public abstract class GenericRepositoryImpl<T extends Identifiable> implements G
         }
     }
 
+    @Override
+    public List<T> getAllWithFilter(Map<String, String> params) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+
+        CriteriaQuery<T> q = b.createQuery(entityClass);
+        Root<T> root = q.from(entityClass);
+
+        q.select(root);
+
+        List<Predicate> predicates = doFilter(params, b, root);
+        if (!predicates.isEmpty()) {
+            q.where(predicates.toArray(Predicate[]::new));
+        }
+
+        q.orderBy(b.asc(root.get("id")));
+
+        Query query = s.createQuery(q);
+
+        int page = 1;
+        if (params != null && params.get("page") != null) {
+            try {
+                page = Integer.parseInt(params.get("page"));
+            } catch (NumberFormatException ex) {
+                page = 1;
+            }
+        }
+
+        int start = (page - 1) * RepositoryConstants.DEFAULT_PAGE_SIZE;
+        query.setFirstResult(start);
+        query.setMaxResults(RepositoryConstants.DEFAULT_PAGE_SIZE);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public int countWithFilter(Map<String, String> params) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Long> q = b.createQuery(Long.class);
+
+        Root<T> root = q.from(entityClass);
+        q.select(b.count(root));
+
+        List<Predicate> predicates = doFilter(params, b, root);
+        if (!predicates.isEmpty()) {
+            q.where(predicates.toArray(Predicate[]::new));
+        }
+
+        return s.createQuery(q).getSingleResult().intValue();
+    }
+
 }

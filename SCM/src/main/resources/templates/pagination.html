@@ -1,0 +1,49 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Trang chủ</title>
+    <th:block th:replace="~{base :: styles}"></th:block>
+</head>
+<body>
+
+    <!--Phân trang-->
+    <div th:fragment="pagination">
+        <nav aria-label="Page navigation example" 
+             th:style="${page <= 0} ? 'display: none' : ''">
+
+            <ul class="pagination">
+                <li class="page-item" 
+                    th:classappend="${page == 1 ? 'disabled' : 'sai_roi'}">
+                    <a class="page-link" aria-label="Previous"
+                       th:href="${page == 1} ? '#' : @{${g_prefix + '/' + name}(page=${page - 1}, kw=${kw})}">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+
+                <li class="page-item" 
+                    th:each="i : ${#numbers.sequence(1, totalPages)}"
+                    th:classappend="${page == i ? 'active' : ''}">
+                    <a class="page-link"
+                       th:href="@{${g_prefix + '/' + name}(page=${i}, kw=${kw})}"
+                       th:text="${i}"></a>
+                </li>
+
+
+                <li class="page-item" 
+                    th:classappend="${page == totalPages ? 'disabled' : 'sai_roi'}">
+                    <a class="page-link" aria-label="Next"
+                       th:href="${page == totalPages} ? '#' : @{${g_prefix + '/' + name}(page=${page + 1}, kw=${kw})}">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+</body>
+</html>
+

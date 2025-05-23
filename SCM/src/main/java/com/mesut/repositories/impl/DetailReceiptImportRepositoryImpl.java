@@ -6,6 +6,9 @@ package com.mesut.repositories.impl;
 
 import com.mesut.pojo.DetailReceiptImport;
 import com.mesut.repositories.DetailReceiptImportRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
@@ -20,14 +23,11 @@ public class DetailReceiptImportRepositoryImpl extends GenericRepositoryImpl<Det
     }
 
     @Override
-    public List<DetailReceiptImport> getAllWithFilter(Map<String, String> params) {
+    public List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<DetailReceiptImport> root) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public int countWithFilter(Map<String, String> params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
   
     

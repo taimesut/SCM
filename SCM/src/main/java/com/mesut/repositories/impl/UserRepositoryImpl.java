@@ -8,6 +8,9 @@ import com.mesut.pojo.User;
 import org.springframework.transaction.annotation.Transactional;
 import com.mesut.repositories.UserRepository;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -82,14 +85,10 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
     }
 
     @Override
-    public List<User> getAllWithFilter(Map<String, String> params) {
+    public List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<User> root) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-
-    @Override
-    public int countWithFilter(Map<String, String> params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
 }

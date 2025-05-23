@@ -35,68 +35,91 @@ public class CategoryRepositoryImpl extends GenericRepositoryImpl<Category> impl
     }
 
     @Override
-    public List<Category> getAllWithFilter(Map<String, String> params) {
-        Session s = this.factory.getObject().getCurrentSession();
-        CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Category> q = b.createQuery(Category.class);
-        Root<Category> root = q.from(Category.class);
-        q.select(root);
-
-        if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
-
-            String kw = params.get("kw");
-            if (kw != null && !kw.isEmpty()) {
-                predicates.add(b.like(root.get("name"), "%" + kw + "%"));
-            }
-
-            if (!predicates.isEmpty()) {
-                q.where(predicates.toArray(Predicate[]::new));
-            }
-        }
-
-        q.orderBy(b.asc(root.get("id")));
-
-        Query query = s.createQuery(q);
-
-        int page = 1;
-        if (params != null && params.get("page") != null) {
-            try {
-                page = Integer.parseInt(params.get("page"));
-            } catch (NumberFormatException ex) {
-                page = 1;
-            }
-        }
-
-        int start = (page - 1) * RepositoryConstants.DEFAULT_PAGE_SIZE;
-        query.setFirstResult(start);
-        query.setMaxResults(RepositoryConstants.DEFAULT_PAGE_SIZE);
-
-        return query.getResultList();
-    }
-
-    @Override
-    public int countWithFilter(Map<String, String> params) {
-        Session s = this.factory.getObject().getCurrentSession();
-        CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Long> q = b.createQuery(Long.class);
-        Root<Category> root = q.from(Category.class);
-        q.select(b.count(root));
-
+    public List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<Category> root) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (params != null) {
-            String kw = params.get("kw");
-            if (kw != null && !kw.isEmpty()) {
-                predicates.add(b.like(root.get("name"), "%" + kw + "%"));
-            }
+        String kw = params.get("kw");
+        if (kw != null && !kw.isEmpty()) {
+            predicates.add(b.like(root.get("name"), "%" + kw + "%"));
         }
-
-        if (!predicates.isEmpty()) {
-            q.where(predicates.toArray(Predicate[]::new));
-        }
-
-        return s.createQuery(q).getSingleResult().intValue();
+        
+        return predicates;
     }
+
+//    @Override
+//    public List<Category> getAllWithFilter(Map<String, String> params) {
+//        Session s = this.factory.getObject().getCurrentSession();
+//        CriteriaBuilder b = s.getCriteriaBuilder();
+//        
+
+////        Thay đổi class
+//        CriteriaQuery<Category> q = b.createQuery(Category.class);
+//        Root<Category> root = q.from(Category.class);
+//        
+//        
+//        q.select(root);
+//
+////        Đổi điều kiện lọc
+//        if (params != null) {
+//            List<Predicate> predicates = new ArrayList<>();
+//
+//            String kw = params.get("kw");
+//            if (kw != null && !kw.isEmpty()) {
+//                predicates.add(b.like(root.get("name"), "%" + kw + "%"));
+//            }
+//
+//            if (!predicates.isEmpty()) {
+//                q.where(predicates.toArray(Predicate[]::new));
+//            }
+//        }
+//
+////        Sắp xếp
+//        q.orderBy(b.asc(root.get("id")));
+//
+//        Query query = s.createQuery(q);
+//
+//        int page = 1;
+//        if (params != null && params.get("page") != null) {
+//            try {
+//                page = Integer.parseInt(params.get("page"));
+//            } catch (NumberFormatException ex) {
+//                page = 1;
+//            }
+//        }
+//
+//        int start = (page - 1) * RepositoryConstants.DEFAULT_PAGE_SIZE;
+//        query.setFirstResult(start);
+//        query.setMaxResults(RepositoryConstants.DEFAULT_PAGE_SIZE);
+//
+//        return query.getResultList();
+//    }
+//
+//    @Override
+//    public int countWithFilter(Map<String, String> params) {
+//        Session s = this.factory.getObject().getCurrentSession();
+//        CriteriaBuilder b = s.getCriteriaBuilder();
+//        CriteriaQuery<Long> q = b.createQuery(Long.class);
+//        
+////        Đổi class
+//        Root<Category> root = q.from(Category.class);
+//        q.select(b.count(root));
+//
+//        List<Predicate> predicates = new ArrayList<>();
+//
+////        Đổi điều kiện lọc
+//        if (params != null) {
+//            String kw = params.get("kw");
+//            if (kw != null && !kw.isEmpty()) {
+//                predicates.add(b.like(root.get("name"), "%" + kw + "%"));
+//            }
+//        }
+//
+//        if (!predicates.isEmpty()) {
+//            q.where(predicates.toArray(Predicate[]::new));
+//        }
+//
+//        return s.createQuery(q).getSingleResult().intValue();
+//    }
+    
 
 }

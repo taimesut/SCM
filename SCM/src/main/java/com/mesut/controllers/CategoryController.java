@@ -57,10 +57,17 @@ public class CategoryController {
     public String listView(Model model, @RequestParam Map<String, String> params) {
         // tổng số trang lấy theo tìm kiếm hiện tại
         int totalPages = (int) Math.ceil((double) this.mainService.countWithFilter(params) / RepositoryConstants.DEFAULT_PAGE_SIZE);
-        
+
         // số trang lấy theo tìm kiếm hiện tại
-        int page = Integer.parseInt(params.getOrDefault("page", "1").toString());
-        
+        int page = -1;
+        if (totalPages > 0) {
+            page = Integer.parseInt(params.getOrDefault("page", "1").toString());
+
+        } else {
+            page = Integer.parseInt(params.getOrDefault("page", "0").toString());
+
+        }
+
         // các tham số tìm kiếm
         String kw = params.getOrDefault("kw", "");
 

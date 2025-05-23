@@ -8,6 +8,9 @@ import com.mesut.pojo.Category;
 import com.mesut.pojo.Identifiable;
 import java.util.List;
 import java.util.Map;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 /**
  *
@@ -27,4 +30,7 @@ public interface GenericRepository<T extends Identifiable> {
     List<T> getAllWithFilter(Map<String, String> params);
 
     int countWithFilter(Map<String, String> params);
+    
+    List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<T> root);
+
 }

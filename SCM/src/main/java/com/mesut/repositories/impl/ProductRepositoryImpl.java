@@ -82,14 +82,11 @@ public class ProductRepositoryImpl extends GenericRepositoryImpl<Product> implem
     }
 
     @Override
-    public List<Product> getAllWithFilter(Map<String, String> params) {
+    public List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<Product> root) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public int countWithFilter(Map<String, String> params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
   
 

@@ -12,6 +12,9 @@ import com.mesut.repositories.ProductRepository;
 import com.mesut.repositories.WarehouseRepository;
 import com.mesut.utils.CreateDateUtils;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Session;
@@ -70,14 +73,11 @@ public class InventoryRepositoryImpl extends GenericRepositoryImpl<Inventory> im
     }
 
     @Override
-    public List<Inventory> getAllWithFilter(Map<String, String> params) {
+    public List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<Inventory> root) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public int countWithFilter(Map<String, String> params) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
 
   
 
