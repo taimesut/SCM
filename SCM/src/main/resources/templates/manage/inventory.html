@@ -21,7 +21,19 @@
         <!--Thay đổi-->
         <h1 class="text-center text-primary" th:text="${g_list_item_menu['/' + name]}"></h1>
         <a th:href="@{${g_prefix + '/' + name + '/add'}}" class="btn btn-success mt-1">Thêm</a>     
-
+        
+        <!--Tìm kiếm-->
+        <form th:action="@{${g_prefix + '/' + name}}">
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw" placeholder="Tên sản phẩm =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw2" placeholder="Tên kho =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <button class="btn btn-info" type="submit">Tìm kiếm</button>
+            </div>
+        </form>
         <!--Thay đổi-->
         <table class="table table-striped">
             <thead>

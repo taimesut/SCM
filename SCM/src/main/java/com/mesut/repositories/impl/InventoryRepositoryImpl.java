@@ -15,6 +15,7 @@ import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Session;
@@ -74,11 +75,17 @@ public class InventoryRepositoryImpl extends GenericRepositoryImpl<Inventory> im
 
     @Override
     public List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<Inventory> root) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Predicate> predicates = new ArrayList<>();
+
+        String kw = params.get("kw");
+        if (kw != null && !kw.isEmpty()) {
+            predicates.add(b.like(root.get("productId").get("name").as(String.class), "%" + kw + "%"));
+        }
+        String kw2 = params.get("kw2");
+        if (kw2 != null && !kw2.isEmpty()) {
+            predicates.add(b.like(root.get("warehouseId").get("name").as(String.class), "%" + kw2 + "%"));
+        }
+        return predicates;
     }
-
-   
-
-  
 
 }
