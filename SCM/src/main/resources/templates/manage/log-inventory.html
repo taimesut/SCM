@@ -21,6 +21,27 @@
         <!--Thay đổi-->
         <h1 class="text-center text-primary" th:text="${g_list_item_menu['/' + name]}"></h1>
 
+        <!--Tìm kiếm-->
+        <form th:action="@{${g_prefix + '/' + name}}">
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw" placeholder="Mã phiếu nhập =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw2" placeholder="Mã phiếu xuất =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw3" placeholder="Tên kho nhập=" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw4" placeholder="Tên kho xuất=" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="date" class="form-control" name="kw5" placeholder="Ngày =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <button class="btn btn-info" type="submit">Tìm kiếm</button>
+            </div>
+        </form>
         <!--Thay đổi-->
         <table class="table table-striped">
             <thead>
@@ -38,7 +59,7 @@
             </thead>
             <tbody>
                 <tr th:each="i : ${list}">
-                    
+
                     <td th:text="${i.id}"></td>
                     <td th:text="${i.receiptImportId != null ? i.receiptImportId.id : 'null'}"></td>
                     <td th:text="${i.receiptExportId != null ? i.receiptExportId.id : 'null'}"></td>
@@ -54,7 +75,7 @@
                 </tr>
             </tbody>
         </table>
-                <!--Phân trang-->
+        <!--Phân trang-->
         <div th:replace="~{pagination :: pagination}"></div>
     </div>
 
