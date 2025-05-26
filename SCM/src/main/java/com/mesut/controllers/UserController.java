@@ -6,6 +6,7 @@ package com.mesut.controllers;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.mesut.constants.RepositoryConstants;
 import com.mesut.pojo.Category;
 import com.mesut.pojo.User;
 import com.mesut.services.CategoryService;
@@ -65,9 +66,29 @@ public class UserController {
     private Cloudinary cloudinary;
 
     @GetMapping(URL_LIST_VIEW)
-    public String listView(Model model) {
-        model.addAttribute("list", this.mainService.getList());
+    public String listView(Model model, @RequestParam Map<String, String> params) {
+        // tổng số trang lấy theo tìm kiếm hiện tại
+        int totalPages = (int) Math.ceil((double) this.mainService.countWithFilter(params) / RepositoryConstants.DEFAULT_PAGE_SIZE);
+
+        // số trang lấy theo tìm kiếm hiện tại
+        int page = -1;
+        if (totalPages > 0) {
+            page = Integer.parseInt(params.getOrDefault("page", "1").toString());
+
+        } else {
+            page = Integer.parseInt(params.getOrDefault("page", "0").toString());
+
+        }
+        // các tham số tìm kiếm
+        String kw = params.getOrDefault("kw", "");
+        String kw2 = params.getOrDefault("kw2", "");
+
+        model.addAttribute("list", this.mainService.getAllWithFilter(params));
         model.addAttribute("name", NAME);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("page", page);
+        model.addAttribute("kw", kw);
+        model.addAttribute("kw2", kw2);
         return RETURN_LIST_VIEW;
     }
 

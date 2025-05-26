@@ -4,6 +4,7 @@
  */
 package com.mesut.controllers;
 
+import com.mesut.constants.RepositoryConstants;
 import com.mesut.pojo.DeliverySchedule;
 import com.mesut.pojo.ReceiptImport;
 import com.mesut.services.DeliveryScheduleService;
@@ -11,6 +12,7 @@ import com.mesut.services.ReceiptImportService;
 import com.mesut.services.SupplierService;
 import com.mesut.services.UserService;
 import com.mesut.services.WarehouseService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -66,9 +69,33 @@ public class ReceiptImportController {
     private SupplierService supplierService;
 
     @GetMapping(URL_LIST_VIEW)
-    public String listView(Model model) {
-        model.addAttribute("list", this.mainService.getList());
+    public String listView(Model model,@RequestParam Map<String, String> params) {
+        // tổng số trang lấy theo tìm kiếm hiện tại
+        int totalPages = (int) Math.ceil((double) this.mainService.countWithFilter(params) / RepositoryConstants.DEFAULT_PAGE_SIZE);
+
+        // số trang lấy theo tìm kiếm hiện tại
+        int page = -1;
+        if (totalPages > 0) {
+            page = Integer.parseInt(params.getOrDefault("page", "1").toString());
+
+        } else {
+            page = Integer.parseInt(params.getOrDefault("page", "0").toString());
+
+        }
+        // các tham số tìm kiếm
+        String kw = params.getOrDefault("kw", "");
+        String kw2 = params.getOrDefault("kw2", "");
+        String kw3 = params.getOrDefault("kw3", "");
+        String kw4 = params.getOrDefault("kw4", "");
+
+        model.addAttribute("list", this.mainService.getAllWithFilter(params));
         model.addAttribute("name", NAME);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("page", page);
+        model.addAttribute("kw", kw);
+        model.addAttribute("kw2", kw2);
+        model.addAttribute("kw3", kw3);
+        model.addAttribute("kw4", kw4);
         return RETURN_LIST_VIEW;
     }
 

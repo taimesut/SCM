@@ -12,6 +12,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Session;
@@ -70,25 +71,43 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
     public User updateUser(Map<String, String> params, Principal principal) {
         Session s = this.factory.getObject().getCurrentSession();
         User u = this.getUserByUsername(principal.getName());
-        if(u == null) return null;
-        if(params.containsKey("name"))
+        if (u == null) {
+            return null;
+        }
+        if (params.containsKey("name")) {
             u.setName(params.get("name"));
-        if(params.containsKey("email"))
+        }
+        if (params.containsKey("email")) {
             u.setEmail(params.get("email"));
-        if(params.containsKey("phone"))
+        }
+        if (params.containsKey("phone")) {
             u.setPhone(params.get("phone"));
-        if(params.containsKey("address"))
+        }
+        if (params.containsKey("address")) {
             u.setAddress(params.get("address"));
-        
+        }
+
         s.merge(u);
         return u;
     }
 
     @Override
     public List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<User> root) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        List<Predicate> predicates = new ArrayList<>();
 
-    
+        String kw = params.get("kw");
+        if (kw != null && !kw.isEmpty()) {
+            predicates.add(b.like(root.get("id").as(String.class), "%" + kw + "%"));
+        }
+        String kw2 = params.get("kw2");
+        if (kw2 != null && !kw2.isEmpty()) {
+            predicates.add(b.like(root.get("name").as(String.class), "%" + kw2 + "%"));
+        }
+        String kw3 = params.get("kw3");
+        if (kw3 != null && !kw3.isEmpty()) {
+            predicates.add(b.like(root.get("username").as(String.class), "%" + kw3 + "%"));
+        }
+        return predicates;
+    }
 
 }

@@ -21,12 +21,26 @@
         <h1 class="text-center text-primary" th:text="${g_list_item_menu['/' + name]}"></h1>
 
         <!--Thay đổi-->
-        <a th:href="@{${g_prefix + '/' + name + '/add'}}" class="btn btn-success mt-1">Thêm</a>     
+        <a th:href="@{${g_prefix + '/' + name + '/add'}}" class="btn btn-success mt-1">Thêm</a>   
+
+        <form th:action="@{${g_prefix + '/' + name}}">
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw" placeholder="Mã phiếu nhập =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw2" placeholder="Tên nhà cung cấp =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <button class="btn btn-info" type="submit">Tìm kiếm</button>
+            </div>
+        </form>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Id phiếu nhập</th>
+                    <th>Tên nhà cung cấp</th>
+
                     <th>Đánh giá giá cả</th>
                     <th>Đánh giá chất lượng</th>
                     <th>Đánh giá hỗ trợ</th>
@@ -39,6 +53,7 @@
 
                     <td th:text="${i.id}"></td>
                     <td th:text="${i.receiptImportId.id}"></td>
+                    <td th:text="${i.receiptImportId.supplierId.name}"></td>
                     <td th:text="${i.price}"></td>
                     <td th:text="${i.quality}"></td>
                     <td th:text="${i.support}"></td>
@@ -57,7 +72,7 @@
                 </tr>
             </tbody>
         </table>
-                <!--Phân trang-->
+        <!--Phân trang-->
         <div th:replace="~{pagination :: pagination}"></div>
     </div>
 

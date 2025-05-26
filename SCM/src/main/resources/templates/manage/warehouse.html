@@ -23,6 +23,17 @@
 
         <!--Thay đổi-->
         <a th:href="@{${g_prefix + '/' + name + '/add'}}" class="btn btn-success mt-1">Thêm</a>     
+        <form th:action="@{${g_prefix + '/' + name}}">
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw" placeholder="Id kho hàng =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw2" placeholder="Tên kho hàng =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <button class="btn btn-info" type="submit">Tìm kiếm</button>
+            </div>
+        </form>
         <table class="table table-striped">
             <thead>
                 <tr>

@@ -9,6 +9,7 @@ import com.mesut.repositories.ReviewShipmentCompanyRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
@@ -24,13 +25,17 @@ public class ReviewShipmentCompanyRepositoryImpl extends GenericRepositoryImpl<R
 
     @Override
     public List<Predicate> doFilter(Map<String, String> params, CriteriaBuilder b, Root<ReviewShipmentCompany> root) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Predicate> predicates = new ArrayList<>();
+
+        String kw = params.get("kw");
+        if (kw != null && !kw.isEmpty()) {
+            predicates.add(b.like(root.get("id").as(String.class), "%" + kw + "%"));
+        }
+        String kw2 = params.get("kw2");
+        if (kw2 != null && !kw2.isEmpty()) {
+            predicates.add(b.like(root.get("shipmentId").get("shipmentCompanyId").get("name").as(String.class), "%" + kw2 + "%"));
+        }
+        return predicates;
     }
 
-    
-
-
-
-   
-    
 }

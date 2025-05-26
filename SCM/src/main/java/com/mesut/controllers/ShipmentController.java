@@ -4,10 +4,12 @@
  */
 package com.mesut.controllers;
 
+import com.mesut.constants.RepositoryConstants;
 import com.mesut.pojo.Shipment;
 import com.mesut.services.ReceiptExportService;
 import com.mesut.services.ShipmentCompanyService;
 import com.mesut.services.ShipmentService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -55,11 +58,31 @@ public class ShipmentController {
     private ReceiptExportService receiptExportService;
     @Autowired
     private ShipmentCompanyService shipmentCompanyService;
-    @GetMapping(URL_LIST_VIEW)
-    public String listView(Model model) {
-        model.addAttribute("list", this.mainService.getList());
-        model.addAttribute("name", NAME);
 
+    @GetMapping(URL_LIST_VIEW)
+    public String listView(Model model, @RequestParam Map<String, String> params) {
+        // tổng số trang lấy theo tìm kiếm hiện tại
+        int totalPages = (int) Math.ceil((double) this.mainService.countWithFilter(params) / RepositoryConstants.DEFAULT_PAGE_SIZE);
+
+        // số trang lấy theo tìm kiếm hiện tại
+        int page = -1;
+        if (totalPages > 0) {
+            page = Integer.parseInt(params.getOrDefault("page", "1").toString());
+
+        } else {
+            page = Integer.parseInt(params.getOrDefault("page", "0").toString());
+
+        }
+        // các tham số tìm kiếm
+        String kw = params.getOrDefault("kw", "");
+        String kw2 = params.getOrDefault("kw2", "");
+
+        model.addAttribute("list", this.mainService.getAllWithFilter(params));
+        model.addAttribute("name", NAME);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("page", page);
+        model.addAttribute("kw", kw);
+        model.addAttribute("kw2", kw2);
         return RETURN_LIST_VIEW;
     }
 

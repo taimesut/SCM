@@ -23,11 +23,23 @@
 
         <!--Thay đổi-->
         <a th:href="@{${g_prefix + '/' + name + '/add'}}" class="btn btn-success mt-1">Thêm</a>     
+        <form th:action="@{${g_prefix + '/' + name}}">
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw" placeholder="Mã vận chuyển =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="text" class="form-control" name="kw2" placeholder="Tên đối tác =" />
+            </div>
+            <div class="mb-3 mt-3">
+                <button class="btn btn-info" type="submit">Tìm kiếm</button>
+            </div>
+        </form>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Id vận chuyển</th>
+                    <th>Tên đối tác vận chuyển</th>
                     <th>Đánh giá Hiệu suất</th>
                     <th>Ghi chú</th>
 
@@ -38,6 +50,8 @@
 
                     <td th:text="${i.id}"></td>
                     <td th:text="${i.shipmentId.id}"></td>
+                    <td th:text="${i.shipmentId.shipmentCompanyId.name}"></td>
+
                     <td th:text="${i.performance}"></td>
                     <td th:text="${i.note}"></td>
 
@@ -54,7 +68,7 @@
                 </tr>
             </tbody>
         </table>
-                <!--Phân trang-->
+        <!--Phân trang-->
         <div th:replace="~{pagination :: pagination}"></div>
     </div>
 
