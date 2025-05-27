@@ -4,6 +4,7 @@
  */
 package com.mesut.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -62,6 +63,7 @@ public class ShipmentCompany implements Serializable ,Identifiable{
     @OneToOne(mappedBy = "shipmentCompanyId")
     private Shipment shipment;
     @OneToMany(mappedBy = "shipmentCompanyId")
+    @JsonIgnore
     private Set<ShipmentCompanyContact> shipmentCompanyContactSet;
 
     public ShipmentCompany() {

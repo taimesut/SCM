@@ -22,7 +22,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
-import vn.payos.PayOS;
 
 /**
  *
@@ -32,9 +31,9 @@ import vn.payos.PayOS;
 @EnableWebSecurity
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
-    "com.mesut.controllers",
-    "com.mesut.repositories",
-    "com.mesut.services"
+        "com.mesut.controllers",
+        "com.mesut.repositories",
+        "com.mesut.services"
 })
 public class SpringSecurityConfigs {
 
@@ -55,37 +54,29 @@ public class SpringSecurityConfigs {
     public Cloudinary cloudinary() {
         Cloudinary cloudinary
                 = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", "demfjaknk",
-                        "api_key", "675115286763916",
-                        "api_secret", "YmFNxxs4iZTU5pv-qrBFpldsgMw",
-                        "secure", true));
+                "cloud_name", "demfjaknk",
+                "api_key", "675115286763916",
+                "api_secret", "YmFNxxs4iZTU5pv-qrBFpldsgMw",
+                "secure", true));
 
         return cloudinary;
-    }
-
-    @Bean
-    public PayOS payOS() {
-        String clientId = "4a99d9a8-0202-4ec4-be8d-28dfb2862cf8";
-        String apiKey = "e29a3cd3-067f-44b9-8ed1-e68faca8cfc7";
-        String checksumKey = "432f7942bb392cdca02f2c8155705cac0673f2d4b9b17d6492022071e59c27f8";
-
-        return new PayOS(clientId, apiKey, checksumKey);
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(c -> c.disable()).authorizeHttpRequests(
-                requests -> requests.requestMatchers("/", "/home").authenticated()
-                        .requestMatchers("/js/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/admin/**").hasAnyRole("USER")
-                        .anyRequest().permitAll())
+                        requests -> requests.requestMatchers("/", "/home").authenticated()
+                                .requestMatchers("/js/**").permitAll()
+                                .requestMatchers("/api/**").permitAll()
+                                .requestMatchers("/admin/**").hasAnyRole("USER")
+                                .anyRequest().permitAll())
                 .formLogin(form -> form.loginPage("/login")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true").permitAll())
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl("/login?error=true").permitAll())
                 .logout(logout -> logout.logoutSuccessUrl("/login").permitAll());
+
 
         return http.build();
     }

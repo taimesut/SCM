@@ -6,10 +6,14 @@ package com.mesut.services;
 
 import com.mesut.pojo.InvoiceExport;
 
+import java.security.Principal;
+import java.util.Map;
+
 /**
  *
  * @author THANHTAIPC
  */
 public interface InvoiceExportService extends GenericService<InvoiceExport>{
-    
+    InvoiceExport getInvoiceExportByOrderCode(String orderCode);
+    InvoiceExport updateInvoice(Map<String, String> params, Principal principal);
 }

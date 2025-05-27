@@ -4,8 +4,10 @@
  */
 package com.mesut.repositories.impl;
 
+import com.mesut.apis.PaymentStatus;
 import com.mesut.pojo.InvoiceExport;
 import com.mesut.repositories.InvoiceExportRepository;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +52,41 @@ public class InvoiceExportRepositoryImpl extends GenericRepositoryImpl<InvoiceEx
             }
         }
         return predicates;
+    }
+
+    @Override
+    public InvoiceExport getInvoiceExportByOrderCode(String orderCode) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("User.findByOrderCode", InvoiceExport.class);
+        q.setParameter("order_code", orderCode);
+        List<InvoiceExport> results = q.getResultList();
+
+        if (!results.isEmpty()) {
+            return results.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public InvoiceExport updateInvoice(Map<String, String> params) {
+        Session s = this.factory.getObject().getCurrentSession();
+        String orderCode = params.get("orderCode");
+        String status = params.get("status");
+
+        if (orderCode == null || status == null) {
+            return null;
+        }
+        InvoiceExport ie = getInvoiceExportByOrderCode(orderCode);
+        if (ie == null) {
+            return null;
+        }
+        if ("success".equalsIgnoreCase(status)) {
+            ie.setStatus(PaymentStatus.SUCCESS);
+        } else {
+            ie.setStatus(PaymentStatus.FAILED);
+        }
+        s.merge(ie);
+        return ie;
     }
 
 }

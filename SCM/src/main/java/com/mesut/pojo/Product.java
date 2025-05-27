@@ -4,6 +4,7 @@
  */
 package com.mesut.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -68,12 +69,16 @@ public class Product implements Serializable ,Identifiable{
     @ManyToOne(optional = false)
     private Supplier supplierId;
     @OneToMany(mappedBy = "productId")
+    @JsonIgnore
     private Set<DetailReceiptExport> detailReceiptExportSet;
     @OneToMany(mappedBy = "productId")
+    @JsonIgnore
     private Set<LogInventory> logInventorySet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    @JsonIgnore
     private Set<Inventory> inventorySet;
     @OneToMany(mappedBy = "productId")
+    @JsonIgnore
     private Set<DetailReceiptImport> detailReceiptImportSet;
 
     public Product() {

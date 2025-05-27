@@ -6,10 +6,13 @@ package com.mesut.repositories;
 
 import com.mesut.pojo.InvoiceExport;
 
-/**
+import java.util.Map;
+
+/** //User getUserByUsername(String username);
  *
  * @author THANHTAIPC
  */
 public interface InvoiceExportRepository extends GenericRepository<InvoiceExport>{
-    
+    InvoiceExport getInvoiceExportByOrderCode(String orderCode);
+    InvoiceExport updateInvoice(Map<String, String> params);
 }

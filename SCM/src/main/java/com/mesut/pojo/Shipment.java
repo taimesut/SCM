@@ -4,6 +4,7 @@
  */
 package com.mesut.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -54,6 +55,7 @@ public class Shipment implements Serializable ,Identifiable{
     @OneToOne
     private ShipmentCompany shipmentCompanyId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipmentId")
+    @JsonIgnore
     private Set<DeliverySchedule> deliveryScheduleSet;
     @OneToOne(mappedBy = "shipmentId")
     private ReviewShipmentCompany reviewShipmentCompany;

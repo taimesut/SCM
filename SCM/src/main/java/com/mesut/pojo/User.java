@@ -4,6 +4,7 @@
  */
 package com.mesut.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -86,10 +87,13 @@ public class User implements Serializable ,Identifiable{
     @Column(name = "avatar")
     private String avatar;
     @OneToMany(mappedBy = "creatorId")
+    @JsonIgnore
     private Set<ReceiptImport> receiptImportSet;
     @OneToMany(mappedBy = "customerId")
+    @JsonIgnore
     private Set<ReceiptExport> receiptExportSet;
     @OneToMany(mappedBy = "creatorId")
+    @JsonIgnore
     private Set<ReceiptExport> receiptExportSet1;
 
     public User() {

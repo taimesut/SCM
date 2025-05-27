@@ -4,6 +4,8 @@
  */
 package com.mesut.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,10 +56,13 @@ public class ReceiptExport implements Serializable ,Identifiable{
     @Column(name = "note")
     private String note;
     @OneToMany(mappedBy = "receiptExportId")
+    @JsonIgnore
     private Set<DetailReceiptExport> detailReceiptExportSet;
     @OneToMany(mappedBy = "receiptExportId")
+    @JsonIgnore
     private Set<LogInventory> logInventorySet;
     @OneToMany(mappedBy = "receiptExportId")
+    @JsonIgnore
     private Set<Shipment> shipmentSet;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @ManyToOne
@@ -69,6 +74,7 @@ public class ReceiptExport implements Serializable ,Identifiable{
     @ManyToOne(optional = false)
     private Warehouse warehouseId;
     @OneToOne(mappedBy = "receiptExportId")
+    @JsonManagedReference
     private InvoiceExport invoiceExport;
 
     public ReceiptExport() {

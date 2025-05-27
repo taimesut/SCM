@@ -4,6 +4,8 @@
  */
 package com.mesut.pojo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,10 +35,11 @@ import java.util.Date;
     @NamedQuery(name = "InvoiceExport.findByCreateDate", query = "SELECT i FROM InvoiceExport i WHERE i.createDate = :createDate"),
     @NamedQuery(name = "InvoiceExport.findByStatus", query = "SELECT i FROM InvoiceExport i WHERE i.status = :status"),
     @NamedQuery(name = "InvoiceExport.findByTotal", query = "SELECT i FROM InvoiceExport i WHERE i.total = :total"),
+    @NamedQuery(name="InvoiceExport.findByOrderCode", query="SELECT ie FROM InvoiceExport ie WHERE ie.orderCode = :order_code"),
     @NamedQuery(name = "InvoiceExport.findByPaymentMethod", query = "SELECT i FROM InvoiceExport i WHERE i.paymentMethod = :paymentMethod"),
     @NamedQuery(name = "InvoiceExport.findByNote", query = "SELECT i FROM InvoiceExport i WHERE i.note = :note"),
     @NamedQuery(name = "InvoiceExport.findByPaymentDate", query = "SELECT i FROM InvoiceExport i WHERE i.paymentDate = :paymentDate")})
-public class InvoiceExport implements Serializable ,Identifiable{
+public class InvoiceExport implements Serializable, Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,6 +58,8 @@ public class InvoiceExport implements Serializable ,Identifiable{
     @Size(max = 100)
     @Column(name = "payment_method")
     private String paymentMethod;
+    @Column(name = "order_code")
+    private Integer orderCode;
     @Size(max = 255)
     @Column(name = "note")
     private String note;
@@ -63,6 +68,7 @@ public class InvoiceExport implements Serializable ,Identifiable{
     private Date paymentDate;
     @JoinColumn(name = "receipt_export_id", referencedColumnName = "id")
     @OneToOne
+    @JsonBackReference
     private ReceiptExport receiptExportId;
 
     public InvoiceExport() {
@@ -160,5 +166,13 @@ public class InvoiceExport implements Serializable ,Identifiable{
     public String toString() {
         return "com.mesut.pojo.InvoiceExport[ id=" + id + " ]";
     }
-    
+
+    public Integer getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(Integer orderCode) {
+        this.orderCode = orderCode;
+    }
+
 }
