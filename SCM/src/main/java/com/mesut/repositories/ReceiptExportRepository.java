@@ -5,11 +5,12 @@
 package com.mesut.repositories;
 
 import com.mesut.pojo.ReceiptExport;
+import java.util.List;
 
 /**
  *
  * @author THANHTAIPC
  */
 public interface ReceiptExportRepository extends GenericRepository<ReceiptExport>{
-    
+    List<ReceiptExport> getReceiptExportsByUserId(int id);
 }

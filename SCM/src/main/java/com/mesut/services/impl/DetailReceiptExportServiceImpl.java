@@ -26,6 +26,9 @@ public class DetailReceiptExportServiceImpl extends GenericServiceImpl<DetailRec
     private LogInventoryService logInventoryService;
 
     @Autowired
+    private DetailReceiptExportRepository dreRepo;
+
+    @Autowired
     private ReceiptExportService receiptExportService;
     @Override
     public DetailReceiptExport addOrUpdate(DetailReceiptExport c) {
@@ -49,4 +52,8 @@ public class DetailReceiptExportServiceImpl extends GenericServiceImpl<DetailRec
     }
 
 
+    @Override
+    public List<DetailReceiptExport> getDetailReceiptExportsByUserId(int id) {
+        return this.dreRepo.getDetailReceiptExportsByUserId(id);
+    }
 }

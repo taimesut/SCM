@@ -6,10 +6,12 @@ package com.mesut.services;
 
 import com.mesut.pojo.DetailReceiptExport;
 
+import java.util.List;
+
 /**
  *
  * @author THANHTAIPC
  */
 public interface DetailReceiptExportService extends GenericService<DetailReceiptExport>{
-    
+    List<DetailReceiptExport> getDetailReceiptExportsByUserId(int id);
 }

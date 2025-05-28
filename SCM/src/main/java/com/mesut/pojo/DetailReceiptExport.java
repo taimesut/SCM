@@ -29,6 +29,11 @@ import java.io.Serializable;
     @NamedQuery(name = "DetailReceiptExport.findById", query = "SELECT d FROM DetailReceiptExport d WHERE d.id = :id"),
     @NamedQuery(name = "DetailReceiptExport.findByAmount", query = "SELECT d FROM DetailReceiptExport d WHERE d.amount = :amount"),
     @NamedQuery(name = "DetailReceiptExport.findByPrice", query = "SELECT d FROM DetailReceiptExport d WHERE d.price = :price")})
+    @NamedQuery(
+        name = "DetailReceiptExport.findByCustomerId",
+        query = "SELECT d FROM DetailReceiptExport d WHERE d.receiptExportId.customerId.id = :customerId"
+    )
+
 public class DetailReceiptExport implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;

@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
 import { MyUserContext } from '../context/MyUserContext';
-import { loadStripe } from '@stripe/stripe-js';
 import cookie from 'react-cookies';
 import { MyCartContext } from '../context/MyCartContext';
-import Apis, { endpoints } from '../configs/Apis';
+import Apis, { authApis, endpoints } from '../configs/Apis';
+import { useNavigate } from 'react-router-dom';
+import { PaymentMethod } from '../mockDatas/Status';
+
 
 const Cart = () => {
     const [cart, setCart] = useState(cookie.load('cart') || {});
     const user = useContext(MyUserContext);
     const [, cartDispatch] = useContext(MyCartContext);
     const token = cookie.load('token');
-
-    const stripePromise = loadStripe('pk_test_51QvfvtANZWcy8zvUYdeK9BoZqyHsGQRH1jbD9K815TvxT6WBmanBgGYSqGYzchUS8mVCbBCQC2jPf80cZjAAjIKh00LSiQUxgY');
+    const nav = useNavigate();
 
     const totalAmountVND = cart ? Object.values(cart).reduce((sum, item) => sum + item.price * item.quantity, 0) : 0;
 
@@ -25,7 +26,7 @@ const Cart = () => {
         cartDispatch({ type: "REMOVE", payload: id });
     };
 
-    const handleCheckout = async () => {
+    const handleCheckoutBanking = async () => {
         if (!token) {
             alert("Bạn cần đăng nhập để thanh toán!");
             return;
@@ -36,31 +37,80 @@ const Cart = () => {
             return;
         }
 
+        const itemsArray = Object.values(cart);
+        const data = {
+            paymentMethod: PaymentMethod.Banking,
+            amount: totalAmountVND,
+            cancelUrl: "http://localhost:5173/api/payment/cancel",
+            description: "Mua hang",
+            orderCode: Math.floor(Math.random() * 100000000),
+            returnUrl: "http://localhost:5173/api/payment/success",
+            items: itemsArray,
+        };
+
         try {
-            const amountUSD_cents = Math.round(totalAmountVND / 23000 * 100);
-            const response = await Apis.post(endpoints['payment'], { amount: amountUSD_cents });
-
-            if (response.status !== 200) {
-                alert('Lỗi tạo PaymentIntent');
-                return;
+            const response = await authApis().post(endpoints['payment-banking'], data);
+            if (response.status === 200) {
+                console.log("Response payment:", response.data);
+                const checkoutUrl = response.data?.data?.checkoutUrl || response.data?.checkoutUrl;
+                if (checkoutUrl) {
+                    window.location.href = checkoutUrl;
+                    setCart({});
+                    cookie.save('cart', {});
+                    cartDispatch({ type: 'remove' });
+                } else {
+                    alert("Không tìm thấy đường dẫn thanh toán.");
+                }
             }
-            const stripe = await stripePromise;
-
-            const { sessionId } = response.data;
-            const result = await stripe.redirectToCheckout({ sessionId });
-            if (result.error) {
-                alert(result.error.message);
-            }
-
         } catch (error) {
-            console.error(error);
+            console.error("Payment error:", error.response?.data || error.message);
             alert('Lỗi thanh toán, vui lòng thử lại.');
         }
     };
 
+    const handleCheckoutCod = async () => {
+        if (!token) {
+            alert("Bạn cần đăng nhập để thanh toán!");
+            return;
+        }
+
+        if (!cart || totalAmountVND === 0) {
+            alert("Giỏ hàng trống!");
+            return;
+        }
+        
+
+        const itemsArray = Object.values(cart);
+        const data = {
+            paymentMethod: PaymentMethod.Cod,
+            amount: totalAmountVND,
+            cancelUrl: "http://localhost:5173/api/payment/cancel",
+            description: "Mua hang",
+            orderCode: Math.floor(Math.random() * 100000000),
+            returnUrl: "http://localhost:5173/api/payment/success",
+            items: itemsArray,
+        };
+
+        try {
+            const response = await authApis().post(endpoints['payment-cod'], data);
+            if (response.status === 200 || response != null) {
+                alert("Đặt hàng thành công! Bạn sẽ thanh toán khi nhận hàng.");
+                setCart({});
+                cookie.save('cart', {});
+                cartDispatch({ type: 'remove' });
+                nav(`/api/payment/success?orderCode=${data.orderCode}&status=success`);
+            }
+        } catch (error) {
+            console.error("Payment error:", error.response?.data || error.message);
+            alert('Lỗi thanh toán, vui lòng thử lại.');
+        }
+    };
+
+
     useEffect(() => {
         if (!token) setCart({});
     }, [token]);
+
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 px-4 py-8">
@@ -99,10 +149,12 @@ const Cart = () => {
                             </div>
                             <p className="text-sm text-gray-500 mt-2">Phí vận chuyển và mã giảm giá sẽ được áp dụng ở bước thanh toán.</p>
                             <button
-                                onClick={handleCheckout}
-                                className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded mt-4 transition duration-300">
+                                onClick={handleCheckoutBanking}
+                                className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded mt-4 transition duration-300 cursor-pointer">
                                 Thanh Toán Ngay
                             </button>
+                            <div className="w-full flex items-center justify-center mt-1"> <span className='text-gray-400'>----------- hoặc ------------</span></div>
+                            <button className='w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded mt-1 transition duration-300 cursor-pointer' onClick={handleCheckoutCod}>Thanh toán sau khi nhận hàng</button>
                         </div>
                     }
                 </div>

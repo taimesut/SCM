@@ -57,7 +57,7 @@ CREATE TABLE `delivery_schedule` (
   PRIMARY KEY (`id`),
   KEY `shipment_id` (`shipment_id`),
   CONSTRAINT `delivery_schedule_ibfk_1` FOREIGN KEY (`shipment_id`) REFERENCES `shipment` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +66,7 @@ CREATE TABLE `delivery_schedule` (
 
 LOCK TABLES `delivery_schedule` WRITE;
 /*!40000 ALTER TABLE `delivery_schedule` DISABLE KEYS */;
+INSERT INTO `delivery_schedule` VALUES (1,1,'2025-05-29','77 Bau Cat','Chưa tới',''),(2,1,'2025-05-30','321 Dong Nai','Chưa tới',''),(3,2,'2025-05-31','368 Thanh Thai','Chưa tới',''),(4,2,'2025-06-01','98 To Ky','Chưa tới','');
 /*!40000 ALTER TABLE `delivery_schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +88,7 @@ CREATE TABLE `detail_receipt_export` (
   KEY `receipt_export_id` (`receipt_export_id`),
   CONSTRAINT `detail_receipt_export_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   CONSTRAINT `detail_receipt_export_ibfk_2` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,6 +97,7 @@ CREATE TABLE `detail_receipt_export` (
 
 LOCK TABLES `detail_receipt_export` WRITE;
 /*!40000 ALTER TABLE `detail_receipt_export` DISABLE KEYS */;
+INSERT INTO `detail_receipt_export` VALUES (70,50,3,2,2500),(71,51,4,1,2500);
 /*!40000 ALTER TABLE `detail_receipt_export` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +163,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (1,1,1,30,NULL,NULL,'2025-05-27'),(2,4,1,17,NULL,NULL,'2025-05-27'),(3,3,1,15,NULL,NULL,'2025-05-27'),(4,2,1,11,NULL,NULL,'2025-05-27');
+INSERT INTO `inventory` VALUES (1,1,1,29,NULL,NULL,'2025-05-27'),(2,4,1,7,NULL,NULL,'2025-05-27'),(3,3,1,2,NULL,NULL,'2025-05-27'),(4,2,1,11,NULL,NULL,'2025-05-27');
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +187,7 @@ CREATE TABLE `invoice_export` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `receipt_export_id` (`receipt_export_id`),
   CONSTRAINT `invoice_export_ibfk_1` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +196,7 @@ CREATE TABLE `invoice_export` (
 
 LOCK TABLES `invoice_export` WRITE;
 /*!40000 ALTER TABLE `invoice_export` DISABLE KEYS */;
+INSERT INTO `invoice_export` VALUES (49,50,'2025-05-28','success',85976648,5000,'Tiền mặt','Mua hang',NULL),(50,51,'2025-05-28','success',18815690,2500,'Tiền mặt','Mua hang',NULL);
 /*!40000 ALTER TABLE `invoice_export` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +222,7 @@ CREATE TABLE `log_inventory` (
   CONSTRAINT `log_inventory_ibfk_1` FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import` (`id`),
   CONSTRAINT `log_inventory_ibfk_2` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`),
   CONSTRAINT `log_inventory_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,6 +231,7 @@ CREATE TABLE `log_inventory` (
 
 LOCK TABLES `log_inventory` WRITE;
 /*!40000 ALTER TABLE `log_inventory` DISABLE KEYS */;
+INSERT INTO `log_inventory` VALUES (75,NULL,50,3,2,2500,'2025-05-28'),(76,NULL,51,4,1,2500,'2025-05-28');
 /*!40000 ALTER TABLE `log_inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,7 +291,7 @@ CREATE TABLE `receipt_export` (
   CONSTRAINT `receipt_export_ibfk_1` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`id`),
   CONSTRAINT `receipt_export_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`),
   CONSTRAINT `receipt_export_ibfk_3` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,6 +300,7 @@ CREATE TABLE `receipt_export` (
 
 LOCK TABLES `receipt_export` WRITE;
 /*!40000 ALTER TABLE `receipt_export` DISABLE KEYS */;
+INSERT INTO `receipt_export` VALUES (50,'2025-05-28',1,NULL,'ordered','BBBBBB',1),(51,'2025-05-28',1,NULL,'cancelled','BBBBBB',1);
 /*!40000 ALTER TABLE `receipt_export` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -408,7 +413,7 @@ CREATE TABLE `shipment` (
   KEY `receipt_export_id` (`receipt_export_id`),
   CONSTRAINT `shipment_ibfk_1` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`),
   CONSTRAINT `shipment_ibfk_2` FOREIGN KEY (`shipment_company_id`) REFERENCES `shipment_company` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -417,6 +422,7 @@ CREATE TABLE `shipment` (
 
 LOCK TABLES `shipment` WRITE;
 /*!40000 ALTER TABLE `shipment` DISABLE KEYS */;
+INSERT INTO `shipment` VALUES (1,50,1,'Chưa tới',''),(2,51,2,'Chưa tới','');
 /*!40000 ALTER TABLE `shipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -434,7 +440,7 @@ CREATE TABLE `shipment_company` (
   `phone` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   `address` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -443,6 +449,7 @@ CREATE TABLE `shipment_company` (
 
 LOCK TABLES `shipment_company` WRITE;
 /*!40000 ALTER TABLE `shipment_company` DISABLE KEYS */;
+INSERT INTO `shipment_company` VALUES (1,'vnexpress@gmail.com','VnExpress','369852147','339 To Hien Thanh'),(2,'vietelpost@gmail.com','Vietel Post','0123456789','56 Truong Chinh');
 /*!40000 ALTER TABLE `shipment_company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -521,7 +528,7 @@ CREATE TABLE `user` (
   `avatar` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -530,7 +537,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'tai','$2a$10$YLyVlhbO/0u9YmTViqPy1./NosW/0CEnFSVX/dFLDmpSK7Fa7LvOu','ROLE_USER','2025-05-27','ntai3962@gmail.com','Nguyễn Tấn Tài','0789721763',NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748318031/fgufc6njajgylr8xomel.png');
+INSERT INTO `user` VALUES (1,'tai','$2a$10$YLyVlhbO/0u9YmTViqPy1./NosW/0CEnFSVX/dFLDmpSK7Fa7LvOu','ROLE_USER','2025-05-27','ntai3962@gmail.com','Nguyễn Tấn Tài','0789721763',NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748318031/fgufc6njajgylr8xomel.png'),(2,'ttt','$2a$10$JwJmm8zcoturvTlPod5nQe5BsAbRT7zmoQwFK4X5iBRjXpNIgufn2','ROLE_USER','2025-05-28','taitinhte@gmail.com','Tai tinh te','0321456987',NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748366392/s4otnsq0c6d9ymhpsxy0.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -568,4 +575,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-27 22:49:23
+-- Dump completed on 2025-05-28 19:49:11

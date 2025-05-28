@@ -47,7 +47,7 @@ const Login = () => {
     try {
       setLoading(true);
       let res = await Apis.post(endpoints['login'], user);
-      cookie.save('token', res.data.token);
+      cookie.save('token', res.data.token,{ path: '/', maxAge: 3600 });
       console.log(res.data.token)
       let u = await authApis().get(endpoints['profile']);
       dispatch({ type: 'login', payload: u.data });

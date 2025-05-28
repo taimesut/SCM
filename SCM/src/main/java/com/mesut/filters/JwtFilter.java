@@ -33,7 +33,7 @@ public class JwtFilter implements Filter{
             String header = httpRequest.getHeader("Authorization");
 
             if (header == null || !header.startsWith("Bearer ")) {
-                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing or invalid Authorization header.");
+                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing or invalid Authorization header. - JWTFILTER");
                 return;
             }
             else {
@@ -49,12 +49,12 @@ public class JwtFilter implements Filter{
                         return;
                     }
                 } catch (Exception e) {
-                    // Log lá»—i
+                    System.out.println(e.getMessage());
                 }
             }
 
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED,
-                    "Token không hợp lệ hoặc hết hạn");
+                    "Token không hợp lệ hoặc hết hạn - JWTFILTER");
         }
 
         chain.doFilter(request, response);

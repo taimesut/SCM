@@ -7,6 +7,7 @@ package com.mesut.repositories.impl;
 import com.mesut.constants.RepositoryConstants;
 import com.mesut.pojo.Category;
 import com.mesut.pojo.DetailReceiptExport;
+import com.mesut.pojo.ReceiptExport;
 import com.mesut.repositories.DetailReceiptExportRepository;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -43,4 +44,13 @@ public class DetailReceiptExportRepositoryImpl extends GenericRepositoryImpl<Det
         return predicates;
     }
 
+    @Override
+    public List<DetailReceiptExport> getDetailReceiptExportsByUserId(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("DetailReceiptExport.findByCustomerId", DetailReceiptExport.class);
+        q.setParameter("customerId", id);
+        List<DetailReceiptExport> results = q.getResultList();
+
+        return results;
+    }
 }

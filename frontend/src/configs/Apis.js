@@ -10,9 +10,11 @@ export const endpoints = {
     'categories': '/category',
     'products': '/products/',
     'update': '/secure/update',
-    'orders': '/detail-receipt-export',
-    'cancel-receipt': (id) => `/receipt-export/${id}/cancel`,
-    'payment': '/stripe/create-checkout-session'
+    'orders': '/secure/detail-receipt-export/user-receipt',
+    'cancel-receipt': (id) => `/secure/receipt-export/${id}/cancel`,
+    'payment-banking': '/secure/payment/payos',
+    'payment-cod': '/secure/payment/cod',
+    'payment-update': '/secure/payment/update-invoice'
 }
 
 export const authApis = () => {
@@ -23,6 +25,7 @@ export const authApis = () => {
         }
     })
 }
+
 
 export default axios.create({
     baseURL: BASE_URL

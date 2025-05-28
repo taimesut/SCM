@@ -32,8 +32,8 @@ const App = () => {
             <Route path="/products" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/dashboard/purchase/:key" element={<Dashboard />} />
-            <Route path="/success" element={<Success />} />
-            <Route path="/cancel" element={<Cancel />} />
+            <Route path="/api/payment/success" element={<Success />} />
+            <Route path="/api/payment/cancel" element={<Cancel />} />
           </Routes>
           <Footer />
         </Router>

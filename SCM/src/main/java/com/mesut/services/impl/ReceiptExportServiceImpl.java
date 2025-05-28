@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 public class ReceiptExportServiceImpl extends GenericServiceImpl<ReceiptExport> implements ReceiptExportService {
 
     @Autowired
+    private ReceiptExportRepository reRepo;
+    
+    @Autowired
     public ReceiptExportServiceImpl(ReceiptExportRepository repository) {
         super(repository);
     }
@@ -30,6 +33,10 @@ public class ReceiptExportServiceImpl extends GenericServiceImpl<ReceiptExport> 
         return super.addOrUpdate(c); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
+    @Override
+    public List<ReceiptExport> getReceiptExportsByUserId(int id) {
+        return this.reRepo.getReceiptExportsByUserId(id);
+    }
 
 
 }

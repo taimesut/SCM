@@ -57,7 +57,7 @@ public class InvoiceExportRepositoryImpl extends GenericRepositoryImpl<InvoiceEx
     @Override
     public InvoiceExport getInvoiceExportByOrderCode(String orderCode) {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createNamedQuery("User.findByOrderCode", InvoiceExport.class);
+        Query q = s.createNamedQuery("InvoiceExport.findByOrderCode", InvoiceExport.class);
         q.setParameter("order_code", orderCode);
         List<InvoiceExport> results = q.getResultList();
 

@@ -38,6 +38,7 @@ import java.util.Set;
     @NamedQuery(name = "ReceiptExport.findByCreateDate", query = "SELECT r FROM ReceiptExport r WHERE r.createDate = :createDate"),
     @NamedQuery(name = "ReceiptExport.findByStatus", query = "SELECT r FROM ReceiptExport r WHERE r.status = :status"),
     @NamedQuery(name = "ReceiptExport.findByNote", query = "SELECT r FROM ReceiptExport r WHERE r.note = :note")})
+    @NamedQuery(name = "ReceiptExport.findByCustomerId", query = "SELECT r FROM ReceiptExport r WHERE r.customerId.id = :customerId")
 public class ReceiptExport implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;

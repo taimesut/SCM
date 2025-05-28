@@ -71,7 +71,7 @@ public class InvoiceExportApi extends GenericApi<InvoiceExport> {
         // Tạo ReceiptExport
         ReceiptExport re = new ReceiptExport();
         re.setCustomerId(this.userService.getUserByUsername(principal.getName()));
-        re.setStatus("Đã đặt hàng");
+        re.setStatus(ReceiptStatus.ORDERED);
         re.setNote("BBBBBB");
         re.setWarehouseId(this.wareService.getById(1));
         this.reService.addOrUpdate(re);
@@ -204,12 +204,15 @@ public class InvoiceExportApi extends GenericApi<InvoiceExport> {
                     .body(Map.of("error", "Lỗi tạo thanh toán", "message", e.getMessage()));
         }
     }
-    
-    
+
     @PutMapping("/update-invoice")
-    public ResponseEntity<InvoiceExport> updateInvoice(@RequestBody Map<String, String> request, Principal principal) {
-        if (principal == null)
+    public ResponseEntity<?> updateInvoice(@RequestBody Map<String, String> request, Principal principal) {
+        if (principal == null) {
+            System.out.println("loi o day");
+
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         return ResponseEntity.ok(this.ieService.updateInvoice(request, principal));
     }
 

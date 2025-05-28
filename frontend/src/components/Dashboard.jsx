@@ -115,7 +115,7 @@ const Dashboard = () => {
 
     const cancelReceipt = async (id) => {
         try {
-        let res = await Apis.put(endpoints['cancel-receipt'](id));
+        let res = await authApis().put(endpoints['cancel-receipt'](id));
         alert("Đã huỷ đơn hàng thành công!");
         await loadAllOrders(); 
     } catch (err) {
@@ -246,7 +246,7 @@ const Dashboard = () => {
                                         <p>x{o.amount}</p>
                                         <div className="flex justify-between">
                                             <p>{o.productId.price}&#8363;</p>
-                                            {o.receiptExportId.status === "confirmed" && (
+                                            {o.receiptExportId.status === "ordered" && (
                                                 <button className='text-white bg-red-500 font-semibold cursor-pointer p-2 rounded-sm' onClick={()=>cancelReceipt(o.receiptExportId.id)}>
                                                     Huỷ hàng
                                                 </button>

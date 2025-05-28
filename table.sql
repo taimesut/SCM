@@ -31,16 +31,6 @@ CREATE TABLE `category` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `category`
---
-
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Điện thoại'),(2,'Laptop'),(3,'Tai nghe');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `delivery_schedule`
 --
 
@@ -57,17 +47,8 @@ CREATE TABLE `delivery_schedule` (
   PRIMARY KEY (`id`),
   KEY `shipment_id` (`shipment_id`),
   CONSTRAINT `delivery_schedule_ibfk_1` FOREIGN KEY (`shipment_id`) REFERENCES `shipment` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `delivery_schedule`
---
-
-LOCK TABLES `delivery_schedule` WRITE;
-/*!40000 ALTER TABLE `delivery_schedule` DISABLE KEYS */;
-/*!40000 ALTER TABLE `delivery_schedule` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `detail_receipt_export`
@@ -87,17 +68,8 @@ CREATE TABLE `detail_receipt_export` (
   KEY `receipt_export_id` (`receipt_export_id`),
   CONSTRAINT `detail_receipt_export_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   CONSTRAINT `detail_receipt_export_ibfk_2` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `detail_receipt_export`
---
-
-LOCK TABLES `detail_receipt_export` WRITE;
-/*!40000 ALTER TABLE `detail_receipt_export` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detail_receipt_export` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `detail_receipt_import`
@@ -119,16 +91,6 @@ CREATE TABLE `detail_receipt_import` (
   CONSTRAINT `detail_receipt_import_ibfk_2` FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `detail_receipt_import`
---
-
-LOCK TABLES `detail_receipt_import` WRITE;
-/*!40000 ALTER TABLE `detail_receipt_import` DISABLE KEYS */;
-INSERT INTO `detail_receipt_import` VALUES (1,1,1,20,1800),(2,2,4,30,2000),(3,3,3,30,1800),(4,4,2,20,1800);
-/*!40000 ALTER TABLE `detail_receipt_import` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `inventory`
@@ -156,16 +118,6 @@ CREATE TABLE `inventory` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `inventory`
---
-
-LOCK TABLES `inventory` WRITE;
-/*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (1,1,1,30,NULL,NULL,'2025-05-27'),(2,4,1,17,NULL,NULL,'2025-05-27'),(3,3,1,15,NULL,NULL,'2025-05-27'),(4,2,1,11,NULL,NULL,'2025-05-27');
-/*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `invoice_export`
 --
 
@@ -185,17 +137,8 @@ CREATE TABLE `invoice_export` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `receipt_export_id` (`receipt_export_id`),
   CONSTRAINT `invoice_export_ibfk_1` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `invoice_export`
---
-
-LOCK TABLES `invoice_export` WRITE;
-/*!40000 ALTER TABLE `invoice_export` DISABLE KEYS */;
-/*!40000 ALTER TABLE `invoice_export` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `log_inventory`
@@ -219,17 +162,8 @@ CREATE TABLE `log_inventory` (
   CONSTRAINT `log_inventory_ibfk_1` FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import` (`id`),
   CONSTRAINT `log_inventory_ibfk_2` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`),
   CONSTRAINT `log_inventory_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `log_inventory`
---
-
-LOCK TABLES `log_inventory` WRITE;
-/*!40000 ALTER TABLE `log_inventory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `log_inventory` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `product`
@@ -256,16 +190,6 @@ CREATE TABLE `product` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `product`
---
-
-LOCK TABLES `product` WRITE;
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Macbook Air M1 Pro',2000,NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748318326/nigbrwabhxagziucjxr6.png','',2,1),(2,'Samsung Galaxy S23 Ultra',2000,NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748318346/jg08v17nu6rnispjildk.png','',1,4),(3,'Laptop Asus TUF-Gaming',2500,NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748318366/hrxqbze5i488cdlucwe6.png','',2,3),(4,'Sony R2 Accent',2500,NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748318441/lcyeptsmwvhienn1cqgt.png','',3,2);
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `receipt_export`
 --
 
@@ -287,17 +211,8 @@ CREATE TABLE `receipt_export` (
   CONSTRAINT `receipt_export_ibfk_1` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`id`),
   CONSTRAINT `receipt_export_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`),
   CONSTRAINT `receipt_export_ibfk_3` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `receipt_export`
---
-
-LOCK TABLES `receipt_export` WRITE;
-/*!40000 ALTER TABLE `receipt_export` DISABLE KEYS */;
-/*!40000 ALTER TABLE `receipt_export` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `receipt_import`
@@ -325,16 +240,6 @@ CREATE TABLE `receipt_import` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `receipt_import`
---
-
-LOCK TABLES `receipt_import` WRITE;
-/*!40000 ALTER TABLE `receipt_import` DISABLE KEYS */;
-INSERT INTO `receipt_import` VALUES (1,'2025-05-27',1,1,'Đã xác nhận','',1),(2,'2025-05-27',2,1,'Đã xác nhận','',1),(3,'2025-05-27',3,1,'Đã xác nhận','',1),(4,'2025-05-27',4,1,'Đã xác nhận','',1);
-/*!40000 ALTER TABLE `receipt_import` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `review_shipment_company`
 --
 
@@ -351,15 +256,6 @@ CREATE TABLE `review_shipment_company` (
   CONSTRAINT `review_shipment_company_ibfk_1` FOREIGN KEY (`shipment_id`) REFERENCES `shipment` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `review_shipment_company`
---
-
-LOCK TABLES `review_shipment_company` WRITE;
-/*!40000 ALTER TABLE `review_shipment_company` DISABLE KEYS */;
-/*!40000 ALTER TABLE `review_shipment_company` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `review_supplier`
@@ -382,15 +278,6 @@ CREATE TABLE `review_supplier` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `review_supplier`
---
-
-LOCK TABLES `review_supplier` WRITE;
-/*!40000 ALTER TABLE `review_supplier` DISABLE KEYS */;
-/*!40000 ALTER TABLE `review_supplier` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `shipment`
 --
 
@@ -408,17 +295,8 @@ CREATE TABLE `shipment` (
   KEY `receipt_export_id` (`receipt_export_id`),
   CONSTRAINT `shipment_ibfk_1` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`),
   CONSTRAINT `shipment_ibfk_2` FOREIGN KEY (`shipment_company_id`) REFERENCES `shipment_company` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `shipment`
---
-
-LOCK TABLES `shipment` WRITE;
-/*!40000 ALTER TABLE `shipment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shipment` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `shipment_company`
@@ -434,17 +312,8 @@ CREATE TABLE `shipment_company` (
   `phone` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   `address` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `shipment_company`
---
-
-LOCK TABLES `shipment_company` WRITE;
-/*!40000 ALTER TABLE `shipment_company` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shipment_company` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `shipment_company_contact`
@@ -465,15 +334,6 @@ CREATE TABLE `shipment_company_contact` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `shipment_company_contact`
---
-
-LOCK TABLES `shipment_company_contact` WRITE;
-/*!40000 ALTER TABLE `shipment_company_contact` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shipment_company_contact` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `supplier`
 --
 
@@ -490,16 +350,6 @@ CREATE TABLE `supplier` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `supplier`
---
-
-LOCK TABLES `supplier` WRITE;
-/*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-INSERT INTO `supplier` VALUES (1,'apple@gmail.com','Apple','000000000','224 Bau Cat'),(2,'sony@gmail.com','Sony','111111111','339 To Hien Thanh'),(3,'cellphones@gmail.com','CellphoneS','333333333','251 Truong Chinh, Q.Tan Binh, TP.HCM'),(4,'samsung@gmail.com','SamSung','666666666','99 Bau Cat');
-/*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -521,18 +371,8 @@ CREATE TABLE `user` (
   `avatar` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'tai','$2a$10$YLyVlhbO/0u9YmTViqPy1./NosW/0CEnFSVX/dFLDmpSK7Fa7LvOu','ROLE_USER','2025-05-27','ntai3962@gmail.com','Nguyễn Tấn Tài','0789721763',NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748318031/fgufc6njajgylr8xomel.png');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `warehouse`
@@ -548,16 +388,6 @@ CREATE TABLE `warehouse` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `warehouse`
---
-
-LOCK TABLES `warehouse` WRITE;
-/*!40000 ALTER TABLE `warehouse` DISABLE KEYS */;
-INSERT INTO `warehouse` VALUES (1,'Kho Long Bình','321 Dong Nai');
-/*!40000 ALTER TABLE `warehouse` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -568,4 +398,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-27 22:49:23
+-- Dump completed on 2025-05-28 19:50:47

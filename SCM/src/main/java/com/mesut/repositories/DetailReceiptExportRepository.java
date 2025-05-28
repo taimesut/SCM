@@ -6,10 +6,12 @@ package com.mesut.repositories;
 
 import com.mesut.pojo.DetailReceiptExport;
 
+import java.util.List;
+
 /**
  *
  * @author THANHTAIPC
  */
 public interface DetailReceiptExportRepository extends GenericRepository<DetailReceiptExport>{
-    
+    List<DetailReceiptExport>getDetailReceiptExportsByUserId(int id);
 }

@@ -5,27 +5,31 @@
 package com.mesut.apis;
 
 import com.mesut.pojo.ReceiptExport;
+import com.mesut.pojo.User;
 import com.mesut.services.ReceiptExportService;
+import com.mesut.services.UserService;
+import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
  * @author TAN TAI
  */
 @RestController
-@RequestMapping("/api/receipt-export")
+@RequestMapping("/api/secure/receipt-export")
 public class ReceiptExportApi extends GenericApi<ReceiptExport> {
 
+    private final ReceiptExportService reService;
+    
+    @Autowired
+    private UserService userService;
+    
     @Autowired
     public ReceiptExportApi(ReceiptExportService service) {
         super(service);
+        this.reService = service;
     }
 
     @PutMapping("/{id}/cancel")
@@ -37,5 +41,15 @@ public class ReceiptExportApi extends GenericApi<ReceiptExport> {
         re.setStatus("cancelled");
         return ResponseEntity.ok(this.mainService.addOrUpdate(re));
     }
+
+    @GetMapping("/user-receipt")
+    public ResponseEntity<?> getUserOrders(Principal principal) {
+        User u = this.userService.getUserByUsername(principal.getName());
+        if (u != null)
+            return ResponseEntity.ok(this.reService.getReceiptExportsByUserId(u.getId()));
+        else
+            return ResponseEntity.status(400).build();
+    }
+
 
 }

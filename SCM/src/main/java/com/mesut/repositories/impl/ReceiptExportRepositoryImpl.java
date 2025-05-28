@@ -6,12 +6,14 @@ package com.mesut.repositories.impl;
 
 import com.mesut.pojo.ReceiptExport;
 import com.mesut.repositories.ReceiptExportRepository;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,5 +47,16 @@ public class ReceiptExportRepositoryImpl extends GenericRepositoryImpl<ReceiptEx
         }
         return predicates;
     }
+
+    @Override
+    public List<ReceiptExport> getReceiptExportsByUserId(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("ReceiptExport.findByCustomerId", ReceiptExport.class);
+        q.setParameter("customerId", id);
+        List<ReceiptExport> results = q.getResultList();
+
+        return results;
+    }
+
 
 }
