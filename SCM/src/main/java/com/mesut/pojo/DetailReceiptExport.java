@@ -4,6 +4,8 @@
  */
 package com.mesut.pojo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,15 +27,15 @@ import java.io.Serializable;
 @Entity
 @Table(name = "detail_receipt_export")
 @NamedQueries({
-    @NamedQuery(name = "DetailReceiptExport.findAll", query = "SELECT d FROM DetailReceiptExport d"),
-    @NamedQuery(name = "DetailReceiptExport.findById", query = "SELECT d FROM DetailReceiptExport d WHERE d.id = :id"),
-    @NamedQuery(name = "DetailReceiptExport.findByAmount", query = "SELECT d FROM DetailReceiptExport d WHERE d.amount = :amount"),
-    @NamedQuery(name = "DetailReceiptExport.findByPrice", query = "SELECT d FROM DetailReceiptExport d WHERE d.price = :price")})
-    @NamedQuery(
-        name = "DetailReceiptExport.findByCustomerId",
-        query = "SELECT d FROM DetailReceiptExport d WHERE d.receiptExportId.customerId.id = :customerId"
-    )
-
+        @NamedQuery(name = "DetailReceiptExport.findAll", query = "SELECT d FROM DetailReceiptExport d"),
+        @NamedQuery(name = "DetailReceiptExport.findById", query = "SELECT d FROM DetailReceiptExport d WHERE d.id = :id"),
+        @NamedQuery(name = "DetailReceiptExport.findByAmount", query = "SELECT d FROM DetailReceiptExport d WHERE d.amount = :amount"),
+        @NamedQuery(name = "DetailReceiptExport.findByPrice", query = "SELECT d FROM DetailReceiptExport d WHERE d.price = :price"),
+        @NamedQuery(
+                name = "DetailReceiptExport.findByCustomerId",
+                query = "SELECT d FROM DetailReceiptExport d WHERE d.receiptExportId.customerId.id = :customerId"
+        )
+})
 public class DetailReceiptExport implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;

@@ -39,6 +39,19 @@ public class DeliveryScheduleRepositoryImpl extends GenericRepositoryImpl<Delive
         return predicates;
     }
 
+    @Override
+    public List<DeliverySchedule> getDeliverScheduleByReceiptExportId(int receiptExportId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("DeliverySchedule.findByReceiptExportId", DeliverySchedule.class);
+        q.setParameter("receiptExportId", receiptExportId);
+        List<DeliverySchedule> results = q.getResultList();
+
+        if (!results.isEmpty()) {
+            return results;
+        }
+        return null;
+    }
+
 //    @Override
 //    public List<DeliverySchedule> getAllWithFilter(Map<String, String> params) {
 //        Session s = this.factory.getObject().getCurrentSession();

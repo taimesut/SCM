@@ -33,15 +33,14 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/api/auth")
-public class AuthApi {
-    @Autowired
-    private UserService userService;
+public class AuthApi extends GenericApi<User> {
+    private final UserService userService;
 
-//    @Autowired
-//    public AuthApi(UserService service) {
-//        super(service);
-//        this.userService = service; 
-//    }
+    @Autowired
+    public AuthApi(UserService service) {
+        super(service);
+        this.userService = service; 
+    }
 
     @PostMapping("/register")
     public ResponseEntity<User> register(

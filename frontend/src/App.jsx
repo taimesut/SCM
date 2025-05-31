@@ -15,6 +15,7 @@ import MyCartReducer from './reducer/MyCartReducer'
 import { MyCartContext } from './context/MyCartContext'
 import Success from './components/Success'
 import Cancel from './components/Cancel'
+import DetailOrder from './components/DetailOrder'
 
 const App = () => {
   const [user, dispatch] = useReducer(MyUserReducer, null);
@@ -34,6 +35,7 @@ const App = () => {
             <Route path="/dashboard/purchase/:key" element={<Dashboard />} />
             <Route path="/api/payment/success" element={<Success />} />
             <Route path="/api/payment/cancel" element={<Cancel />} />
+            <Route path='/dashboard/purchase/detail/:receiptExportId' element={<DetailOrder />} />
           </Routes>
           <Footer />
         </Router>

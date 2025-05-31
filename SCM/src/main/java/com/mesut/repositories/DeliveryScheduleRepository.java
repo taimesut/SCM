@@ -5,11 +5,12 @@
 package com.mesut.repositories;
 
 import com.mesut.pojo.DeliverySchedule;
+import java.util.List;
 
 /**
  *
  * @author THANHTAIPC
  */
 public interface DeliveryScheduleRepository extends GenericRepository<DeliverySchedule>{
-    
+    List<DeliverySchedule>getDeliverScheduleByReceiptExportId(int receiptExportId);
 }

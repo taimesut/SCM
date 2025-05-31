@@ -15,10 +15,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DeliveryScheduleServiceImpl extends GenericServiceImpl<DeliverySchedule> implements DeliveryScheduleService {
-
+    
+    @Autowired
+    private DeliveryScheduleRepository dsRepo;
+    
     @Autowired
     public DeliveryScheduleServiceImpl(DeliveryScheduleRepository repository) {
         super(repository);
+    }
+
+    @Override
+    public List<DeliverySchedule> getDeliverScheduleByReceiptExportId(int receiptExportId) {
+        return this.dsRepo.getDeliverScheduleByReceiptExportId(receiptExportId);
     }
 
 

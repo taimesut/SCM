@@ -61,6 +61,7 @@ public class ShipmentCompany implements Serializable ,Identifiable{
     @Column(name = "address")
     private String address;
     @OneToOne(mappedBy = "shipmentCompanyId")
+    @JsonIgnore
     private Shipment shipment;
     @OneToMany(mappedBy = "shipmentCompanyId")
     @JsonIgnore

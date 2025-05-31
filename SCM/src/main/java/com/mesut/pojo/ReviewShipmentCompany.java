@@ -4,6 +4,8 @@
  */
 package com.mesut.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +19,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  *
@@ -29,7 +32,7 @@ import java.io.Serializable;
     @NamedQuery(name = "ReviewShipmentCompany.findById", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.id = :id"),
     @NamedQuery(name = "ReviewShipmentCompany.findByNote", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.note = :note"),
     @NamedQuery(name = "ReviewShipmentCompany.findByPerformance", query = "SELECT r FROM ReviewShipmentCompany r WHERE r.performance = :performance")})
-public class ReviewShipmentCompany implements Serializable ,Identifiable{
+public class ReviewShipmentCompany implements Serializable, Identifiable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,6 +47,7 @@ public class ReviewShipmentCompany implements Serializable ,Identifiable{
     private Integer performance;
     @JoinColumn(name = "shipment_id", referencedColumnName = "id")
     @OneToOne
+    @JsonIgnore
     private Shipment shipmentId;
 
     public ReviewShipmentCompany() {
@@ -109,5 +113,13 @@ public class ReviewShipmentCompany implements Serializable ,Identifiable{
     public String toString() {
         return "com.mesut.pojo.ReviewShipmentCompany[ id=" + id + " ]";
     }
-    
+
+    @JsonProperty("shipmentId") // Dùng thêm Jackson
+    public void setShipmentIdFromJson(Map<String, Integer> shipmentJson) {
+        if (shipmentJson != null && shipmentJson.get("id") != null) {
+            this.shipmentId = new Shipment();
+            this.shipmentId.setId(shipmentJson.get("id"));
+        }
+    }
+
 }

@@ -4,6 +4,7 @@
  */
 package com.mesut.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +34,12 @@ import java.util.Date;
     @NamedQuery(name = "DeliverySchedule.findByDate", query = "SELECT d FROM DeliverySchedule d WHERE d.date = :date"),
     @NamedQuery(name = "DeliverySchedule.findByAddress", query = "SELECT d FROM DeliverySchedule d WHERE d.address = :address"),
     @NamedQuery(name = "DeliverySchedule.findByStatus", query = "SELECT d FROM DeliverySchedule d WHERE d.status = :status"),
-    @NamedQuery(name = "DeliverySchedule.findByNote", query = "SELECT d FROM DeliverySchedule d WHERE d.note = :note")})
+    @NamedQuery(name = "DeliverySchedule.findByNote", query = "SELECT d FROM DeliverySchedule d WHERE d.note = :note"),
+    @NamedQuery(
+                name = "DeliverySchedule.findByReceiptExportId",
+                query = "SELECT d FROM DeliverySchedule d WHERE d.shipmentId.receiptExportId.id = :receiptExportId"
+    )
+})
 public class DeliverySchedule implements Serializable ,Identifiable{
 
     private static final long serialVersionUID = 1L;

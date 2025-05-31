@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import user_icon from '../assets/user_icon.svg';
 import { tabs, statusColors } from '../mockDatas/Status';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import cookie from 'react-cookies';
 import { MdEdit } from 'react-icons/md';
 import Apis, { authApis, endpoints } from '../configs/Apis';
@@ -11,7 +11,7 @@ import { MyUserContext } from '../context/MyUserContext';
 const Dashboard = () => {
     const [activeTab, setActiveTab] = useState("all");
     const [isEditProfile, setIsEditProfile] = useState(true);
-
+    const nav = useNavigate();
     const user = useContext(MyUserContext);
 
     const [orders, setOrders] = useState([]);
@@ -115,18 +115,18 @@ const Dashboard = () => {
 
     const cancelReceipt = async (id) => {
         try {
-        let res = await authApis().put(endpoints['cancel-receipt'](id));
-        alert("Đã huỷ đơn hàng thành công!");
-        await loadAllOrders(); 
-    } catch (err) {
-        console.error("Lỗi huỷ đơn hàng:", err);
-        alert("Huỷ đơn hàng thất bại!");
-    }
+            let res = await authApis().put(endpoints['cancel-receipt'](id));
+            alert("Đã huỷ đơn hàng thành công!");
+            await loadAllOrders();
+        } catch (err) {
+            console.error("Lỗi huỷ đơn hàng:", err);
+            alert("Huỷ đơn hàng thất bại!");
+        }
     }
 
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 px-4 py-8">
-            <div className="w-full flex h-screen max-w-screen-xl  mx-auto px-6 py-8">
+        <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 px-4 py-8 z-10">
+            <div className="w-full flex h-[640px] max-w-screen-xl mx-auto px-6 py-8">
                 <div className="left h-full flex-3 flex flex-col mt-24">
                     <div className="profile flex gap-4">
                         <div className="border-1 border-gray-300 p-2 w-14 rounded-full cursor-pointer hover:shadow-sm">
@@ -202,7 +202,6 @@ const Dashboard = () => {
                                                     updateProfile();
                                                 }
                                             }}
-
                                         >
                                             Cập nhật
                                         </button>
@@ -213,51 +212,68 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div className="right flex-7 flex flex-col mt-24">
-                    <div className="bg-white border-b border-gray-200">
-                        <div className="flex space-x-6 px-4 justify-around items-center">
+                    <div className="bg-white border-b border-gray-200 h-[540px] flex flex-col">
+                        {/* Tabs */}
+                        <div className="flex space-x-6 px-4 justify-around items-center py-4">
                             {tabs.map((tab) => (
                                 <button
                                     key={tab.key}
                                     onClick={() => setActiveTab(tab.key)}
-                                    className={`relative py-4 text-md font-medium transition-colors cursor-pointer ${activeTab === tab.key
-                                        ? "text-[#ee4d2d] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-0.5 after:bg-[#ee4d2d] "
-                                        : "text-gray-800 hover:text-[#ee4d2d]"
+                                    className={`relative text-md font-medium transition-colors cursor-pointer ${activeTab === tab.key
+                                            ? "text-[#ee4d2d] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-0.5 after:bg-[#ee4d2d]"
+                                            : "text-gray-800 hover:text-[#ee4d2d]"
                                         }`}
                                 >
                                     <Link to={`/dashboard/purchase/${tab.key}`}>{tab.label}</Link>
                                 </button>
                             ))}
                         </div>
-                        <div className="p-4 flex flex-col gap-3">
+
+                        <div className="p-4 flex flex-col gap-3 overflow-y-auto flex-1">
                             {filteredOrders?.map((o) => (
                                 <div key={o.id} className="w-full flex gap-2">
-                                    <div className="flex-2 image border-1 border-gray-400 rounded-sm">
-                                        <img src={o.productId.image} alt="" className='w-full object-center' />
+                                    <div className="flex-2 image border border-gray-400 rounded-sm">
+                                        <img
+                                            src={o.productId.image}
+                                            alt=""
+                                            className="w-full object-center"
+                                        />
                                     </div>
-                                    <div className="flex-8 product-info flex flex-col gap-2">
+                                    <div className="flex-8 product-info flex flex-col gap-1">
                                         <div className="flex justify-between items-center">
                                             <span>{o.productId.name}</span>
-                                            <span className={`font-semibold ${getStatusColor(o.receiptExportId.status)}`}>
-                                                {tabs.find(t => t.key === o.receiptExportId.status)?.label || o.receiptExportId.status}
+                                            <span
+                                                className={`font-semibold ${getStatusColor(
+                                                    o.receiptExportId.status
+                                                )}`}
+                                            >
+                                                {tabs.find((t) => t.key === o.receiptExportId.status)?.label ||
+                                                    o.receiptExportId.status}
                                             </span>
-
                                         </div>
-                                        <span className='text-gray-400 text-sm'>Phân loại hàng: {o.productId.categoryId.name}</span>
+                                        <span className="text-gray-400 text-sm">
+                                            Phân loại hàng: {o.productId.categoryId.name}
+                                        </span>
                                         <p>x{o.amount}</p>
                                         <div className="flex justify-between">
                                             <p>{o.productId.price}&#8363;</p>
                                             {o.receiptExportId.status === "ordered" && (
-                                                <button className='text-white bg-red-500 font-semibold cursor-pointer p-2 rounded-sm' onClick={()=>cancelReceipt(o.receiptExportId.id)}>
+                                                <button
+                                                    className="text-white bg-red-500 font-semibold cursor-pointer p-2 rounded-sm"
+                                                    onClick={() => cancelReceipt(o.receiptExportId.id)}
+                                                >
                                                     Huỷ hàng
                                                 </button>
                                             )}
                                         </div>
-                                    </div>
+                                        <span><a onClick={() => nav(`/dashboard/purchase/detail/${o.receiptExportId.id}`)} className='underline text-gray-400 cursor-pointer'>Xem chi tiết</a></span>
+                                    </div>  
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     );
