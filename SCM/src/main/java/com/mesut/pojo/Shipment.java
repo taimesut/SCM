@@ -52,7 +52,7 @@ public class Shipment implements Serializable ,Identifiable{
     @ManyToOne
     private ReceiptExport receiptExportId;
     @JoinColumn(name = "shipment_company_id", referencedColumnName = "id")
-    @OneToOne
+    @ManyToOne
     private ShipmentCompany shipmentCompanyId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipmentId")
     @JsonIgnore

@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `category`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
@@ -51,13 +51,13 @@ CREATE TABLE `delivery_schedule` (
   `id` int NOT NULL AUTO_INCREMENT,
   `shipment_id` int NOT NULL,
   `date` date DEFAULT NULL,
-  `address` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `status` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `note` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `shipment_id` (`shipment_id`),
   CONSTRAINT `delivery_schedule_ibfk_1` FOREIGN KEY (`shipment_id`) REFERENCES `shipment` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `delivery_schedule` (
 
 LOCK TABLES `delivery_schedule` WRITE;
 /*!40000 ALTER TABLE `delivery_schedule` DISABLE KEYS */;
-INSERT INTO `delivery_schedule` VALUES (1,1,'2025-05-29','77 Bau Cat','Chưa tới',''),(2,1,'2025-05-30','321 Dong Nai','Chưa tới',''),(3,2,'2025-05-31','368 Thanh Thai','Chưa tới',''),(4,2,'2025-06-01','98 To Ky','Chưa tới','');
+INSERT INTO `delivery_schedule` VALUES (1,1,'2025-06-05','22 Dong Nai, P.12, Q.10, TP. HCM','Đã tới','01/06/2025'),(2,1,'2025-06-07','77 Bau Cat, P.14, Tan Binh, TP. HCM','Đã tới','02/6/2025'),(3,1,'2025-06-08','339 To Hien Thanh, P.12, Q.10, TP. HCM','Đã tới','03/06/2025'),(7,6,'2025-06-01','502 Ap An Thuan, Lap Vo, Dong Thap','Đã tới ','01/06/2025'),(8,6,'2025-06-03','77 Cho Nga 3 Thap, Lap Vo, Dong Thap','Đã tới','02/06/2025'),(9,6,'2025-06-05','77 Bau Cat, Tan Binh, TP.HCM','Đã tới','03/06/2025'),(10,9,'2025-06-01','339 To Hien Thanh','Đã tới','02/06/2025'),(11,9,'2025-06-02','77 Bau Cat, Tan Binh, TP.HCM','Đã tới','05/06/2025');
 /*!40000 ALTER TABLE `delivery_schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +88,7 @@ CREATE TABLE `detail_receipt_export` (
   KEY `receipt_export_id` (`receipt_export_id`),
   CONSTRAINT `detail_receipt_export_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   CONSTRAINT `detail_receipt_export_ibfk_2` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `detail_receipt_export` (
 
 LOCK TABLES `detail_receipt_export` WRITE;
 /*!40000 ALTER TABLE `detail_receipt_export` DISABLE KEYS */;
-INSERT INTO `detail_receipt_export` VALUES (70,50,3,2,2500),(71,51,4,1,2500);
+INSERT INTO `detail_receipt_export` VALUES (76,55,3,1,2500),(77,56,2,2,2000),(78,58,3,2,2500),(79,59,1,1,2000),(80,60,3,1,2500),(81,55,4,1,2000),(82,62,3,1,2500);
 /*!40000 ALTER TABLE `detail_receipt_export` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +163,7 @@ CREATE TABLE `inventory` (
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (1,1,1,29,NULL,NULL,'2025-05-27'),(2,4,1,7,NULL,NULL,'2025-05-27'),(3,3,1,2,NULL,NULL,'2025-05-27'),(4,2,1,11,NULL,NULL,'2025-05-27');
+INSERT INTO `inventory` VALUES (1,1,1,28,2,'2025-06-22','2025-05-27'),(2,4,1,17,2,'2025-06-22','2025-05-29'),(3,3,1,16,2,'2025-06-22','2025-05-27'),(4,2,1,20,2,'2025-06-22','2025-05-27');
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,16 +178,16 @@ CREATE TABLE `invoice_export` (
   `id` int NOT NULL AUTO_INCREMENT,
   `receipt_export_id` int DEFAULT NULL,
   `create_date` date DEFAULT NULL,
-  `status` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   `order_code` int DEFAULT NULL,
   `total` int DEFAULT NULL,
-  `payment_method` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `note` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `payment_method` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   `payment_date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `receipt_export_id` (`receipt_export_id`),
   CONSTRAINT `invoice_export_ibfk_1` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,7 +196,7 @@ CREATE TABLE `invoice_export` (
 
 LOCK TABLES `invoice_export` WRITE;
 /*!40000 ALTER TABLE `invoice_export` DISABLE KEYS */;
-INSERT INTO `invoice_export` VALUES (49,50,'2025-05-28','success',85976648,5000,'Tiền mặt','Mua hang',NULL),(50,51,'2025-05-28','success',18815690,2500,'Tiền mặt','Mua hang',NULL);
+INSERT INTO `invoice_export` VALUES (53,55,'2025-05-31','success',17779235,2500,'Tiền mặt','Mua hang',NULL),(55,57,'2025-05-31','pendding',53685445,5000,'Chuyển khoản','Mua hang',NULL),(57,59,'2025-05-31','success',18498697,2000,'Tiền mặt','Mua hang',NULL),(58,60,'2025-05-31','success',6703907,2500,'Tiền mặt','Mua hang',NULL),(59,62,'2025-05-31','success',40808372,2500,'Tiền mặt','Mua hang',NULL);
 /*!40000 ALTER TABLE `invoice_export` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,7 +222,7 @@ CREATE TABLE `log_inventory` (
   CONSTRAINT `log_inventory_ibfk_1` FOREIGN KEY (`receipt_import_id`) REFERENCES `receipt_import` (`id`),
   CONSTRAINT `log_inventory_ibfk_2` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`),
   CONSTRAINT `log_inventory_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +231,7 @@ CREATE TABLE `log_inventory` (
 
 LOCK TABLES `log_inventory` WRITE;
 /*!40000 ALTER TABLE `log_inventory` DISABLE KEYS */;
-INSERT INTO `log_inventory` VALUES (75,NULL,50,3,2,2500,'2025-05-28'),(76,NULL,51,4,1,2500,'2025-05-28');
+INSERT INTO `log_inventory` VALUES (81,NULL,55,3,1,2500,'2025-05-31'),(82,NULL,56,2,2,2000,'2025-05-31'),(83,NULL,58,3,2,2500,'2025-05-31'),(84,NULL,59,1,1,2000,'2025-05-31'),(85,NULL,60,3,1,2500,'2025-05-31'),(86,NULL,55,4,1,2000,'2025-05-31'),(87,NULL,62,3,1,2500,'2025-05-31');
 /*!40000 ALTER TABLE `log_inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,11 +244,11 @@ DROP TABLE IF EXISTS `product`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
   `price` int NOT NULL DEFAULT '0',
   `is_active` tinyint(1) DEFAULT '1',
-  `image` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `note` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   `category_id` int NOT NULL,
   `supplier_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -281,8 +281,8 @@ CREATE TABLE `receipt_export` (
   `create_date` date DEFAULT NULL,
   `customer_id` int DEFAULT NULL,
   `creator_id` int DEFAULT NULL,
-  `status` varchar(50) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `note` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   `warehouse_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `warehouse_id` (`warehouse_id`),
@@ -291,7 +291,7 @@ CREATE TABLE `receipt_export` (
   CONSTRAINT `receipt_export_ibfk_1` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`id`),
   CONSTRAINT `receipt_export_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`),
   CONSTRAINT `receipt_export_ibfk_3` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +300,7 @@ CREATE TABLE `receipt_export` (
 
 LOCK TABLES `receipt_export` WRITE;
 /*!40000 ALTER TABLE `receipt_export` DISABLE KEYS */;
-INSERT INTO `receipt_export` VALUES (50,'2025-05-28',1,NULL,'ordered','BBBBBB',1),(51,'2025-05-28',1,NULL,'cancelled','BBBBBB',1);
+INSERT INTO `receipt_export` VALUES (55,'2025-05-31',1,NULL,'completed','02/06/2025',1),(56,'2025-05-31',3,3,'completed','05/06/2025',1),(57,'2025-05-31',3,NULL,'ordered','BBBBBB',1),(58,'2025-05-31',3,NULL,'ordered','BBBBBB',1),(59,'2025-05-31',1,NULL,'ordered','BBBBBB',1),(60,'2025-05-31',1,NULL,'ordered','BBBBBB',1),(61,'2025-05-31',2,1,'Đã xác nhận','',1),(62,NULL,4,1,'completed','BBBBBB',1);
 /*!40000 ALTER TABLE `receipt_export` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,8 +316,8 @@ CREATE TABLE `receipt_import` (
   `create_date` date DEFAULT NULL,
   `supplier_id` int DEFAULT NULL,
   `creator_id` int DEFAULT NULL,
-  `status` varchar(50) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `note` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   `warehouse_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `warehouse_id` (`warehouse_id`),
@@ -348,13 +348,13 @@ DROP TABLE IF EXISTS `review_shipment_company`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `review_shipment_company` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `shipment_id` int DEFAULT NULL,
-  `note` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `shipment_id` int NOT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   `performance` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `shipment_id` (`shipment_id`),
+  KEY `review_shipment_company_ibfk_1` (`shipment_id`),
   CONSTRAINT `review_shipment_company_ibfk_1` FOREIGN KEY (`shipment_id`) REFERENCES `shipment` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,6 +363,7 @@ CREATE TABLE `review_shipment_company` (
 
 LOCK TABLES `review_shipment_company` WRITE;
 /*!40000 ALTER TABLE `review_shipment_company` DISABLE KEYS */;
+INSERT INTO `review_shipment_company` VALUES (20,1,'azzz',5),(21,6,'rất ngon',5);
 /*!40000 ALTER TABLE `review_shipment_company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,7 +377,7 @@ DROP TABLE IF EXISTS `review_supplier`;
 CREATE TABLE `review_supplier` (
   `id` int NOT NULL AUTO_INCREMENT,
   `receipt_import_id` int DEFAULT NULL,
-  `note` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   `price` int DEFAULT NULL,
   `quality` int DEFAULT NULL,
   `support` int DEFAULT NULL,
@@ -405,15 +406,15 @@ DROP TABLE IF EXISTS `shipment`;
 CREATE TABLE `shipment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `receipt_export_id` int DEFAULT NULL,
-  `shipment_company_id` int DEFAULT NULL,
-  `status` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `note` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `shipment_company_id` int NOT NULL,
+  `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `shipment_company_id` (`shipment_company_id`),
   KEY `receipt_export_id` (`receipt_export_id`),
+  KEY `shipment_ibfk_2` (`shipment_company_id`),
   CONSTRAINT `shipment_ibfk_1` FOREIGN KEY (`receipt_export_id`) REFERENCES `receipt_export` (`id`),
   CONSTRAINT `shipment_ibfk_2` FOREIGN KEY (`shipment_company_id`) REFERENCES `shipment_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -422,7 +423,7 @@ CREATE TABLE `shipment` (
 
 LOCK TABLES `shipment` WRITE;
 /*!40000 ALTER TABLE `shipment` DISABLE KEYS */;
-INSERT INTO `shipment` VALUES (1,50,1,'Chưa tới',''),(2,51,2,'Chưa tới','');
+INSERT INTO `shipment` VALUES (1,55,2,'Chưa tới','2025-05-31'),(6,56,1,'Đã tới','2025-06-05'),(7,59,2,'Chưa tới',''),(8,61,1,'Chưa tới',''),(9,62,1,'Chưa tới','31/05/2025');
 /*!40000 ALTER TABLE `shipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,10 +436,10 @@ DROP TABLE IF EXISTS `shipment_company`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `shipment_company` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
-  `phone` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `address` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `phone` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -463,8 +464,8 @@ DROP TABLE IF EXISTS `shipment_company_contact`;
 CREATE TABLE `shipment_company_contact` (
   `id` int NOT NULL AUTO_INCREMENT,
   `shipment_company_id` int DEFAULT NULL,
-  `content` varchar(255) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
-  `note` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `shipment_company_id` (`shipment_company_id`),
   CONSTRAINT `shipment_company_contact_ibfk_1` FOREIGN KEY (`shipment_company_id`) REFERENCES `shipment_company` (`id`)
@@ -489,10 +490,10 @@ DROP TABLE IF EXISTS `supplier`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `supplier` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
-  `phone` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `address` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `phone` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
@@ -517,18 +518,18 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
-  `password` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
-  `user_role` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `user_role` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
   `create_date` date DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
-  `phone` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `address` varchar(100) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `phone` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -537,7 +538,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'tai','$2a$10$YLyVlhbO/0u9YmTViqPy1./NosW/0CEnFSVX/dFLDmpSK7Fa7LvOu','ROLE_USER','2025-05-27','ntai3962@gmail.com','Nguyễn Tấn Tài','0789721763',NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748318031/fgufc6njajgylr8xomel.png'),(2,'ttt','$2a$10$JwJmm8zcoturvTlPod5nQe5BsAbRT7zmoQwFK4X5iBRjXpNIgufn2','ROLE_USER','2025-05-28','taitinhte@gmail.com','Tai tinh te','0321456987',NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748366392/s4otnsq0c6d9ymhpsxy0.png');
+INSERT INTO `user` VALUES (1,'tai','$2a$10$YLyVlhbO/0u9YmTViqPy1./NosW/0CEnFSVX/dFLDmpSK7Fa7LvOu','ROLE_ADMIN','2025-05-27','ntai3962@gmail.com','Nguyễn Tấn Tài','0789721763','339/5G To Hien Thanh, P13, Q.10, TP. Hồ Chí Minh','https://res.cloudinary.com/demfjaknk/image/upload/v1748318031/fgufc6njajgylr8xomel.png'),(2,'ttt','$2a$10$JwJmm8zcoturvTlPod5nQe5BsAbRT7zmoQwFK4X5iBRjXpNIgufn2','ROLE_USER','2025-05-28','taitinhte@gmail.com','Tai tinh te','0321456987',NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748366392/s4otnsq0c6d9ymhpsxy0.png'),(3,'taitaitai','$2a$10$7wpm3FIEUaTcpdkaFcU2huyu63iinzFXsJRvSMeHPTFa2fHYTqqtq','ROLE_USER','2025-05-29','ntai3962@gmail.com','Nguyễn Tấn Tài','0789721763','339/5G, P13, Q.10, TP. Hồ Chí Minh','https://res.cloudinary.com/demfjaknk/image/upload/v1748529419/coter69jqy0lupd2wjgh.png'),(4,'tttt','$2a$10$/9e9JV4UrNOYn.jcK.Lk8Oi8OJ1f53ME87Iqy4WksKYm6VMn0ROzy','ROLE_USER','2025-05-31','ntai3962@gmail.com','ttttttttttttt','0789721763',NULL,'https://res.cloudinary.com/demfjaknk/image/upload/v1748704170/dfc9bmsxxnen94dwaahi.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -550,8 +551,8 @@ DROP TABLE IF EXISTS `warehouse`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `warehouse` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
-  `address` varchar(100) COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vi_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vi_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -575,4 +576,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-28 19:49:11
+-- Dump completed on 2025-05-31 22:32:48

@@ -74,8 +74,11 @@ public class GlobalModelAttribute {
 
     private List<String> g_invoice_export_status() {
         List<String> roles = new ArrayList<>();
-        roles.add("Chưa thanh toán");
-        roles.add("Đã thanh toán");
+        roles.add("pendding");
+        roles.add("success");
+        roles.add("failed");
+        roles.add("cancelled");
+
         return roles;
     }
 
@@ -89,9 +92,12 @@ public class GlobalModelAttribute {
 
     private List<String> g_receipt_export_status() {
         List<String> roles = new ArrayList<>();
-        roles.add("Đã xác nhận");
-        roles.add("Chưa xác nhận");
-        roles.add("Đã hủy");
+        roles.add("ordered");
+        roles.add("confirmed");
+        roles.add("shipping");
+        roles.add("completed");
+        roles.add("cancelled");
+
         return roles;
     }
 

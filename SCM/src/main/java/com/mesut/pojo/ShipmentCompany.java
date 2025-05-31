@@ -11,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -60,9 +61,9 @@ public class ShipmentCompany implements Serializable ,Identifiable{
     @Size(min = 1, max = 100)
     @Column(name = "address")
     private String address;
-    @OneToOne(mappedBy = "shipmentCompanyId")
+    @OneToMany(mappedBy = "shipmentCompanyId")
     @JsonIgnore
-    private Shipment shipment;
+    private Set<Shipment> shipment;
     @OneToMany(mappedBy = "shipmentCompanyId")
     @JsonIgnore
     private Set<ShipmentCompanyContact> shipmentCompanyContactSet;
@@ -120,11 +121,11 @@ public class ShipmentCompany implements Serializable ,Identifiable{
         this.address = address;
     }
 
-    public Shipment getShipment() {
+    public Set<Shipment> getShipment() {
         return shipment;
     }
 
-    public void setShipment(Shipment shipment) {
+    public void setShipment(Set<Shipment> shipment) {
         this.shipment = shipment;
     }
 

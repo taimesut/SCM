@@ -59,7 +59,7 @@
 
                     <td th:text="${i.id}"></td>
                     <td th:text="${i.supplierId.name}"></td>
-                    <td th:text="${i.creatorId.name}"></td>
+                    <td th:text="${i.creatorId != null ? i.creatorId.name : 'null'}"></td>
                     <td th:text="${i.warehouseId.name}"></td>
                     <td th:text="${i.status}"></td>
                     <td th:text="${i.createDate}"></td>

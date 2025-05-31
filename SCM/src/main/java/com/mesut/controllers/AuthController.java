@@ -33,32 +33,32 @@ public class AuthController {
         return "login";
     }
 
-    @GetMapping("/register")
-    public String registerView() {
-        return "register";
-    }
+//    @GetMapping("/register")
+//    public String registerView() {
+//        return "register";
+//    }
 
     @PostMapping("/login")
     public String loginProcess(Model model, Locale locale) {
         return "login";
     }
 
-    @PostMapping("/register")
-    public String registerProcess(@RequestParam Map<String, String> params,
-            Model model, @RequestParam("avatar") MultipartFile avatar
-    ) {
-
-        String username = params.get("username");
-
-        User user = this.userService.getUserByUsername(username);
-
-        if (user == null) {
-            this.userService.addUser(params, avatar);
-            return "redirect:/register?success";
-        } else {
-            return "redirect:/register?error";
-        }
-    }
+//    @PostMapping("/register")
+//    public String registerProcess(@RequestParam Map<String, String> params,
+//            Model model, @RequestParam("avatar") MultipartFile avatar
+//    ) {
+//
+//        String username = params.get("username");
+//
+//        User user = this.userService.getUserByUsername(username);
+//
+//        if (user == null) {
+//            this.userService.addUser(params, avatar);
+//            return "redirect:/register?success";
+//        } else {
+//            return "redirect:/register?error";
+//        }
+//    }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

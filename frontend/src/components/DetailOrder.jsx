@@ -74,7 +74,7 @@ const DetailOrder = () => {
         {
             icon: <FaMoneyCheckAlt className="text-3xl text-gray-500" />,
             title: "Đã Xác Nhận Thông Tin Thanh Toán",
-            time: statusOrder?.createDate
+            time: statusOrder?.invoiceExport?.createDate
         },
         {
             icon: <FaTruck className="text-3xl text-gray-500" />,
